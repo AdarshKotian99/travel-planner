@@ -12,6 +12,12 @@ import { SharedModule } from '../shared/shared.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 const routes : Routes = [
   {path : '' ,redirectTo:'destinations',pathMatch:'full'},
@@ -20,6 +26,7 @@ const routes : Routes = [
   {path:'destinations',component:DestinationsListComponent},
   // {path:'destinations',component:DestinationsListComponent,canActivate:[authGuard]}
   {path:'budget', component : BudgetTrackerComponent},
+  {path:'itenaray', component : ItineraryPlannerComponent},
 ]
 
 
@@ -38,6 +45,12 @@ const routes : Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    ReactiveFormsModule,
+    DragDropModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    MatCardModule,
     RouterModule.forChild(routes)
   ],
   exports: [
