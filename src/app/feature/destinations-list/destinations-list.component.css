@@ -1,0 +1,32 @@
+.container {
+    max-width: 800px;
+  }
+  
+  .filters {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .card {
+    border-radius: 8px;
+    .card-body {
+      padding: 20px;
+    }
+  }
+  
+  .card-text {
+    font-size: 14px;
+  }
+  
+  mat-icon {
+    color: #ffca28;
+  }
+  
+  .list-group-item {
+    font-size: 13px;
+  }
+  
+  button[mat-icon-button] {
+    margin-left: 8px;
+  }
+  

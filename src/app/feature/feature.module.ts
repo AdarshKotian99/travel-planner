@@ -9,6 +9,9 @@ import { authGuard } from '../core/gaurds/auth.guard';
 import { ItineraryPlannerComponent } from './itinerary-planner/itinerary-planner.component';
 import { BudgetTrackerComponent } from './budget-tracker/budget-tracker.component';
 import { SharedModule } from '../shared/shared.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes : Routes = [
   {path : '' ,redirectTo:'destinations',pathMatch:'full'},
@@ -32,6 +35,9 @@ const routes : Routes = [
     CommonModule,
     FormsModule,
     SharedModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
     RouterModule.forChild(routes)
   ],
   exports: [

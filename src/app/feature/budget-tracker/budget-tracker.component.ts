@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Expenses } from 'src/app/models/expenses';
+import { Expense } from 'src/app/models/expense';
 
 @Component({
   selector: 'app-budget-tracker',
@@ -9,7 +9,7 @@ import { Expenses } from 'src/app/models/expenses';
 export class BudgetTrackerComponent {
 
   budget : number = 0;
-  expenses : Expenses[] = [];
+  expenses : Expense[] = [];
   totalSpent : number = 0;
 
   amount : number = 0;
