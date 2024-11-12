@@ -1,0 +1,15 @@
+<div>
+    <h1>Hello Welcome</h1>
+    <h3>Login to Account</h3>
+    <form (ngSubmit)="handleLogin(loginForm)" #loginForm="ngForm">
+        <div>
+            <label for="userEmail">Enter user email</label>
+            <input [(ngModel)]="userEmail" name="userEmail"/>
+        </div>
+        <div>
+            <label for="pass">Enter user password</label>
+            <input [(ngModel)]="pass" name="pass"/>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+</div>

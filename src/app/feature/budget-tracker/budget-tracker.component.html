@@ -1,0 +1,15 @@
+<div>
+    <h3>Budget Tracker</h3>
+    <input placeholder="Enter Budget amount" [(ngModel)]="budget"/>
+    <div>
+        <h3>Enter Expenses</h3>
+        <input placeholder="Enter Expense Amount" [(ngModel)]="amount" type="number"/>
+        <input placeholder="Enter Expense Description" [(ngModel)]="description"/>
+        <input placeholder="Enter Expense Category" [(ngModel)]="category"/>
+        <button (click)="addExpense()">Add Expense</button>
+    </div>
+    <div *ngFor="let expense of expenses">
+        <p>{{expense.description}} - {{expense.amount | currency}}</p>
+    </div>
+    <h4>Remaining budget:-{{remainingBudget()}}</h4>
+</div>

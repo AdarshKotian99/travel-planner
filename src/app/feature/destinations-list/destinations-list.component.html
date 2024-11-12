@@ -1,0 +1,8 @@
+<div class="destinations-list">
+    <input (input)="filterDestinations($event)" placeholder="Search by type..." />
+    <div *ngFor="let destination of filteredDestinations" [appHighlightFavorite]="destination.isFavorite">
+        <h3>{{ destination.name }}</h3>
+        <p>{{ destination.description | turncateDescription : 50 }}</p>
+    </div>
+</div>
+
