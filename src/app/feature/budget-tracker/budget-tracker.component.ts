@@ -13,7 +13,7 @@ export class BudgetTrackerComponent {
   totalSpent : number = 0;
 
   amount : number = 0;
-  description : string = '';
+  description : string = ''; 
   category : string = '';
   addExpense(){
     this.expenses.push({amount : this.amount,description : this.description,category : this.category})
