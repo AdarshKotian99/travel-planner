@@ -3,42 +3,26 @@
     {
       "userEmail": "",
       "pass": "",
-      "id": "90f7"
+      "id": "90f7",
+      "activities": []
     },
     {
       "id": "451f",
       "userEmail": "abc@gmail.com",
-      "pass": "123"
+      "pass": "123",
+      "activities": [
+        {
+          "destination": "London",
+          "description": "scsd",
+          "date": "2024-11-20T18:30:00.000Z"
+        }
+      ]
     },
     {
       "id": "a412",
-      "userEmail": "abc@gmail.com",
-      "pass": "123"
-    },
-    {
-      "id": "716a",
-      "userEmail": "sdfsd",
-      "pass": "asadas"
-    },
-    {
-      "id": "9460",
-      "userEmail": "sdfsd",
-      "pass": "asadas"
-    },
-    {
-      "id": "8473",
-      "userEmail": "sdfsd1",
-      "pass": "asadas"
-    },
-    {
-      "id": "8746",
-      "userEmail": "fsdfs",
-      "pass": "asadas"
-    },
-    {
-      "id": "a95e",
-      "userEmail": "fsdfs",
-      "pass": "asadas"
+      "userEmail": "abc123@gmail.com",
+      "pass": "123",
+      "activities": []
     }
   ]
 }
