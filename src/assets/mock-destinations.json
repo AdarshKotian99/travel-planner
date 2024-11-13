@@ -4,7 +4,7 @@
       "description": "The city of light, famous for its art, fashion, and culture.",
       "type": "City",
       "budget": 1500,
-      "rating": 4.8,
+      "rating": 4,
       "isFavorite": true
     },
     {
@@ -12,7 +12,7 @@
       "description": "A beautiful tropical island known for its beaches, volcanoes, and culture.",
       "type": "Island",
       "budget": 1000,
-      "rating": 4.7,
+      "rating": 4.5,
       "isFavorite": false
     },
     {
@@ -20,7 +20,7 @@
       "description": "The capital of Japan, offering a mix of modern and traditional culture.",
       "type": "City",
       "budget": 2000,
-      "rating": 4.9,
+      "rating": 3,
       "isFavorite": true
     },
     {
@@ -28,7 +28,7 @@
       "description": "A bustling city with iconic landmarks, shopping, and vibrant nightlife.",
       "type": "City",
       "budget": 1800,
-      "rating": 4.6,
+      "rating": 3.5,
       "isFavorite": false
     },
     {
@@ -36,7 +36,7 @@
       "description": "A stunning island in Greece known for its whitewashed buildings and blue waters.",
       "type": "Island",
       "budget": 1200,
-      "rating": 4.7,
+      "rating": 3,
       "isFavorite": true
     },
     {
@@ -44,7 +44,7 @@
       "description": "A vibrant city in Australia with a beautiful harbor and iconic landmarks.",
       "type": "City",
       "budget": 1600,
-      "rating": 4.8,
+      "rating": 4.5,
       "isFavorite": false
     }
   ]

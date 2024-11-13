@@ -26,7 +26,7 @@ const routes : Routes = [
   {path:'destinations',component:DestinationsListComponent},
   // {path:'destinations',component:DestinationsListComponent,canActivate:[authGuard]}
   {path:'budget', component : BudgetTrackerComponent},
-  {path:'itenaray', component : ItineraryPlannerComponent},
+  {path:'itinerary', component : ItineraryPlannerComponent},
 ]
 
 

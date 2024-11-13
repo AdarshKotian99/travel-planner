@@ -4,7 +4,7 @@
   
   .filters {
     display: flex;
-    gap: 15px;
+    /* gap: 15px; */
   }
   
   .card {
@@ -28,5 +28,13 @@
   
   button[mat-icon-button] {
     margin-left: 8px;
+  }
+
+  .rating{
+    display: flex;
+  }
+
+  .stars{
+    margin-top: -0.3em;
   }
   
