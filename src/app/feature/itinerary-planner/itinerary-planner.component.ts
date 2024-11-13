@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -6,7 +6,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-itinerary-planner',
   templateUrl: './itinerary-planner.component.html',
-  styleUrls: ['./itinerary-planner.component.css']
+  styleUrls: ['./itinerary-planner.component.css'],
+  changeDetection : ChangeDetectionStrategy.OnPush,
 })
 export class ItineraryPlannerComponent {
   itineraryForm: FormGroup;
@@ -39,6 +40,7 @@ export class ItineraryPlannerComponent {
 
   drop(event: CdkDragDrop<FormGroup[]>) {
     moveItemInArray(this.activities.controls, event.previousIndex, event.currentIndex);
+    // moveItemInArray(this.activities.controls, event.previousIndex, event.currentIndex);
   }
 
   validateDate(control : any) {
