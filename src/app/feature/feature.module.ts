@@ -18,6 +18,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import {NativeDateAdapter} from '@angular/material/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 const routes : Routes = [
   {path : '' ,redirectTo:'destinations',pathMatch:'full'},
@@ -55,6 +57,9 @@ const routes : Routes = [
   ],
   exports: [
     // DestinationsListComponent
-  ]
+  ],
+  providers:[
+    MatDatepickerModule
+  ],
 })
 export class FeatureModule { }
