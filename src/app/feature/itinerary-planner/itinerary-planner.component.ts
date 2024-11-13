@@ -10,6 +10,23 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   changeDetection : ChangeDetectionStrategy.OnPush,
 })
 export class ItineraryPlannerComponent {
+
+  // todos = [
+  //   'Get to work',
+  //   'Pick up groceries',
+  //   'Go home',
+  //   'Fall asleep',
+  //   'Walk Dog',
+  // ];
+
+  done = [
+    'Get up',
+    'Brush teeth',
+    'Take a shower',
+    'Check e-mail',
+    'Walk dog'
+  ];
+
   itineraryForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -42,6 +59,11 @@ export class ItineraryPlannerComponent {
     moveItemInArray(this.activities.controls, event.previousIndex, event.currentIndex);
     // moveItemInArray(this.activities.controls, event.previousIndex, event.currentIndex);
   }
+
+  drop1(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.done, event.previousIndex, event.currentIndex);
+  }
+
 
   validateDate(control : any) {
     const startDate = this.itineraryForm.get('travelStartDate')?.value;
