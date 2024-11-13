@@ -1,110 +1,73 @@
-<div class="container-fluid mt-4 d-flex">
-  <mat-card class="matCard col-md-5">
-    <mat-card-header>
-      <mat-card-title>Itinerary Planner</mat-card-title>
-    </mat-card-header> 
-    <mat-card-content>
-      <form [formGroup]="itineraryForm" (ngSubmit)="submitItinerary()">
-        <div class="d-flex">
-          <div class="form-group">
-            <mat-form-field appearance="fill">
-              <mat-label>Travel Start Date</mat-label>
-              <input matInput [matDatepicker]="startPicker" formControlName="travelStartDate" />
-              <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-              <mat-datepicker #startPicker></mat-datepicker>
-            </mat-form-field>
-          </div>
-          
-          <div class="form-group">
-            <mat-form-field appearance="fill">
-              <mat-label>Travel End Date</mat-label>
-              <input matInput [matDatepicker]="endPicker" formControlName="travelEndDate" />
-              <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-              <mat-datepicker #endPicker></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
-        
-        <button mat-raised-button color="primary" (click)="addActivity()">Add Activity</button>
-        <button mat-raised-button color="accent" type="submit">Save Itinerary</button>
+<div class="container mt-5">
+  <div class="row">
+    <!-- Left Section: Form -->
+    <div class="col-md-6">
+      <h3>Plan Your Itinerary</h3>
+      <form [formGroup]="itineraryForm" (ngSubmit)="addActivity()">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Start Date</mat-label>
+          <input matInput [matDatepicker]="startPicker" formControlName="startDate" required />
+          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
 
-        <div>
-            <mat-card class="activity-card">
-              <mat-card-header>
-                <mat-card-title>Activity</mat-card-title>
-                <!-- <mat-card-title>Activity {{ i + 1 }}</mat-card-title> -->
-                <!-- <button mat-icon-button color="warn" (click)="removeActivity(i)">
-                  <mat-icon>delete</mat-icon>
-                </button> -->
-              </mat-card-header>
-              
-              <mat-form-field appearance="fill">
-                <mat-label>Destination</mat-label>
-                <input matInput formControlName="destination" placeholder="Enter destination" />
-              </mat-form-field>
-              
-              <mat-form-field appearance="fill">
-                <mat-label>Description</mat-label>
-                <textarea matInput formControlName="description" placeholder="Activity description"></textarea>
-              </mat-form-field>
-              
-              <mat-form-field appearance="fill">
-                <mat-label>Date</mat-label>
-                <input matInput [matDatepicker]="activityDate" formControlName="date" />
-                <mat-datepicker-toggle matSuffix [for]="activityDate"></mat-datepicker-toggle>
-                <mat-datepicker #activityDate></mat-datepicker>
-                <!-- <mat-error *ngIf="activity.get('date')?.hasError('dateOutOfRange')">
-                  Date must be within the travel period.
-                </mat-error> -->
-              </mat-form-field>
-            </mat-card>
-        </div>
-        
-        <div formArrayName="activities" cdkDropList (cdkDropListDropped)="drop($event)">
-          <div *ngFor="let activity of activities.controls; let i = index" [formGroupName]="i" cdkDrag>
-            <mat-card class="activity-card">
-              <mat-card-header>
-                <mat-card-title>Activity {{ i + 1 }}</mat-card-title>
-                <button mat-icon-button color="warn" (click)="removeActivity(i)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </mat-card-header>
-              
-              <mat-form-field appearance="fill">
-                <mat-label>Destination</mat-label>
-                <input matInput formControlName="destination" placeholder="Enter destination" />
-              </mat-form-field>
-              
-              <mat-form-field appearance="fill">
-                <mat-label>Description</mat-label>
-                <textarea matInput formControlName="description" placeholder="Activity description"></textarea>
-              </mat-form-field>
-              
-              <mat-form-field appearance="fill">
-                <mat-label>Date</mat-label>
-                <input matInput [matDatepicker]="activityDate" formControlName="date" />
-                <mat-datepicker-toggle matSuffix [for]="activityDate"></mat-datepicker-toggle>
-                <mat-datepicker #activityDate></mat-datepicker>
-                <mat-error *ngIf="activity.get('date')?.hasError('dateOutOfRange')">
-                  Date must be within the travel period.
-                </mat-error>
-              </mat-form-field>
-            </mat-card>
-          </div>
-        </div>
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>End Date</mat-label>
+          <input matInput [matDatepicker]="endPicker" formControlName="endDate" required />
+          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Destination</mat-label>
+          <input matInput formControlName="destination" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Activity Description</mat-label>
+          <input matInput formControlName="description" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="activityDatePicker" formControlName="date" required />
+          <mat-datepicker-toggle matSuffix [for]="activityDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #activityDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="itineraryForm.invalid">
+          Add Activity
+        </button>
       </form>
-    </mat-card-content>
-  </mat-card>
-  <mat-card>
-  <!-- <mat-card class="col-md-7"> -->
-    <!-- <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" class="example-list"
-    (cdkDropListDropped)="drop1($event)">
-    <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
-  </div> -->
-  <div cdkDropList class="example-list" (cdkDropListDropped)="drop1($event)">
-    <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+    </div>
+
+    <!-- Right Section: Activities List with Drag-and-Drop -->
+    <div class="col-md-6">
+      <h3>Activities</h3>
+
+      <!-- Display message when no activities are present -->
+      <p *ngIf="activities.length === 0" class="text-muted">Add activities to your itinerary</p>
+
+      <div
+        cdkDropList
+        class="activity-list"
+        (cdkDropListDropped)="drop($event)"
+        *ngIf="activities.length > 0"
+      >
+        <div
+          *ngFor="let activity of activities; let i = index"
+          cdkDrag
+          class="activity-item p-2 mb-2 bg-light rounded d-flex justify-content-between align-items-center"
+        >
+          <div>
+            <strong>{{ activity.destination }}</strong> - {{ activity.description }}
+            ({{ activity.date | date }})
+          </div>
+          <button mat-icon-button color="warn" (click)="deleteActivity(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
-  
-  
-</mat-card>
 </div>
