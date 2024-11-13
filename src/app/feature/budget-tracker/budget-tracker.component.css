@@ -1,0 +1,28 @@
+.container {
+    max-width: 800px;
+  }
+  
+  .activity-list {
+    border: 1px solid #ddd;
+    padding: 1rem;
+  }
+  
+  /* canvas {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+  } */
+
+  /* Ensure that the chart canvas doesn't overflow the screen */
+.chart-container {
+    max-height: 400px; /* Or any fixed height value you prefer */
+    overflow: hidden;
+  }
+  
+  canvas {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  
+  

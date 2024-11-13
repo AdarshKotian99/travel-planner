@@ -1,41 +1,45 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { Activity } from 'src/app/models/activity';
 
-interface Activity {
-  destination: string;
-  description: string;
-  date: Date;
-}
+// interface Activity {
+//   destination: string;
+//   description: string;
+//   date: Date;
+// }
 
 @Component({
   selector: 'app-itinerary-planner',
   templateUrl: './itinerary-planner.component.html',
   styleUrls: ['./itinerary-planner.component.css'],
-  changeDetection : ChangeDetectionStrategy.OnPush,
+  // changeDetection : ChangeDetectionStrategy.OnPush,
 })
-export class ItineraryPlannerComponent {
-
+export class ItineraryPlannerComponent implements OnInit{
+  
+  loggedInUser: any;  // Store the logged-in user's details
   itineraryForm: FormGroup;
   activities: Activity[] = [
-    {destination:'london',description:'run',date:new Date},
-    {destination:'mumbai',description:'run',date:new Date},
-    {destination:'london',description:'run',date:new Date},
-    {destination:'newyork',description:'run',date:new Date},
-    {destination:'texas',description:'run',date:new Date},
-    {destination:'london',description:'run',date:new Date},
-    {destination:'london',description:'run',date:new Date},
-    {destination:'london',description:'run',date:new Date},
-    {destination:'london',description:'run',date:new Date},
-    {destination:'london',description:'run',date:new Date},
-    {destination:'london',description:'run',date:new Date},
-    {destination:'london',description:'run',date:new Date},
-    {destination:'london',description:'run',date:new Date},
-    {destination:'london',description:'run',date:new Date},
-    {destination:'london',description:'run',date:new Date},
+    // {destination:'london',description:'run',date:new Date},
+    // {destination:'mumbai',description:'run',date:new Date},
+    // {destination:'london',description:'run',date:new Date},
+    // {destination:'newyork',description:'run',date:new Date},
+    // {destination:'texas',description:'run',date:new Date},
+    // {destination:'london',description:'run',date:new Date},
+    // {destination:'london',description:'run',date:new Date},
+    // {destination:'london',description:'run',date:new Date},
+    // {destination:'london',description:'run',date:new Date},
+    // {destination:'london',description:'run',date:new Date},
+    // {destination:'london',description:'run',date:new Date},
+    // {destination:'london',description:'run',date:new Date},
+    // {destination:'london',description:'run',date:new Date},
+    // {destination:'london',description:'run',date:new Date},
+    // {destination:'london',description:'run',date:new Date},
   ];
-
-  constructor(private fb: FormBuilder) {
+  
+  constructor(private fb: FormBuilder, private authService : AuthService, private http : HttpClient) {
     this.itineraryForm = this.fb.group({
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
@@ -44,9 +48,26 @@ export class ItineraryPlannerComponent {
       date: ['', Validators.required]
     });
   }
-
-
-
+  
+  ngOnInit(): void {
+    this.loggedInUser = this.authService.getLoggedInUser(); // Get logged-in user info
+    console.log('this.loggedInUser.id',this.loggedInUser.id);
+    this.loadUserActivities();
+    console.log('this.activities:-',this.activities);
+  }
+  
+  // Fetch the user's existing activities
+  loadUserActivities() {
+    if (this.loggedInUser) {
+      this.http.get(`http://localhost:3000/signupUsersList/${this.loggedInUser.id}`).subscribe((userData: any) => {
+        console.log('userData:-',userData);
+        this.activities = userData.activities;
+        console.log('this.activities:-',this.activities);
+      });
+    }
+  }
+  
+  
   addActivity() {
     if (this.itineraryForm.valid) {
       const activity: Activity = {
@@ -54,26 +75,39 @@ export class ItineraryPlannerComponent {
         description: this.itineraryForm.value.description,
         date: this.itineraryForm.value.date
       };
-
+      
       const startDate = this.itineraryForm.value.startDate;
       const endDate = this.itineraryForm.value.endDate;
-
+      
       // Validate that activity date is within the travel dates
       if (activity.date >= startDate && activity.date <= endDate) {
         this.activities.push(activity);
-        this.itineraryForm.reset();
+        const userId = this.loggedInUser.id;
+        const updatedUserData = {
+          ...this.loggedInUser,
+          activities: [...this.activities],
+        };
+        
+        // Make a PUT request to update the user's destinations
+        this.http.put(`http://localhost:3000/signupUsersList/${userId}`, updatedUserData).subscribe(() => {
+          // Reset the form after successfully adding
+          this.itineraryForm.reset();
+        });
+        //this.itineraryForm.reset();
       } else {
         alert('Activity date must be within the travel dates.');
       }
     }
   }
-
+  
   drop(event: CdkDragDrop<Activity[]>) {
     moveItemInArray(this.activities, event.previousIndex, event.currentIndex);
   }
-
+  
   deleteActivity(index: number) {
     this.activities.splice(index, 1);
+    const updatedUserData = { ...this.loggedInUser, destinations: [...this.activities] };
+    this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUser.id}`, updatedUserData).subscribe();
   }
-
+  
 }

@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { Activity } from 'src/app/models/activity';
 import { Destination } from 'src/app/models/destination';
 
 @Component({
@@ -13,8 +15,12 @@ export class DestinationsListComponent implements OnInit{
   filteredDestinations : Destination[] = [];
   filterType: string = '';
   maxBudget: number | null = null;
+  loggedInUser: any;
+  userDestinations: string[] = [];
+  recommendedDestinations: Destination[] = [];
 
-  constructor(private http : HttpClient){}
+
+  constructor(private http : HttpClient,private authService : AuthService){}
 
   ngOnInit(): void {
     console.log('destination list ngOnInit');
@@ -23,6 +29,39 @@ export class DestinationsListComponent implements OnInit{
       this.destinations = data;
       this.filteredDestinations = data;
     })
+    this.loggedInUser = this.authService.getLoggedInUser();
+    this.loadUserActivities();
+  }
+
+  loadUserActivities() {
+    if (this.loggedInUser) {
+      this.http.get(`http://localhost:3000/signupUsersList/${this.loggedInUser.id}`)
+        .subscribe((userData: any) => {
+          this.userDestinations = userData.activities.map((activity: Activity) => activity.destination);
+          this.fetchRecommendations();
+        });
+    }
+  }
+
+  fetchRecommendations() {
+    this.http.get<Destination[]>('/assets/mock-destination.json').subscribe((destinations) => {
+      const userTypes = this.getUserDestinationTypes(destinations);
+      this.recommendedDestinations = destinations.filter(
+        destination => !this.userDestinations.includes(destination.name) && 
+                       userTypes.includes(destination.type)
+      );
+    });
+  }
+
+  getUserDestinationTypes(destinations: Destination[]): string[] {
+    const userTypes = new Set<string>();
+    this.userDestinations.forEach(destination => {
+      const match = destinations.find(dest => dest.name === destination);
+      if (match){
+        userTypes.add(match.type);
+      } 
+    });
+    return Array.from(userTypes);
   }
 
   // filterDestinations(event : Event) {

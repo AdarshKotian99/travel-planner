@@ -20,6 +20,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import {NativeDateAdapter} from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import {MatSelectModule} from '@angular/material/select';
+import { NgChartsModule } from 'ng2-charts';
+
 
 const routes : Routes = [
   {path : '' ,redirectTo:'destinations',pathMatch:'full'},
@@ -53,6 +56,8 @@ const routes : Routes = [
     MatNativeDateModule,
     MatButtonModule,
     MatCardModule,
+    MatSelectModule,
+    NgChartsModule,
     RouterModule.forChild(routes)
   ],
   exports: [
