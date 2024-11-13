@@ -2,6 +2,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
+interface Activity {
+  destination: string;
+  description: string;
+  date: Date;
+}
 
 @Component({
   selector: 'app-itinerary-planner',
@@ -11,76 +16,64 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 })
 export class ItineraryPlannerComponent {
 
-  // todos = [
-  //   'Get to work',
-  //   'Pick up groceries',
-  //   'Go home',
-  //   'Fall asleep',
-  //   'Walk Dog',
-  // ];
-
-  done = [
-    'Get up',
-    'Brush teeth',
-    'Take a shower',
-    'Check e-mail',
-    'Walk dog'
-  ];
-
   itineraryForm: FormGroup;
+  activities: Activity[] = [
+    {destination:'london',description:'run',date:new Date},
+    {destination:'mumbai',description:'run',date:new Date},
+    {destination:'london',description:'run',date:new Date},
+    {destination:'newyork',description:'run',date:new Date},
+    {destination:'texas',description:'run',date:new Date},
+    {destination:'london',description:'run',date:new Date},
+    {destination:'london',description:'run',date:new Date},
+    {destination:'london',description:'run',date:new Date},
+    {destination:'london',description:'run',date:new Date},
+    {destination:'london',description:'run',date:new Date},
+    {destination:'london',description:'run',date:new Date},
+    {destination:'london',description:'run',date:new Date},
+    {destination:'london',description:'run',date:new Date},
+    {destination:'london',description:'run',date:new Date},
+    {destination:'london',description:'run',date:new Date},
+  ];
 
   constructor(private fb: FormBuilder) {
     this.itineraryForm = this.fb.group({
-      travelStartDate: [null, Validators.required],
-      travelEndDate: [null, Validators.required],
-      activities: this.fb.array([])
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      destination: ['', Validators.required],
+      description: ['', Validators.required],
+      date: ['', Validators.required]
     });
   }
 
-  get activities(): FormArray {
-    return this.itineraryForm.get('activities') as FormArray;
-  }
+
 
   addActivity() {
-    this.activities.push(
-      this.fb.group({
-        destination: ['', Validators.required],
-        description: [''],
-        date: [null, [Validators.required, this.validateDate.bind(this)]]
-      })
-    );
-  }
-
-  removeActivity(index: number) {
-    this.activities.removeAt(index);
-  }
-
-  drop(event: CdkDragDrop<FormGroup[]>) {
-    moveItemInArray(this.activities.controls, event.previousIndex, event.currentIndex);
-    // moveItemInArray(this.activities.controls, event.previousIndex, event.currentIndex);
-  }
-
-  drop1(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.done, event.previousIndex, event.currentIndex);
-  }
-
-
-  validateDate(control : any) {
-    const startDate = this.itineraryForm.get('travelStartDate')?.value;
-    const endDate = this.itineraryForm.get('travelEndDate')?.value;
-    const selectedDate = control.value;
-
-    if (startDate && endDate && (selectedDate < startDate || selectedDate > endDate)) {
-      return { dateOutOfRange: true };
-    }
-    return null;
-  }
-
-  submitItinerary() {
     if (this.itineraryForm.valid) {
-      console.log('Itinerary:', this.itineraryForm.value);
-    } else {
-      console.log('Form is invalid');
+      const activity: Activity = {
+        destination: this.itineraryForm.value.destination,
+        description: this.itineraryForm.value.description,
+        date: this.itineraryForm.value.date
+      };
+
+      const startDate = this.itineraryForm.value.startDate;
+      const endDate = this.itineraryForm.value.endDate;
+
+      // Validate that activity date is within the travel dates
+      if (activity.date >= startDate && activity.date <= endDate) {
+        this.activities.push(activity);
+        this.itineraryForm.reset();
+      } else {
+        alert('Activity date must be within the travel dates.');
+      }
     }
   }
+
+  drop(event: CdkDragDrop<Activity[]>) {
+    moveItemInArray(this.activities, event.previousIndex, event.currentIndex);
+  }
+
+  deleteActivity(index: number) {
+    this.activities.splice(index, 1);
+  }
+
 }
