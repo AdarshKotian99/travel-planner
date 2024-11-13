@@ -1,4 +1,4 @@
-<div class="container mt-3">
+<div class="container-fluid mt-3">
     <h2>Destinations</h2>
   
     <!-- Filters -->
@@ -19,41 +19,39 @@
   
     <!-- Destination List -->
     <div class="row">
-      <div class="col-md-6 mb-4" *ngFor="let destination of filteredDestinations">
+      <div class="col-md-3 mb-4" *ngFor="let destination of filteredDestinations">
         <div class="card shadow">
+          <img class="card-img-top" src="assets/paris.jpg">
           <div class="card-body">
-            <h5 class="card-title">{{ destination.name }}</h5>
-            <p class="card-text">{{ destination.description }}</p>
+            <h3 class="card-title">{{destination.name}}</h3>
+            <p class="card-text">{{destination.description}}</p>
             <p class="card-text">
-              <strong>Type:</strong> {{ destination.type }} | 
-              <strong>Budget:</strong> ${{ destination.budget }}
+              <strong>Type:</strong> {{destination.type}}
+              <strong>Budget:</strong> {{destination.budget}}
             </p>
-            <p class="card-text">
+            <div class="card-text rating">
+              <strong>Rating:</strong>
+              <div class="stars">
+                <mat-icon *ngFor="let star of stars(destination.rating)">star</mat-icon>
+              <mat-icon *ngIf="destination.rating % 1 >= 0.5">star_half</mat-icon>
+              </div>
+              
+            </div>
+            <!-- <p class="card-text">
               <strong>Rating:</strong>
               <mat-icon *ngFor="let star of stars(destination.rating)">star</mat-icon>
-              <!-- <mat-icon *ngFor="let star of [].constructor(Math.floor(destination.rating))">star</mat-icon> -->
               <mat-icon *ngIf="destination.rating % 1 >= 0.5">star_half</mat-icon>
-            </p>
-  
-            <!-- Reviews Section -->
-            <div *ngIf="destination.reviews.length" class="mt-3">
+            </p> -->
+            <!-- <div *ngIf="destination.reviews.length" class="mt-3">
               <strong>Reviews:</strong>
               <ul class="list-group list-group-flush">
-                <li class="list-group-item" *ngFor="let review of destination.reviews">{{ review }}</li>
+                <li class="list-group-item" *ngFor="let review of destination.reviews">{{review}}</li>
               </ul>
-            </div>
-  
-            <!-- Add Review -->
-            <mat-form-field class="w-100 mt-3" appearance="fill">
-              <mat-label>Add a Review</mat-label>
-              <input matInput #newReviewInput />
-              <button mat-icon-button color="primary" (click)="addReview(destination, newReviewInput.value); newReviewInput.value = '';">
-                <mat-icon>send</mat-icon>
-              </button>
-            </mat-form-field>
+            </div> -->
           </div>
         </div>
-      </div>
+      </div> 
+       
     </div>
   </div>
   
