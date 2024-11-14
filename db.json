@@ -17,13 +17,32 @@
           "description": "scsd",
           "date": "2024-11-20T18:30:00.000Z"
         }
-      ]
+      ],
+      "destinations": []
     },
     {
       "id": "a412",
       "userEmail": "abc123@gmail.com",
       "pass": "123",
-      "activities": []
+      "activities": [
+        {
+          "destination": "Bali",
+          "description": "shdf",
+          "date": "2024-11-21T18:30:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "9ad2",
+      "userEmail": "xyz@gmail.com",
+      "pass": "123",
+      "activities": [
+        {
+          "destination": "Mumbai",
+          "description": "shdf",
+          "date": "2024-11-21T18:30:00.000Z"
+        }
+      ]
     }
   ]
 }

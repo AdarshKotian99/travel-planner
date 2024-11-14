@@ -16,10 +16,14 @@ export class AuthService {
   
   private isAuthenticated : boolean = false;
   signUp(userData : user){
+    console.log('userData:-',userData)
     this.http.post<any>('http://localhost:3000/signupUsersList',userData).subscribe(
       res => {
         console.log(res);
         this.isAuthenticated = true;
+          this.saveUserToLocalStorage(res);
+          this.currentUserSubject.next(res);
+          console.log('this.currentUserSubject.value:-',this.currentUserSubject.value);
       }
     );
   }
@@ -33,6 +37,7 @@ export class AuthService {
         });
         if(user){
           console.log('login success');
+          console.log('user:-',user)
           this.isAuthenticated = true;
           this.saveUserToLocalStorage(user);
           this.currentUserSubject.next(user);

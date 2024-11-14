@@ -4,6 +4,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Activity } from 'src/app/models/activity';
+import { user } from 'src/app/models/user';
 
 // interface Activity {
 //   destination: string;
@@ -61,7 +62,8 @@ export class ItineraryPlannerComponent implements OnInit{
     if (this.loggedInUser) {
       this.http.get(`http://localhost:3000/signupUsersList/${this.loggedInUser.id}`).subscribe((userData: any) => {
         console.log('userData:-',userData);
-        this.activities = userData.activities;
+        this.activities = userData.hasOwnProperty('activities') ? userData.activities : [];
+        // this.activities = userData.activities !== null ? userData.activities : [];
         console.log('this.activities:-',this.activities);
       });
     }

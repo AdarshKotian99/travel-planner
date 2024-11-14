@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { RecommendationService } from 'src/app/core/services/recommendation.service';
 import { Activity } from 'src/app/models/activity';
 import { Destination } from 'src/app/models/destination';
 
@@ -20,7 +21,7 @@ export class DestinationsListComponent implements OnInit{
   recommendedDestinations: Destination[] = [];
 
 
-  constructor(private http : HttpClient,private authService : AuthService){}
+  constructor(private http : HttpClient,private recommendService : RecommendationService, private authService : AuthService){}
 
   ngOnInit(): void {
     console.log('destination list ngOnInit');
@@ -32,6 +33,26 @@ export class DestinationsListComponent implements OnInit{
     this.loggedInUser = this.authService.getLoggedInUser();
     this.loadUserActivities();
   }
+
+  // ngOnInit(): void {
+  //   console.log('destination list ngOnInit');
+  //   this.http.get<any[]>('assets/mock-destinations.json').subscribe(data => {
+  //     console.log('data:-',data);
+  //     this.destinations = data;
+  //     this.filteredDestinations = data;
+  //   })
+
+  //   this.recommendService.fetchRecommendations().subscribe(
+  //     response => {
+  //       console.log('response:-',response);
+  //       this.recommendedDestinations = response;
+  //     }
+  //   )
+  //   console.log('this.recommendedDestinations:-',this.recommendedDestinations);
+  //   // this.loggedInUser = this.authService.getLoggedInUser();
+  //   // console.log('this.loggedInUser:-',this.loggedInUser);
+  //   // this.loadUserActivities();
+  // }
 
   loadUserActivities() {
     if (this.loggedInUser) {
