@@ -27,7 +27,7 @@
           <p class="card-text">{{destination.description | turncateDescription : 50}}</p>
           <p class="card-text">
             <strong>Type:</strong> {{destination.type}}
-            <strong>Budget:</strong> {{destination.budget}}
+            <strong>Budget:</strong> {{destination.budget | currencyFormat}}
           </p>
           <div class="card-text rating">
             <strong>Rating:</strong>
@@ -53,7 +53,7 @@
           <p class="card-text">{{destination.description | turncateDescription : 50}}</p>
           <p class="card-text">
             <strong>Type:</strong> {{destination.type}}
-            <strong>Budget:</strong> {{destination.budget}}
+            <strong>Budget:</strong> {{destination.budget | currencyFormat}}
           </p>
           <div class="card-text rating">
             <strong>Rating:</strong>

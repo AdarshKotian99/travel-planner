@@ -21,8 +21,9 @@ const routes: Routes = [
   //     {path : '', loadChildren: ()=> import('./feature/feature.module').then(mod => mod.FeatureModule)}
   //   ]
   // },
-  {path : 'login' , component: LoginComponent},
-  {path : 'signup', component : SignupComponent}
+  // {path : '' ,redirectTo:'login',pathMatch:'full'},
+  // {path : 'login' , component: LoginComponent},
+  // {path : 'signup', component : SignupComponent}
 ];
 
 @NgModule({
