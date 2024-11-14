@@ -7,9 +7,9 @@
             <mat-form-field appearance="outline">
                 <mat-icon matSuffix>account_circle</mat-icon>
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="abc@gmail.com" required email type="email" [(ngModel)]="userEmail" name="userEmail" #userEmail1="ngModel"/>
+                <input matInput placeholder="abc@gmail.com" required email type="email" [(ngModel)]="userEmail" name="userEmail" #userEmailElem="ngModel"/>
             </mat-form-field>
-            <div *ngIf="userEmail1.touched && userEmail1.errors?.['email']" style="color: red;margin-bottom: 1em;">
+            <div *ngIf="userEmailElem.touched && userEmailElem.errors?.['email']" style="color: red;margin-bottom: 1em;">
                 User Email is invalid.
             </div>
             
@@ -28,8 +28,6 @@
             <button mat-raised-button color="primary" (click)="redirectToSignUp()">Signup</button>
         </mat-card>
     </form>
-    
-    
 </div>
 
 
