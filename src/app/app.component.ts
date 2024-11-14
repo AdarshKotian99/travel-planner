@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class AppComponent {
   title = 'travel-planner';
 
-  showNavbar = true;  // Default value to show navbar
+  showNavbar = false;  // Default value to show navbar
 
   constructor(private route: ActivatedRoute) {}
 

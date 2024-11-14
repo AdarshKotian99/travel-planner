@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { authGuard } from './core/gaurds/auth.guard';
 import { LoginComponent } from './feature/login/login.component';
+import { SignupComponent } from './feature/signup/signup.component';
 
 const routes: Routes = [
 
@@ -20,7 +21,8 @@ const routes: Routes = [
   //     {path : '', loadChildren: ()=> import('./feature/feature.module').then(mod => mod.FeatureModule)}
   //   ]
   // },
-  {path : 'login' , component: LoginComponent}
+  {path : 'login' , component: LoginComponent},
+  {path : 'signup', component : SignupComponent}
 ];
 
 @NgModule({

@@ -24,7 +24,8 @@ export class AuthService {
     );
   }
   
-  login(userData : user){
+  login(userData : user) : boolean {
+    let loginSuccess  = false;
     this.http.get<any>('http://localhost:3000/signupUsersList').subscribe(
       res => {
         const user = res.find((user : any)=>{
@@ -35,10 +36,13 @@ export class AuthService {
           this.isAuthenticated = true;
           this.saveUserToLocalStorage(user);
           this.currentUserSubject.next(user);
+          loginSuccess = true;
         }else{
           console.log('login failed');
+          loginSuccess = false;
         }
       })
+      return loginSuccess;
     }
     
     // Get the currently logged-in user's data
