@@ -44,12 +44,15 @@ export class DestinationsListComponent implements OnInit{
   }
 
   fetchRecommendations() {
-    this.http.get<Destination[]>('/assets/mock-destination.json').subscribe((destinations) => {
+    console.log('inside fetchRecommendations:-')
+    this.http.get<Destination[]>('/assets/mock-destinations.json').subscribe((destinations) => {
       const userTypes = this.getUserDestinationTypes(destinations);
+      console.log('userTypes:-',userTypes);
       this.recommendedDestinations = destinations.filter(
-        destination => !this.userDestinations.includes(destination.name) && 
-                       userTypes.includes(destination.type)
+        // destination => !this.userDestinations.includes(destination.name) && userTypes.includes(destination.type)
+        destination => userTypes.includes(destination.type)
       );
+      console.log('this.recommendedDestinations:-',this.recommendedDestinations);
     });
   }
 
