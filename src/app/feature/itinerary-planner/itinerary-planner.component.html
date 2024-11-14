@@ -46,14 +46,10 @@
       <h3>Activities</h3>
 
       <!-- Display message when no activities are present -->
+      <!-- <p *ngIf="activities" class="text-muted">Add activities to your itinerary</p> -->
       <p *ngIf="activities.length === 0" class="text-muted">Add activities to your itinerary</p>
 
-      <div
-        cdkDropList
-        class="activity-list"
-        (cdkDropListDropped)="drop($event)"
-        *ngIf="activities.length > 0"
-      >
+      <div cdkDropList class="activity-list" (cdkDropListDropped)="drop($event)" *ngIf="activities.length > 0">
         <div
           *ngFor="let activity of activities; let i = index"
           cdkDrag
