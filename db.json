@@ -13,12 +13,11 @@
       "pass": "123",
       "activities": [
         {
-          "destination": "Bali",
-          "description": "scsd",
+          "destination": "New York",
+          "description": "sdfsd",
           "date": "2024-11-20T18:30:00.000Z"
         }
-      ],
-      "destinations": []
+      ]
     },
     {
       "id": "a412",

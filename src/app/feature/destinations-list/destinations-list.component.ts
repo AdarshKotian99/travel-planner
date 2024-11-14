@@ -31,68 +31,18 @@ export class DestinationsListComponent implements OnInit{
       this.filteredDestinations = data;
     })
     this.loggedInUser = this.authService.getLoggedInUser();
-    this.loadUserActivities();
-  }
-
-  // ngOnInit(): void {
-  //   console.log('destination list ngOnInit');
-  //   this.http.get<any[]>('assets/mock-destinations.json').subscribe(data => {
-  //     console.log('data:-',data);
-  //     this.destinations = data;
-  //     this.filteredDestinations = data;
-  //   })
-
-  //   this.recommendService.fetchRecommendations().subscribe(
-  //     response => {
-  //       console.log('response:-',response);
-  //       this.recommendedDestinations = response;
-  //     }
-  //   )
-  //   console.log('this.recommendedDestinations:-',this.recommendedDestinations);
-  //   // this.loggedInUser = this.authService.getLoggedInUser();
-  //   // console.log('this.loggedInUser:-',this.loggedInUser);
-  //   // this.loadUserActivities();
-  // }
-
-  loadUserActivities() {
-    if (this.loggedInUser) {
-      this.http.get(`http://localhost:3000/signupUsersList/${this.loggedInUser.id}`)
-        .subscribe((userData: any) => {
-          this.userDestinations = userData.activities.map((activity: Activity) => activity.destination);
-          this.fetchRecommendations();
-        });
+    if(this.loggedInUser){
+      this.fetchRecommendations()
     }
   }
 
-  fetchRecommendations() {
-    console.log('inside fetchRecommendations:-')
-    this.http.get<Destination[]>('/assets/mock-destinations.json').subscribe((destinations) => {
-      const userTypes = this.getUserDestinationTypes(destinations);
-      console.log('userTypes:-',userTypes);
-      this.recommendedDestinations = destinations.filter(
-        // destination => !this.userDestinations.includes(destination.name) && userTypes.includes(destination.type)
-        destination => userTypes.includes(destination.type)
-      );
-      console.log('this.recommendedDestinations:-',this.recommendedDestinations);
-    });
+  fetchRecommendations(){
+    this.recommendService.getUserDestinations(this.loggedInUser.id).subscribe(
+      userDestination => {
+        this.recommendedDestinations = this.recommendService.recommendDestinations(userDestination,this.destinations);
+      }
+    );
   }
-
-  getUserDestinationTypes(destinations: Destination[]): string[] {
-    const userTypes = new Set<string>();
-    this.userDestinations.forEach(destination => {
-      const match = destinations.find(dest => dest.name === destination);
-      if (match){
-        userTypes.add(match.type);
-      } 
-    });
-    return Array.from(userTypes);
-  }
-
-  // filterDestinations(event : Event) {
-  //   const inputElement = event.target as HTMLInputElement;
-  //   const value = inputElement.value;
-  //   this.filteredDestinations = this.destinations.filter(d => d.type.includes(value));
-  // }
 
   filterDestinations() {
     this.filteredDestinations = this.destinations.filter(destination => {
