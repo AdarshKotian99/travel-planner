@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { user } from 'src/app/models/user';
 
@@ -9,13 +10,19 @@ import { user } from 'src/app/models/user';
 })
 export class LoginComponent {
 
-  constructor(private auth : AuthService){}
+  constructor(private auth : AuthService, private router : Router){}
   userEmail : string = '';
   pass : string = '';
+  loginSuccess : boolean | null = null;
 
   userInfo !: user ; 
   handleLogin(formData : any){
-    this.auth.login(formData.value);
+    this.loginSuccess = this.auth.login(formData.value);
+    this.router.navigate(['/destinations']);
+  }
+
+  redirectToSignUp(){
+    this.router.navigate(['/signup']);
   }
 
 }
