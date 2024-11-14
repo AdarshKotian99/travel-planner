@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CoreModule } from './core/core.module';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { AuthService } from './core/services/auth.service';
 
 
@@ -14,13 +14,18 @@ export class AppComponent {
 
   showNavbar = true;  // Default value to show navbar
 
-  constructor(private authService : AuthService) {}
+  constructor(private authService : AuthService,private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    // Check if the current route has showNavbar set to false
-    // this.route.firstChild?.data.subscribe(data => {
-    //   this.showNavbar = data['showNavbar'] !== false;  // Hide navbar if showNavbar is false
-    // });
-    //this.showNavbar = this.authService.isLoggedIn()
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        // Hide navbar for login and signup routes
+        if (event.url === '/login' || event.url === '/signup') {
+          this.showNavbar = false;
+        } else {
+          this.showNavbar = true;
+        }
+      }
+    });
   }
 }

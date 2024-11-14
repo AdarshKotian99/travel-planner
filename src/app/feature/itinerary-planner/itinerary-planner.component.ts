@@ -111,5 +111,17 @@ export class ItineraryPlannerComponent implements OnInit{
     const updatedUserData = { ...this.loggedInUser, destinations: [...this.activities] };
     this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUser.id}`, updatedUserData).subscribe();
   }
+
+
+  // this.shareableLink = `${window.location.origin}/itinerary/${this.itineraryId}`;
+  // this.linkCopied = false;
+  // // Copy the shareable link to clipboard
+  // copyLinkToClipboard() {
+  //   if (this.shareableLink) {
+  //     this.clipboard.copy(this.shareableLink);  // Copy the link to the clipboard
+  //     this.linkCopied = true;  // Show feedback to the user
+  //     console.log('Link copied:', this.shareableLink);
+  //   }
+  // }
   
 }

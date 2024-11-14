@@ -17,20 +17,20 @@ export class SignupComponent implements OnInit{
     console.log('ng oninit called');
   }
 
-  // userEmail : string = '';
-  // pass : string = '';
+  userEmail : string = '';
+  pass : string = '';
 
-  // // userInfo !: user ; 
-  // handleSubmit(formData : any){
-  //   // this.userInfo = formData;
-  //   // this.userInfo.userEmail = formData.value.userEmail;
-  //   // this.userInfo.pass = formData.value.password;
-  //   this.auth.signUp(formData.value);
-  //   this.router.navigate(['/destinations']);
-  // }
+  // userInfo !: user ; 
+  handleSubmit(formData : any){
+    // this.userInfo = formData;
+    // this.userInfo.userEmail = formData.value.userEmail;
+    // this.userInfo.pass = formData.value.password;
+    this.auth.signUp(formData.value);
+    this.router.navigate(['/destinations']);
+  }
 
-  // redirectToLogin(){
-  //   this.router.navigate(['/login']);
-  // }
+  redirectToLogin(){
+    this.router.navigate(['/login']);
+  }
 
 }

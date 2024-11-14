@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { user } from 'src/app/models/user';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,11 +28,10 @@ export class AuthService {
     );
   }
   
-  login(userData : user) : boolean {
-    let loginSuccess  = false;
-    this.http.get<any>('http://localhost:3000/signupUsersList').subscribe(
-      res => {
-        const user = res.find((user : any)=>{
+  login(userData : user) : Observable<boolean>{
+    return this.http.get<any>('http://localhost:3000/signupUsersList').pipe(
+      map((users)=>{
+        const user = users.find((user : any)=>{
           return user.userEmail === userData.userEmail && user.pass === userData.pass;
         });
         if(user){
@@ -41,14 +40,36 @@ export class AuthService {
           this.isAuthenticated = true;
           this.saveUserToLocalStorage(user);
           this.currentUserSubject.next(user);
-          loginSuccess = true;
+          return true;
         }else{
-          console.log('login failed');
-          loginSuccess = false;
+          return false;
         }
       })
-      return loginSuccess;
-    }
+    )
+  }
+
+
+  // login(userData : user) : boolean {
+  //   let loginSuccess  = false;
+  //   this.http.get<any>('http://localhost:3000/signupUsersList').subscribe(
+  //     res => {
+  //       const user = res.find((user : any)=>{
+  //         return user.userEmail === userData.userEmail && user.pass === userData.pass;
+  //       });
+  //       if(user){
+  //         console.log('login success');
+  //         console.log('user:-',user)
+  //         this.isAuthenticated = true;
+  //         this.saveUserToLocalStorage(user);
+  //         this.currentUserSubject.next(user);
+  //         loginSuccess = true;
+  //       }else{
+  //         console.log('login failed');
+  //         loginSuccess = false;
+  //       }
+  //     })
+  //     return loginSuccess;
+  //   }
     
     // Get the currently logged-in user's data
     getLoggedInUser(): any {
