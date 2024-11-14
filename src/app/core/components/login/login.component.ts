@@ -15,14 +15,20 @@ export class LoginComponent {
   pass : string = '';
   loginSuccess : boolean | null = null;
 
-  // userInfo !: user ; 
-  // handleLogin(formData : any){
-  //   this.loginSuccess = this.auth.login(formData.value);
-  //   this.router.navigate(['/destinations']);
-  // }
+  userInfo !: user ; 
+  handleLogin(formData : any){
+    this.auth.login(formData.value).subscribe(
+      (res : boolean) => {
+        this.loginSuccess = res;
+        if(this.loginSuccess){
+          this.router.navigate(['/destinations']);
+        }    
+      }
+    )
+  }
 
-  // redirectToSignUp(){
-  //   this.router.navigate(['/signup']);
-  // }
+  redirectToSignUp(){
+    this.router.navigate(['/signup']);
+  }
 
 }

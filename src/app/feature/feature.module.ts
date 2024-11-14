@@ -22,14 +22,11 @@ import {NativeDateAdapter} from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
 import { NgChartsModule } from 'ng2-charts';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 
 const routes : Routes = [
-  {path : '' ,redirectTo:'destinations',pathMatch:'full'},
-  { path:'signup' , component:SignupComponent},
-  { path:'login',component:LoginComponent},
-  {path:'destinations',component:DestinationsListComponent},
-  // {path:'destinations',component:DestinationsListComponent,canActivate:[authGuard]}
+  {path:'',component:DestinationsListComponent},
   {path:'budget', component : BudgetTrackerComponent},
   {path:'itinerary', component : ItineraryPlannerComponent},
 ]
@@ -37,8 +34,8 @@ const routes : Routes = [
 
 @NgModule({
   declarations: [
-    SignupComponent,
-    LoginComponent,
+    // SignupComponent,
+    // LoginComponent,
     DestinationsListComponent,
     ItineraryPlannerComponent,
     BudgetTrackerComponent,
@@ -58,6 +55,7 @@ const routes : Routes = [
     MatCardModule,
     MatSelectModule,
     NgChartsModule,
+    ClipboardModule,
     RouterModule.forChild(routes)
   ],
   exports: [
