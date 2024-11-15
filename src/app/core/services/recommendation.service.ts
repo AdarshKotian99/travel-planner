@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { user } from 'src/app/models/user';
-import { AuthService } from './auth.service';
+//import { user } from 'src/app/models/user';
+//import { AuthService } from './auth.service';
 import { Activity } from 'src/app/models/activity';
 import { Destination } from 'src/app/models/destination';
 import { map, Observable } from 'rxjs';
@@ -11,7 +11,8 @@ import { map, Observable } from 'rxjs';
 })
 export class RecommendationService {
 
-  constructor(private http : HttpClient, private authService : AuthService) { }
+  constructor(private http : HttpClient) { }
+  // constructor(private http : HttpClient, private authService : AuthService) { }
 
   getUserDestinations(userId: string): Observable<string[]> {
     return this.http.get<any>(`http://localhost:3000/signupUsersList/${userId}`).pipe(

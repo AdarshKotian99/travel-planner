@@ -10,70 +10,77 @@
           <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
           <mat-datepicker #startPicker></mat-datepicker>
         </mat-form-field>
-
+        
         <mat-form-field appearance="fill" class="w-100">
           <mat-label>End Date</mat-label>
           <input matInput [matDatepicker]="endPicker" formControlName="endDate" required />
           <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
           <mat-datepicker #endPicker></mat-datepicker>
         </mat-form-field>
-
+        
         <mat-form-field appearance="fill" class="w-100">
           <mat-label>Destination</mat-label>
           <input matInput formControlName="destination" required />
         </mat-form-field>
-
+        
         <mat-form-field appearance="fill" class="w-100">
           <mat-label>Activity Description</mat-label>
           <input matInput formControlName="description" required />
         </mat-form-field>
-
+        
         <mat-form-field appearance="fill" class="w-100">
           <mat-label>Date</mat-label>
           <input matInput [matDatepicker]="activityDatePicker" formControlName="date" required />
           <mat-datepicker-toggle matSuffix [for]="activityDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #activityDatePicker></mat-datepicker>
         </mat-form-field>
-
+        
         <button mat-raised-button color="primary" type="submit" [disabled]="itineraryForm.invalid">
           Add Activity
         </button>
       </form>
     </div>
-
+    
     <!-- Right Section: Activities List with Drag-and-Drop -->
     <div class="col-md-6">
-      <h3>Activities</h3>
-
+      <div class="d-flex justify-content-between">
+        <h3>Activities</h3>
+        <button class="btn btn-success mb-2" type="button" *ngIf="shareableLink" (click)="copyLinkToClipboard()">
+          Share Itinerary
+        </button>
+      </div>
+      
       <!-- Display message when no activities are present -->
       <!-- <p *ngIf="activities" class="text-muted">Add activities to your itinerary</p> -->
       <p *ngIf="activities.length === 0" class="text-muted">Add activities to your itinerary</p>
-
+      
       <div cdkDropList class="activity-list" (cdkDropListDropped)="drop($event)" *ngIf="activities.length > 0">
         <div
-          *ngFor="let activity of activities; let i = index"
-          cdkDrag
-          class="activity-item p-2 mb-2 bg-light rounded d-flex justify-content-between align-items-center"
+        *ngFor="let activity of activities; let i = index"
+        cdkDrag
+        class="activity-item p-2 mb-2 bg-light rounded d-flex justify-content-between align-items-center"
         >
-          <div>
-            <strong>{{ activity.destination }}</strong> - {{ activity.description }}
-            ({{ activity.date | date }})
-          </div>
-          <button mat-icon-button color="warn" (click)="deleteActivity(i)">
-            <mat-icon>delete</mat-icon>
-          </button>
+        <div>
+          <strong>{{ activity.destination }}</strong> - {{ activity.description }}
+          ({{ activity.date | date }})
         </div>
+        <button mat-icon-button color="warn" (click)="deleteActivity(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
     </div>
   </div>
 </div>
+</div>
+
+
 
 <!-- <div>
   <button (click)="createItinerary()">Create Itinerary</button>
   <p *ngIf="shareableLink">Share this link: <a href="{{ shareableLink }}" target="_blank">{{ shareableLink }}</a></p>
-
+  
   <button *ngIf="shareableLink" (click)="copyLinkToClipboard()">Copy Link</button>
-
+  
   <div *ngIf="linkCopied">
     <p>Link copied to clipboard!</p>
   </div>

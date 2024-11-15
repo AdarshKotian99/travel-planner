@@ -5,6 +5,7 @@ import { authGuard } from './core/gaurds/auth.guard';
 //import { SignupComponent } from './feature/signup/signup.component';
 import { LoginComponent } from './core/components/login/login.component';
 import { SignupComponent } from './core/components/signup/signup.component';
+import { SharedItineraryComponent } from './feature/shared-itinerary/shared-itinerary.component';
 
 const routes: Routes = [
 
@@ -26,9 +27,10 @@ const routes: Routes = [
   // {path : '' ,redirectTo:'login',pathMatch:'full'},
   // {path : 'login' , component: LoginComponent},
   // {path : 'signup', component : SignupComponent}
-  {path : 'login', component : LoginComponent,  data: { showNavbar: false }},
-  {path : 'signup', component : SignupComponent,  data: { showNavbar: false }},
   {path : '' ,redirectTo:'login',pathMatch:'full'},
+  {path : 'login', component : LoginComponent},
+  {path : 'signup', component : SignupComponent},
+  {path : 'sharedItinerary/:id', component : SharedItineraryComponent},
   {path:'destinations',loadChildren: ()=> import('./feature/feature.module').then(mod => mod.FeatureModule),canActivate : [authGuard]},
   // {path:'budget',loadChildren: ()=> import('./feature/feature.module').then(mod => mod.FeatureModule),canActivate : [authGuard]},
   // {path:'itinerary',loadChildren: ()=> import('./feature/feature.module').then(mod => mod.FeatureModule),canActivate : [authGuard]},
