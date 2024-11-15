@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CoreModule } from './core/core.module';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { AuthService } from './core/services/auth.service';
 
@@ -21,7 +20,7 @@ export class AppComponent {
       if (event instanceof NavigationStart) {
         // Hide navbar for login and signup routes
         console.log('event.url:-',event.url)
-        if (event.url === '/login' || event.url === '/signup' || event.url.includes('/sharedItinerary')) {
+        if (event.url === '/login' || event.url === '/signup' || event.url.includes('/sharedItinerary') || (!event.url.includes('/destinations') && !event.url.includes('/destinations/budget') && !event.url.includes('/destinations/itinerary'))) {
           this.showNavbar = false;
         } else {
           this.showNavbar = true;

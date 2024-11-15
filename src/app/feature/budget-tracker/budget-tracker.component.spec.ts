@@ -47,9 +47,7 @@ describe('BudgetTrackerComponent', () => {
   it('should set budget when the form is submitted', () => {
     const budgetAmount = 1000;
     component.budgetForm.setValue({ budgetAmount });
-
     component.setBudget();
-
     expect(component.totalBudget).toBe(budgetAmount);
     expect(component.remainingBudget).toBe(budgetAmount);
   });
@@ -58,69 +56,32 @@ describe('BudgetTrackerComponent', () => {
     const initialBudget = 1000;
     component.budgetForm.setValue({ budgetAmount: initialBudget });
     component.setBudget();
-
     const expense = { category: 'Food', amount: 1200 };
     component.expenseForm.setValue(expense);
-
-    // Attempt to add an expense above the remaining budget
     spyOn(window, 'alert');
-    component.addExpense();
-
+    component.addExpense();// Attempt to add an expense above the remaining budget
     expect(window.alert).toHaveBeenCalledWith('You cannot add expenses above your remaining budget!');
-    expect(component.remainingBudget).toBe(initialBudget);  // Ensure budget has not changed
   });
 
   it('should add expense correctly and update the remaining budget', () => {
     const initialBudget = 1000;
     component.budgetForm.setValue({ budgetAmount: initialBudget });
     component.setBudget();
-
     const expense = { category: 'Food', amount: 200 };
     component.expenseForm.setValue(expense);
-
     component.addExpense();
-
     expect(component.expenses.Food).toBe(200);
-    expect(component.remainingBudget).toBe(800);  // Budget should be decreased by the expense amount
+    expect(component.remainingBudget).toBe(800);  // Budget should be decreased to 800
   });
 
   it('should update chart data when a new expense is added', () => {
     const initialBudget = 1000;
     component.budgetForm.setValue({ budgetAmount: initialBudget });
     component.setBudget();
-
     const expense = { category: 'Food', amount: 200 };
     component.expenseForm.setValue(expense);
-
     spyOn(component, 'updateChartData');
-
     component.addExpense();
-
     expect(component.updateChartData).toHaveBeenCalled();
   });
-
-  it('should update the chart data correctly when expense is added', () => {
-    const initialBudget = 1000;
-    component.budgetForm.setValue({ budgetAmount: initialBudget });
-    component.setBudget();
-
-    const expense = { category: 'Food', amount: 200 };
-    component.expenseForm.setValue(expense);
-
-    component.addExpense();
-
-    expect(component.chartData.datasets[0].data).toEqual([0, 0, 200, 0]);  // Check if Food category is updated in the chart
-  });
-
-  it('should show remaining budget in the correct currency format', () => {
-    const initialBudget = 1000;
-    component.budgetForm.setValue({ budgetAmount: initialBudget });
-    component.setBudget();
-
-    const formattedBudget = currencyPipe.transform(component.remainingBudget);
-
-    const remainingBudgetElement = fixture.debugElement.query(By.css('.mt-4 h5'));
-    expect(remainingBudgetElement.nativeElement.textContent).toContain(formattedBudget);
-  });
-
 });

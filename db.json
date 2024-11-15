@@ -14,7 +14,14 @@
       "activities": [
         {
           "destination": "New York",
-          "description": "sdfsd",
+          "description": "test description",
+          "date": "2024-11-20T18:30:00.000Z"
+        }
+      ],
+      "destinations": [
+        {
+          "destination": "New York",
+          "description": "test description",
           "date": "2024-11-20T18:30:00.000Z"
         }
       ]
@@ -51,6 +58,16 @@
     {
       "id": "e972",
       "userEmail": "sdfsdf@gmail.com",
+      "pass": "123"
+    },
+    {
+      "id": "ea5d",
+      "userEmail": "test@gmail.com",
+      "pass": "123"
+    },
+    {
+      "id": "e412",
+      "userEmail": "test1@gmail.com",
       "pass": "123"
     }
   ]

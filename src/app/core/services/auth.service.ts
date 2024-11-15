@@ -8,7 +8,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 })
 export class AuthService {
   private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public currentUser = this.currentUserSubject.asObservable();
+  //public currentUser = this.currentUserSubject.asObservable();
   
   constructor(private http : HttpClient) { 
     this.loadUserFromLocalStorage();
@@ -47,29 +47,6 @@ export class AuthService {
       })
     )
   }
-
-
-  // login(userData : user) : boolean {
-  //   let loginSuccess  = false;
-  //   this.http.get<any>('http://localhost:3000/signupUsersList').subscribe(
-  //     res => {
-  //       const user = res.find((user : any)=>{
-  //         return user.userEmail === userData.userEmail && user.pass === userData.pass;
-  //       });
-  //       if(user){
-  //         console.log('login success');
-  //         console.log('user:-',user)
-  //         this.isAuthenticated = true;
-  //         this.saveUserToLocalStorage(user);
-  //         this.currentUserSubject.next(user);
-  //         loginSuccess = true;
-  //       }else{
-  //         console.log('login failed');
-  //         loginSuccess = false;
-  //       }
-  //     })
-  //     return loginSuccess;
-  //   }
     
     // Get the currently logged-in user's data
     getLoggedInUser(): any {
