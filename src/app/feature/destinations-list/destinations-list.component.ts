@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { RecommendationService } from 'src/app/core/services/recommendation.service';
-import { Activity } from 'src/app/models/activity';
 import { Destination } from 'src/app/models/destination';
 
 @Component({

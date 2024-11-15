@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">MyApp</a>
+  <a class="navbar-brand" href="#">Travel Planner</a>
   <button
     class="navbar-toggler"
     type="button"
@@ -24,7 +24,7 @@
         <a class="nav-link" [routerLink]="['destinations/itinerary']" routerLinkActive="active">Itinerary</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Logout</a>
+        <a class="nav-link" (click)="logout()">Logout</a>
       </li>
     </ul>
   </div>

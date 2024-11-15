@@ -1,5 +1,4 @@
 import { Component,ViewChild } from '@angular/core';
-import { Expense } from 'src/app/models/expense';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChartData, ChartOptions } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';  // Import this for access to the chart reference

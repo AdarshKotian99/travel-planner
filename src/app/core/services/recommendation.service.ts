@@ -12,7 +12,6 @@ import { map, Observable } from 'rxjs';
 export class RecommendationService {
 
   constructor(private http : HttpClient) { }
-  // constructor(private http : HttpClient, private authService : AuthService) { }
 
   getUserDestinations(userId: string): Observable<string[]> {
     return this.http.get<any>(`http://localhost:3000/signupUsersList/${userId}`).pipe(

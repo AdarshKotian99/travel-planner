@@ -14,21 +14,14 @@ export class SharedItineraryComponent implements OnInit{
   activities: Activity[]=[];
   displayedColumns: string[] = ['destination','description','date'];
   dataSource = new MatTableDataSource<Activity>();
-  //loggedInUser : any;
   userId : any;
 
   constructor(
-    private authService : AuthService,
     private route : ActivatedRoute,
     private http : HttpClient
   ){}
 
   ngOnInit(): void {
-    // this.route.params.subscribe( params => {
-    //   this.userId = params['id']; //Access id parameter from the url
-    //   this.loadActivities(this.userId);
-    // })
-
     this.userId = this.route.snapshot.paramMap.get('id');
     this.loadActivities(this.userId);
   }

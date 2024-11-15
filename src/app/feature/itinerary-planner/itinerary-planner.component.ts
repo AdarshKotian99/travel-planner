@@ -1,47 +1,21 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Activity } from 'src/app/models/activity';
-import { user } from 'src/app/models/user';
 import { Clipboard } from '@angular/cdk/clipboard';
-
-
-
-// interface Activity {
-//   destination: string;
-//   description: string;
-//   date: Date;
-// }
 
 @Component({
   selector: 'app-itinerary-planner',
   templateUrl: './itinerary-planner.component.html',
   styleUrls: ['./itinerary-planner.component.css'],
-  // changeDetection : ChangeDetectionStrategy.OnPush,
 })
 export class ItineraryPlannerComponent implements OnInit{
   
   loggedInUser: any;  // Store the logged-in user's details
   itineraryForm: FormGroup;
-  activities: Activity[] = [
-    // {destination:'london',description:'run',date:new Date},
-    // {destination:'mumbai',description:'run',date:new Date},
-    // {destination:'london',description:'run',date:new Date},
-    // {destination:'newyork',description:'run',date:new Date},
-    // {destination:'texas',description:'run',date:new Date},
-    // {destination:'london',description:'run',date:new Date},
-    // {destination:'london',description:'run',date:new Date},
-    // {destination:'london',description:'run',date:new Date},
-    // {destination:'london',description:'run',date:new Date},
-    // {destination:'london',description:'run',date:new Date},
-    // {destination:'london',description:'run',date:new Date},
-    // {destination:'london',description:'run',date:new Date},
-    // {destination:'london',description:'run',date:new Date},
-    // {destination:'london',description:'run',date:new Date},
-    // {destination:'london',description:'run',date:new Date},
-  ];
+  activities: Activity[] = [];
   shareableLink : string = '';
   linkCopied : boolean = false;
   
@@ -105,7 +79,10 @@ export class ItineraryPlannerComponent implements OnInit{
         // Make a PUT request to update the user's destinations
         this.http.put(`http://localhost:3000/signupUsersList/${userId}`, updatedUserData).subscribe(() => {
           // Reset the form after successfully adding
-          this.itineraryForm.reset();
+          //this.itineraryForm.reset();
+          this.itineraryForm.controls['destination'].reset();
+          this.itineraryForm.controls['description'].reset();
+          this.itineraryForm.controls['date'].reset();
         });
         //this.itineraryForm.reset();
       } else {
@@ -129,17 +106,5 @@ export class ItineraryPlannerComponent implements OnInit{
     this.clipboard.copy(this.shareableLink);
     this.linkCopied = true;
   }
-
-
-  // this.shareableLink = `${window.location.origin}/itinerary/${this.itineraryId}`;
-  // this.linkCopied = false;
-  // // Copy the shareable link to clipboard
-  // copyLinkToClipboard() {
-  //   if (this.shareableLink) {
-  //     this.clipboard.copy(this.shareableLink);  // Copy the link to the clipboard
-  //     this.linkCopied = true;  // Show feedback to the user
-  //     console.log('Link copied:', this.shareableLink);
-  //   }
-  // }
   
 }
