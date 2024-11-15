@@ -11,26 +11,16 @@ describe('CurrencyFormatPipe', () => {
     expect(pipe).toBeTruthy();
   });
 
-  it('should format the value as currency with the default symbol ($)', () => {
+  it('it should format the value as currency with the default symbol $', () => {
     const value = 1234.56;
     const result = pipe.transform(value);
     expect(result).toBe('$ 1234.56');
   });
 
-  it('should format the value with a custom currency symbol', () => {
-    const value = 1234.56;
-    const result = pipe.transform(value, '€');
-    expect(result).toBe('€ 1234.56');
-  });
-
-  // it('should return an empty string for null value', () => {
-  //   const result = pipe.transform(null);
-  //   expect(result).toBe('');
-  // });
-
-  it('should return a formatted value with two decimal places', () => {
+  it('should format the value with a custom currency symbol ₹', () => {
     const value = 1234;
-    const result = pipe.transform(value);
-    expect(result).toBe('$ 1234.00');  // Even though input is an integer, it should have two decimals
+    const result = pipe.transform(value, '₹');
+    expect(result).toBe('₹ 1234.00');
   });
+
 });

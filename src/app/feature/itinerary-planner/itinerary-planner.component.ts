@@ -5,6 +5,9 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Activity } from 'src/app/models/activity';
 import { user } from 'src/app/models/user';
+import { Clipboard } from '@angular/cdk/clipboard';
+
+
 
 // interface Activity {
 //   destination: string;
@@ -39,8 +42,16 @@ export class ItineraryPlannerComponent implements OnInit{
     // {destination:'london',description:'run',date:new Date},
     // {destination:'london',description:'run',date:new Date},
   ];
+  shareableLink : string = '';
+  linkCopied : boolean = false;
   
-  constructor(private fb: FormBuilder, private authService : AuthService, private http : HttpClient) {
+  constructor(
+    private fb: FormBuilder, 
+    private authService : AuthService, 
+    private http : HttpClient,
+    private clipboard : Clipboard
+  ) 
+    {
     this.itineraryForm = this.fb.group({
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
@@ -65,6 +76,7 @@ export class ItineraryPlannerComponent implements OnInit{
         this.activities = userData.hasOwnProperty('activities') ? userData.activities : [];
         // this.activities = userData.activities !== null ? userData.activities : [];
         console.log('this.activities:-',this.activities);
+        this.shareableLink = `http://localhost:4200/sharedItinerary/${this.loggedInUser.id}`;
       });
     }
   }
@@ -110,6 +122,12 @@ export class ItineraryPlannerComponent implements OnInit{
     this.activities.splice(index, 1);
     const updatedUserData = { ...this.loggedInUser, destinations: [...this.activities] };
     this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUser.id}`, updatedUserData).subscribe();
+  }
+
+
+  copyLinkToClipboard(){
+    this.clipboard.copy(this.shareableLink);
+    this.linkCopied = true;
   }
 
 

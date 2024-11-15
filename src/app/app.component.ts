@@ -20,7 +20,8 @@ export class AppComponent {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         // Hide navbar for login and signup routes
-        if (event.url === '/login' || event.url === '/signup') {
+        console.log('event.url:-',event.url)
+        if (event.url === '/login' || event.url === '/signup' || event.url.includes('/sharedItinerary')) {
           this.showNavbar = false;
         } else {
           this.showNavbar = true;

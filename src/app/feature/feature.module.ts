@@ -23,6 +23,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
 import { NgChartsModule } from 'ng2-charts';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { SharedItineraryComponent } from './shared-itinerary/shared-itinerary.component';
+import { MatTableModule } from '@angular/material/table';
 
 
 const routes : Routes = [
@@ -39,6 +41,7 @@ const routes : Routes = [
     DestinationsListComponent,
     ItineraryPlannerComponent,
     BudgetTrackerComponent,
+    SharedItineraryComponent,
   ],
   imports: [
     CommonModule,
@@ -56,6 +59,7 @@ const routes : Routes = [
     MatSelectModule,
     NgChartsModule,
     ClipboardModule,
+    MatTableModule,
     RouterModule.forChild(routes)
   ],
   exports: [
