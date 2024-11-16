@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { user } from 'src/app/models/user';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, map, mapTo, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -75,6 +75,12 @@ export class AuthService {
     isLoggedIn():boolean{
       console.log('inside isLoggedIn')
       return this.isAuthenticated;
+    }
+
+    getUserData():Observable<user>{
+      console.log('getUserData() called');
+      console.log('this.currentUserSubject.value:-',this.currentUserSubject.value);
+       return this.http.get<user>(`http://localhost:3000/signupUsersList/${this.currentUserSubject.value.id}`)        
     }
     
   }
