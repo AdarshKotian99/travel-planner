@@ -5,70 +5,46 @@
       "pass": "",
       "id": "90f7",
       "activities": [],
-      "destinations": []
+      "feedbacks": []
     },
     {
-      "id": "451f",
+      "id": "fbdb",
       "userEmail": "abc@gmail.com",
       "pass": "123",
       "activities": [
         {
-          "destination": "New York",
-          "description": "test description",
-          "date": "2024-11-20T18:30:00.000Z"
+          "destination": "Bali",
+          "description": "sdfgvsd",
+          "date": "2024-11-21T18:30:00.000Z"
         }
       ],
-      "destinations": [
+      "feedbacks": [
         {
-          "destination": "New York",
-          "description": "test description",
-          "date": "2024-11-20T18:30:00.000Z"
+          "destinationName": "Paris",
+          "review": "new comment1",
+          "rating": 3
+        },
+        {
+          "destinationName": "Paris",
+          "review": "new comment2",
+          "rating": 2
+        },
+        {
+          "destinationName": "Paris",
+          "review": "new comment 3",
+          "rating": 4
+        },
+        {
+          "destinationName": "Paris",
+          "review": "new comment 4",
+          "rating": 4
+        },
+        {
+          "destinationName": "Paris",
+          "review": "new comment 5",
+          "rating": 5
         }
       ]
-    },
-    {
-      "id": "a412",
-      "userEmail": "abc123@gmail.com",
-      "pass": "123",
-      "activities": [
-        {
-          "destination": "Bali",
-          "description": "shdf",
-          "date": "2024-11-21T18:30:00.000Z"
-        }
-      ]
-    },
-    {
-      "id": "9ad2",
-      "userEmail": "xyz@gmail.com",
-      "pass": "123",
-      "activities": [
-        {
-          "destination": "Mumbai",
-          "description": "shdf",
-          "date": "2024-11-21T18:30:00.000Z"
-        }
-      ]
-    },
-    {
-      "id": "58ad",
-      "userEmail": "sdfsdf@gmail.com",
-      "pass": "123"
-    },
-    {
-      "id": "e972",
-      "userEmail": "sdfsdf@gmail.com",
-      "pass": "123"
-    },
-    {
-      "id": "ea5d",
-      "userEmail": "test@gmail.com",
-      "pass": "123"
-    },
-    {
-      "id": "e412",
-      "userEmail": "test1@gmail.com",
-      "pass": "123"
     }
   ]
 }

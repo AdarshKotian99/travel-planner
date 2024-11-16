@@ -11,7 +11,9 @@ const routes: Routes = [
   {path : 'login', component : LoginComponent},
   {path : 'signup', component : SignupComponent},
   {path : 'sharedItinerary/:id', component : SharedItineraryComponent},
-  {path:'destinations',loadChildren: ()=> import('./feature/feature.module').then(mod => mod.FeatureModule),canActivate : [authGuard]},
+  {path:'destinations',loadChildren: ()=> import('./feature/feature.module').then(mod => mod.FeatureModule)},
+  // {path:'destinations',loadChildren: ()=> import('./feature/feature.module').then(mod => mod.FeatureModule),canActivate : [authGuard]},
+  
   { path: '**', component: NotFoundComponent }
 ];
 

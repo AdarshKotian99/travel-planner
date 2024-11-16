@@ -21,12 +21,14 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { SharedItineraryComponent } from './shared-itinerary/shared-itinerary.component';
 import { MatTableModule } from '@angular/material/table';
 import { NotFoundComponent } from '../core/not-found/not-found.component';
+import { DestinationDetailsComponent } from './destination-details/destination-details.component';
 
 
 const routes : Routes = [
   {path:'',component:DestinationsListComponent},
   {path:'budget', component : BudgetTrackerComponent},
   {path:'itinerary', component : ItineraryPlannerComponent},
+  {path : ':name', component : DestinationDetailsComponent},
   { path: '**', component: NotFoundComponent }
 ]
 
@@ -37,6 +39,7 @@ const routes : Routes = [
     ItineraryPlannerComponent,
     BudgetTrackerComponent,
     SharedItineraryComponent,
+    DestinationDetailsComponent,
   ],
   imports: [
     CommonModule,
