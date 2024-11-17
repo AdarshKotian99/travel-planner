@@ -64,7 +64,7 @@ export class BudgetTrackerComponent {
     if (this.budgetForm.valid) {
       this.totalBudget = this.budgetForm.value.budgetAmount;
       this.remainingBudget = this.totalBudget - this.getTotalExpenses();
-      this.budgetForm.reset();
+      //this.budgetForm.reset();
     }
   }
 
