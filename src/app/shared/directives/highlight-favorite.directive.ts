@@ -11,7 +11,7 @@ export class HighlightFavoriteDirective {
 
   @Input() set appHighlightFavorite(isFavorite : boolean){
     if(isFavorite){
-      this.eleRef.nativeElement.style.background = 'green';
+      this.eleRef.nativeElement.style.color = 'green';
     } 
   }
 }
