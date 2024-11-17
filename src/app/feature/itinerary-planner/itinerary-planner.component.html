@@ -52,7 +52,7 @@
       
       <!-- Display message when no activities are present -->
       <!-- <p *ngIf="activities" class="text-muted">Add activities to your itinerary</p> -->
-      <p *ngIf="activities.length === 0" class="text-muted">Add activities to your itinerary</p>
+      <p *ngIf="activities.length === 0" class="Info-text">Add activities to your itinerary</p>
       
       <div cdkDropList class="activity-list" (cdkDropListDropped)="drop($event)" *ngIf="activities.length > 0">
         <div
@@ -60,7 +60,7 @@
         cdkDrag
         class="activity-item p-2 mb-2 bg-light rounded d-flex justify-content-between align-items-center"
         >
-        <div>
+        <div style="color: black;">
           <strong>{{ activity.destination }}</strong> - {{ activity.description }}
           ({{ activity.date | date }})
         </div>

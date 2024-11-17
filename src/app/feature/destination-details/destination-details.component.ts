@@ -73,19 +73,6 @@ stars(rating : number) {
 submitReview(){
   console.log('submitReview() called')
   try{
-    //   let loggedInUser = this.authService.getLoggedInUser(); // Get logged-in user info
-    // let feedbacks : Feedback[] = [{
-    //   destinationName : this.destinationName,
-    //   rating : this.rating,
-    //   review : this.review 
-    // }]
-    // const updatedUserData = {
-    //   ...loggedInUser,
-    //   feedbacks : [...feedbacks],
-    // };
-    // console.log('feedback:-',feedbacks);
-    // console.log('loggedInUser:-',loggedInUser);
-    // console.log('updatedUserData:-',updatedUserData);
     this.authService.getUserData().subscribe(
       userData => {
         console.log('userData:-',userData)
@@ -105,8 +92,9 @@ submitReview(){
         };
         console.log(`http://localhost:3000/signupUsersList/${userData.id}`);
         console.log('updatedUserData:-',updatedUserData);
-        this.http.put(`http://localhost:3000/signupUsersList/${userData.id}`,updatedUserData).subscribe(
-          next => this.feedbacks.push(...feedbacks)
+        this.http.put(`http://localhost:3000/signupUsersList/${userData.id}`,updatedUserData).subscribe(()=>{
+          this.feedbacks.push(...feedbacks)
+        }
         );
       }
       

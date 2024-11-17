@@ -4,13 +4,13 @@
   <!-- Filters -->
   <div class="filters mb-4 row">
     <div class="col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
+      <mat-form-field appearance="fill" class="w-100">
         <mat-label>Filter by Type</mat-label>
-        <input matInput placeholder="City, Island, etc." [(ngModel)]="filterType" (input)="filterDestinations()" />
+        <input matInput placeholder="City, Island, etc." [(ngModel)]="filterType" (input)="filterDestinations()"/>
       </mat-form-field>
     </div>
     <div class="col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
+      <mat-form-field appearance="fill" class="w-100">
         <mat-label>Max Budget</mat-label>
         <input matInput type="number" [(ngModel)]="maxBudget" (input)="filterDestinations()" />
       </mat-form-field>
