@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light">
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
   <a class="navbar-brand" href="#">Travel Planner</a>
   <button
     class="navbar-toggler"
@@ -13,7 +14,9 @@
   </button>
   
   <div class="collapse navbar-collapse" id="navbarNav">
+    <mat-slide-toggle (change)="toggleTheme()" >Dark Mode</mat-slide-toggle>
     <ul class="navbar-nav ms-auto">
+      
       <li class="nav-item">
         <a class="nav-link active" aria-current="page" [routerLink]="['/destinations']" routerLinkActive="active">Destinations</a>
       </li>

@@ -36,7 +36,7 @@ export class DestinationsListComponent implements OnInit{
   }
 
   fetchRecommendations(){
-    this.recommendService.getUserDestinations(this.loggedInUser.id).subscribe(
+    this.recommendService.getUserDestinations(this.loggedInUser).subscribe(
       userDestination => {
         this.recommendedDestinations = this.recommendService.recommendDestinations(userDestination,this.destinations);
       }
@@ -44,6 +44,7 @@ export class DestinationsListComponent implements OnInit{
   }
 
   filterDestinations() {
+    console.log('this.maxBudget:-',this.maxBudget);
     this.filteredDestinations = this.destinations.filter(destination => {
       return (
         (!this.filterType || destination.type.toLowerCase().includes(this.filterType.toLowerCase())) &&

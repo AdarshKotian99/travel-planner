@@ -14,35 +14,13 @@
       "activities": [
         {
           "destination": "Bali",
-          "description": "sdfgvsd",
-          "date": "2024-11-21T18:30:00.000Z"
-        }
-      ],
-      "feedbacks": [
-        {
-          "destinationName": "Paris",
-          "review": "new comment1",
-          "rating": 3
+          "description": "sdfsd",
+          "date": "2024-11-19T18:30:00.000Z"
         },
         {
-          "destinationName": "Paris",
-          "review": "new comment2",
-          "rating": 2
-        },
-        {
-          "destinationName": "Paris",
-          "review": "new comment 3",
-          "rating": 4
-        },
-        {
-          "destinationName": "Paris",
-          "review": "new comment 4",
-          "rating": 4
-        },
-        {
-          "destinationName": "Paris",
-          "review": "new comment 5",
-          "rating": 5
+          "destination": "fnfcgn",
+          "description": "fgjfgj",
+          "date": "2024-11-19T18:30:00.000Z"
         }
       ]
     }

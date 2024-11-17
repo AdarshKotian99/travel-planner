@@ -39,7 +39,7 @@ export class AuthService {
           console.log('user:-',user)
           this.isAuthenticated = true;
           this.saveUserToLocalStorage(user);
-          this.currentUserSubject.next(user);
+          this.currentUserSubject.next(user.id);
           return true;
         }else{
           return false;
@@ -55,14 +55,16 @@ export class AuthService {
     
     // Save the logged-in user's data to localStorage 
     private saveUserToLocalStorage(userData: any): void {
-      localStorage.setItem('loggedInUser', JSON.stringify(userData));
+      localStorage.setItem('loggedInUser', JSON.stringify(userData.id));
     }
     
     // Load the user data from localStorage
     private loadUserFromLocalStorage(): void {
       const userData = localStorage.getItem('loggedInUser');
+      console.log('userData:-',userData);
       if (userData) {
         this.currentUserSubject.next(JSON.parse(userData));
+        this.isAuthenticated = true;
       }
     }
     
@@ -80,7 +82,7 @@ export class AuthService {
     getUserData():Observable<user>{
       console.log('getUserData() called');
       console.log('this.currentUserSubject.value:-',this.currentUserSubject.value);
-       return this.http.get<user>(`http://localhost:3000/signupUsersList/${this.currentUserSubject.value.id}`)        
+       return this.http.get<user>(`http://localhost:3000/signupUsersList/${this.currentUserSubject.value}`)        
     }
     
   }
