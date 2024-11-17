@@ -30,20 +30,24 @@ export class DestinationsListComponent implements OnInit{
       this.filteredDestinations = data;
     })
     this.loggedInUser = this.authService.getLoggedInUser();
+    console.log('this.loggedInUser:-',this.loggedInUser);
     if(this.loggedInUser){
       this.fetchRecommendations()
     }
   }
 
   fetchRecommendations(){
+    console.log('fetchRecommendations called');
     this.recommendService.getUserDestinations(this.loggedInUser).subscribe(
       userDestination => {
         this.recommendedDestinations = this.recommendService.recommendDestinations(userDestination,this.destinations);
+        console.log('this.recommendedDestinations:-',this.recommendedDestinations);
       }
     );
   }
 
   filterDestinations() {
+    console.log('this.destinations:-',this.destinations);
     console.log('this.maxBudget:-',this.maxBudget);
     this.filteredDestinations = this.destinations.filter(destination => {
       return (
