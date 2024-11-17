@@ -52,8 +52,10 @@ export class ItineraryPlannerComponent implements OnInit{
   // Fetch the user's existing activities
   loadUserActivities() {
     if (this.loggedInUserId) {
+      console.log('this.loggedInUserId:-',this.loggedInUserId);
       this.http.get(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`).subscribe((userData: any) => {
-        this.activities = userData.hasOwnProperty('activities') ? userData.activities : [];
+        // this.activities = userData.hasOwnProperty('activities') ? userData.activities : [];
+        this.activities = userData.activities;
         // this.activities = userData.activities !== null ? userData.activities : [];
         this.shareableLink = `http://localhost:4200/sharedItinerary/${this.loggedInUserId}`;
       });
@@ -94,7 +96,7 @@ export class ItineraryPlannerComponent implements OnInit{
                 ...userData,
                 activities: [...this.activities],
               };
-              
+              console.log('this.loggedInUserId:-',this.loggedInUserId);
               // Make a PUT request to update the user's destinations
               this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe(() => {
                 // Reset the form after successfully adding

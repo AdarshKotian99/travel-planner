@@ -20,7 +20,7 @@ export class SignupComponent implements OnInit{
 
   handleSubmit(formData : any){
     this.auth.signUp(formData.value);
-    this.router.navigate(['/destinations']);
+    //this.router.navigate(['/login']);
   }
 
   redirectToLogin(){

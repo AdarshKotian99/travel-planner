@@ -17,7 +17,35 @@
           "description": "sdfsd",
           "date": "2024-11-19T18:30:00.000Z"
         }
-      ]
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "2c13",
+      "userEmail": "xyz@gmail.com",
+      "pass": "123",
+      "activities": [
+        {
+          "destination": "dsgdfg",
+          "description": "dfgdfg",
+          "date": "2024-11-26T18:30:00.000Z"
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "ba1e",
+      "userEmail": "pqr@gmail.com",
+      "pass": "123",
+      "activities": [],
+      "feedbacks": []
+    },
+    {
+      "id": "4637",
+      "userEmail": "pqr@gmail.com",
+      "pass": "123",
+      "activities": [],
+      "feedbacks": []
     }
   ]
 }

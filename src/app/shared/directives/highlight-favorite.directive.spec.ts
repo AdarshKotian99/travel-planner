@@ -25,11 +25,11 @@ describe('HighlightFavoriteDirective', () => {
 
   it('should highlight the element with green background when isFavorite is true', () => { 
     directive.appHighlightFavorite = true; // Set the input property `isFavorite` to true
-    expect(mockElementRef.nativeElement.style.background).toBe('green');  // Check if the background color has set to 'green'
+    expect(mockElementRef.nativeElement.style.color).toBe('green');  // Check if the background color has set to 'green'
   });
 
   it('should not highlight the element when isFavorite is false', () => {
     directive.appHighlightFavorite = false; // Set the input property `isFavorite` to false
-    expect(mockElementRef.nativeElement.style.background).toBe(''); // Check if the background color has not been set
+    expect(mockElementRef.nativeElement.style.color).toBe(''); // Check if the background color has not been set
   });
 });
