@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { Activity } from 'src/app/models/activity';
 
 @Component({
@@ -31,11 +30,8 @@ export class SharedItineraryComponent implements OnInit{
     this.http.get(`http://localhost:3000/signupUsersList/${id}`).subscribe(
       (userData : any)=>{
         this.activities = userData.hasOwnProperty('activities') ? userData.activities : [];
-        console.log('this.activities:-',this.activities);
         this.dataSource.data = this.activities;
       }
     )
   }
-
-
 }

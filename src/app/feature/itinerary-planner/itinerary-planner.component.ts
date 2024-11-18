@@ -14,7 +14,6 @@ import { Clipboard } from '@angular/cdk/clipboard';
 export class ItineraryPlannerComponent implements OnInit{
   
   loggedInUserId : string ='';  // Store the logged-in user's id
-  //loggedUserData : any; 
   itineraryForm: FormGroup;
   activities: Activity[] = [];
   shareableLink : string = '';
@@ -39,38 +38,40 @@ export class ItineraryPlannerComponent implements OnInit{
   
   ngOnInit(): void {
     this.loggedInUserId = this.authService.getLoggedInUser(); // Get logged-in user info
-    console.log('this.loggedInUserId:-',this.loggedInUserId);
     this.checkOffline();
     if(this.isOffline){
-      this.loadOfflineActivites();
+      this.loadOfflineActivites();  //load activities from local storage
     }else{
-      this.loadUserActivities();
+      this.loadUserActivities();  //load users exting activities 
     }
-    this.initializeSync();
+    this.initializeSync();  //sets up event listeners
   }
   
   // Fetch the user's existing activities
   loadUserActivities() {
     if (this.loggedInUserId) {
-      console.log('this.loggedInUserId:-',this.loggedInUserId);
-      this.http.get(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`).subscribe((userData: any) => {
-        // this.activities = userData.hasOwnProperty('activities') ? userData.activities : [];
-        this.activities = userData.activities;
-        // this.activities = userData.activities !== null ? userData.activities : [];
-        this.shareableLink = `http://localhost:4200/sharedItinerary/${this.loggedInUserId}`;
-      });
+      this.http.get(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`).subscribe({
+        next : (userData : any) => {
+          this.activities = userData.activities;
+          this.shareableLink = `http://localhost:4200/sharedItinerary/${this.loggedInUserId}`;  
+        }
+      })
+      // this.http.get(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`).subscribe((userData: any) => {
+      //   this.activities = userData.activities;
+      //   this.shareableLink = `http://localhost:4200/sharedItinerary/${this.loggedInUserId}`;
+      // });
     }
   }
   
+  //Loads user activities from loaclstorage
   loadOfflineActivites(){
     const offlineActivities = localStorage.getItem('activities');
     this.activities = offlineActivities ? JSON.parse(offlineActivities) : [];
   }
   
-  
+  //add activity to db aor localstorage
   addActivity() {
-    console.log('addActivity() called');
-    if (this.itineraryForm.valid) {
+    if (this.itineraryForm.valid) { //check validation
       const activity: Activity = {
         destination: this.itineraryForm.value.destination,
         description: this.itineraryForm.value.description,
@@ -84,29 +85,28 @@ export class ItineraryPlannerComponent implements OnInit{
       // Validate that activity date is within the travel dates
       if (activity.date >= startDate && activity.date <= endDate) {
         this.activities.push(activity);
-        if(this.isOffline){
+        if(this.isOffline){ //if offline , store activities in local storage
           offlineActivities.push(activity);
           localStorage.setItem('activities',JSON.stringify(offlineActivities));
-        }else{
-          //const userId = this.loggedInUserId;
-          
+        }else{  //if online update actvities data in db
           this.authService.getUserData().subscribe(
             userData => {
               const updatedUserData = {
                 ...userData,
                 activities: [...this.activities],
               };
-              console.log('this.loggedInUserId:-',this.loggedInUserId);
               // Make a PUT request to update the user's destinations
-              this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe(() => {
-                // Reset the form after successfully adding
-                //this.itineraryForm.reset();
-                this.resetForm();
-              });
+              this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe({
+                next : () => {
+                  this.resetForm(); // Reset the form after successfully adding
+                }
+              })
+              // this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe(() => {
+              //   this.resetForm(); // Reset the form after successfully adding
+              // });
             }
           );
         }
-        //this.itineraryForm.reset();
       } else {
         alert('Activity date must be within the travel dates.');
       }
@@ -117,7 +117,7 @@ export class ItineraryPlannerComponent implements OnInit{
     moveItemInArray(this.activities, event.previousIndex, event.currentIndex);
   }
   
-  deleteActivity(index: number) {
+  deleteActivity(index: number) { //deletes activity
     this.activities.splice(index, 1);
     this.authService.getUserData().subscribe(
       userData => {
@@ -128,19 +128,19 @@ export class ItineraryPlannerComponent implements OnInit{
     
   }
   
-  copyLinkToClipboard(){
+  copyLinkToClipboard(){  //to copy link to clipboard
     this.clipboard.copy(this.shareableLink);
     this.linkCopied = true;
   }
   
-  checkOffline(){
+  checkOffline(){ //checks if user is online or offline
     this.isOffline = !navigator.onLine;
   }
   
-  initializeSync(){
+  initializeSync(){ //sets up eventlistners
     window.addEventListener('online',()=>{
       this.isOffline = false;
-      this.syncData();
+      this.syncData();  //sync data is user goes online
       
     });
     window.addEventListener('offline',()=>{
@@ -148,16 +148,10 @@ export class ItineraryPlannerComponent implements OnInit{
     });
   }
   
-  syncData(){
-    console.log('syncData() called');
-    //const userId = this.loggedInUser.id;
+  syncData(){ //sync activities from localstorage to db
     this.loadOfflineActivites();
-  
-    
     this.authService.getUserData().subscribe(
-      userData => {
-        console.log('userData.activities:-',userData.activities);
-        console.log('this.activities:-',this.activities);      
+      userData => {      
         const updatedActivities = []; 
         updatedActivities.push(...userData.activities);
         updatedActivities.push(...this.activities);
@@ -165,19 +159,19 @@ export class ItineraryPlannerComponent implements OnInit{
           ...userData,
           activities: [...updatedActivities],
         };
-        console.log('updatedUserData:-',updatedUserData);
         // Make a PUT request to update the user's destinations
-        this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe(() => {
-          // Reset the form after successfully adding
-          //this.itineraryForm.reset();
-          this.resetForm();    
-          this.loadUserActivities();
-        });
+        this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe({
+          next : () => {
+            this.resetForm(); // Reset the form after successfully adding    
+            this.loadUserActivities();
+          }
+        })
+        // this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe(() => {
+        //   this.resetForm(); // Reset the form after successfully adding    
+        //   this.loadUserActivities();
+        // });
       }
     ); 
-    
-    
-    
   }
   
   resetForm(){

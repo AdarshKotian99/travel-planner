@@ -12,15 +12,13 @@
                 <p>{{destination.description}}</p>
                 <p><strong>Type:</strong> {{destination.type}}</p>
                 <p><strong>Budget:</strong> {{destination.budget | currencyFormat}}</p>
-                <!-- <p><strong>Rating:</strong> {{averageRating}}/5</p> -->
             </div>
         </div>
 
         <div class="mt-5">
             <h3>Add a Review</h3>
             <form (ngSubmit)="submitReview()" #reviewForm = "ngForm">
-                <div>
-                    
+                <div>                    
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Comment</mat-label>
                         <textarea matInput [(ngModel)]="review" name="review"></textarea>

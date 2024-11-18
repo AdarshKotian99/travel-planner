@@ -88,13 +88,13 @@ describe('ItineraryPlannerComponent', () => {
       endDate: new Date('2024-11-30'),
       destination: 'Paris',
       description: 'Eiffel Tower Visit',
-      date: new Date('2024-11-18'),  // Activity date is within the range
+      date: new Date('2024-11-18'),  // activity date is within the range
     });
 
     const activity: Activity = {
       destination: 'Paris',
       description: 'Eiffel Tower Visit',
-      date: new Date('2023-12-05'),
+      date: new Date('2024-11-18'),
     };
 
     component.addActivity();

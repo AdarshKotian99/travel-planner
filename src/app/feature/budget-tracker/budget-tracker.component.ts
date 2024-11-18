@@ -1,7 +1,7 @@
 import { Component,ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChartData, ChartOptions } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';  // Import this for access to the chart reference
+import { BaseChartDirective } from 'ng2-charts'; 
 import { CurrencyFormatPipe } from 'src/app/shared/pipes/currency-format.pipe';
 
 
@@ -10,6 +10,7 @@ import { CurrencyFormatPipe } from 'src/app/shared/pipes/currency-format.pipe';
   templateUrl: './budget-tracker.component.html',
   styleUrls: ['./budget-tracker.component.css'],
   providers : [CurrencyFormatPipe]
+  // providers : []
 })
 export class BudgetTrackerComponent {
 

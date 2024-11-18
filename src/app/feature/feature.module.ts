@@ -61,7 +61,6 @@ const routes : Routes = [
     RouterModule.forChild(routes)
   ],
   exports: [
-    // DestinationsListComponent
   ],
   providers:[
     MatDatepickerModule

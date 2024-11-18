@@ -6,7 +6,6 @@ import { Directive, ElementRef, Input } from '@angular/core';
 export class HighlightFavoriteDirective {
 
   constructor(private eleRef : ElementRef) { 
-    //eleRef.nativeElement.style.background = 'green';
   }
 
   @Input() set appHighlightFavorite(isFavorite : boolean){

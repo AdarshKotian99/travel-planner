@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { catchError } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Destination } from 'src/app/models/destination';
 import { Feedback } from 'src/app/models/feedback';
@@ -34,8 +35,8 @@ export class DestinationDetailsComponent implements OnInit{
   ){}
   
   ngOnInit(): void {
+    //fetching destination details from route parameter name
     this.destinationName = this.route.snapshot.paramMap.get('name');
-    console.log('this.destinationName:-',this.destinationName);
     this.http.get<Destination[]>('assets/mock-destinations.json').subscribe(
       data => {
         data.map(destination => {
@@ -44,38 +45,52 @@ export class DestinationDetailsComponent implements OnInit{
           }
         }
       )
-      console.log('this.destination',this.destination);
-      this.fetchFeedbacks();
+      this.fetchFeedbacks();  //fetch feedbacks
     }
-    
   )
 }
 
-fetchFeedbacks(){
-  this.http.get<user[]>('http://localhost:3000/signupUsersList').subscribe(
-    data => {
-      data.map(userData => {
-        const feedbackList = userData.feedbacks;
-        feedbackList.map(feedback => {
-          if(feedback.destinationName === this.destinationName){
-            this.feedbacks.push(feedback);
-          }
+fetchFeedbacks(){ //fetch feedback of specific destination
+  this.http.get<user[]>('http://localhost:3000/signupUsersList').subscribe({
+    next : (data) => {
+        data.map(userData => {
+          const feedbackList = userData.feedbacks;
+          feedbackList.map(feedback => {
+            if(feedback.destinationName === this.destinationName){
+              this.feedbacks.push(feedback);
+            }
+          })
         })
-      })
+    },
+    error : (err) => {
+
     }
+  }
   )
 }
+// fetchFeedbacks(){ //fetch feedback of specific destination
+//   this.http.get<user[]>('http://localhost:3000/signupUsersList').subscribe(
+//     data => {
+//       data.map(userData => {
+//         const feedbackList = userData.feedbacks;
+//         feedbackList.map(feedback => {
+//           if(feedback.destinationName === this.destinationName){
+//             this.feedbacks.push(feedback);
+//           }
+//         })
+//       })
+//     }
+//   )
+// }
 
 stars(rating : number) {
   return Array(Math.floor(rating));
 }
 
-submitReview(){
-  console.log('submitReview() called')
+submitReview(){ //updates feedback data in db
   try{
     this.authService.getUserData().subscribe(
       userData => {
-        console.log('userData:-',userData)
         let feedbacks : Feedback[] = [{
           destinationName : this.destinationName,
           review : this.review,
@@ -85,26 +100,23 @@ submitReview(){
         const updatedFeedbacks = [];
         updatedFeedbacks.push(...userData.feedbacks);
         updatedFeedbacks.push(...feedbacks);
-        console.log('updatedFeedbacks:-',updatedFeedbacks);
         const updatedUserData = {
           ...userData,
           feedbacks : updatedFeedbacks,
         };
-        console.log(`http://localhost:3000/signupUsersList/${userData.id}`);
-        console.log('updatedUserData:-',updatedUserData);
-        this.http.put(`http://localhost:3000/signupUsersList/${userData.id}`,updatedUserData).subscribe(()=>{
-          this.feedbacks.push(...feedbacks)
+        this.http.put(`http://localhost:3000/signupUsersList/${userData.id}`,updatedUserData).subscribe({
+          next : ()=> {
+            this.feedbacks.push(...feedbacks)  
+          }
         }
+        // this.http.put(`http://localhost:3000/signupUsersList/${userData.id}`,updatedUserData).subscribe(()=>{
+        //   this.feedbacks.push(...feedbacks)
+        // }
         );
       }
-      
     )
-    
-    
   }catch(e){
     console.log(e)
   }
-  
-  
 }
 }

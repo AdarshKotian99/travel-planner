@@ -12,8 +12,6 @@ export class NavbarComponent {
   private currentTheme: 'light' | 'dark' = 'light';
 
   constructor(private authService : AuthService, private router : Router){
-    //const savedTheme = localStorage.getItem('theme') as 'light' | 'dark';
-    //this.setTheme(savedTheme || 'light');
     this.setTheme('light');
   }
 
@@ -23,7 +21,6 @@ export class NavbarComponent {
   }
 
   toggleTheme(){
-    //document.body.classList.toggle('dark-theme');
     const newTheme = this.currentTheme === 'light' ? 'dark' : 'light';
     this.setTheme(newTheme);
 
@@ -34,9 +31,5 @@ export class NavbarComponent {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   }
-
-  // getTheme(): 'light' | 'dark' {
-  //   return this.currentTheme;
-  // }
 }
   

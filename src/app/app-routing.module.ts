@@ -13,7 +13,6 @@ const routes: Routes = [
   {path : 'sharedItinerary/:id', component : SharedItineraryComponent},
   // {path:'destinations',loadChildren: ()=> import('./feature/feature.module').then(mod => mod.FeatureModule)},
   {path:'destinations',loadChildren: ()=> import('./feature/feature.module').then(mod => mod.FeatureModule),canActivate : [authGuard]},
-  
   { path: '**', component: NotFoundComponent }
 ];
 

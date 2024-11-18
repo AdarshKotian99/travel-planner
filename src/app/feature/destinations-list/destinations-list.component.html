@@ -23,7 +23,8 @@
       <div class="card shadow">
         <img class="card-img-top" src="assets/images/{{destination.name}}.jpg">
         <div class="card-body">
-          <h3 [appHighlightFavorite]="destination.isFavorite" class="card-title">{{destination.name}}</h3>
+          <!-- <h3 [appHighlightFavorite]="destination.isFavorite" class="card-title">{{destination.name}}</h3> -->
+          <div [appHighlightFavorite]="destination.isFavorite" class="card-title" (click)="redirectTodetail(destination.name)">{{destination.name}}</div>
           <p class="card-text">{{destination.description | turncateDescription : 50}}</p>
           <p class="card-text">
             <strong>Type:</strong> {{destination.type}}
@@ -47,10 +48,10 @@
     <h2>Recommended Destinations</h2>
     <div class="col-md-3 mb-4" *ngFor="let destination of recommendedDestinations">
       <div class="card shadow">
-        <img class="card-img-top" src="assets/images/{{destination.name}}.jpg">
+          <img class="card-img-top" src="assets/images/{{destination.name}}.jpg">
         <div class="card-body">
           <!-- <div [appHighlightFavorite]="destination.isFavorite" class="card-title">{{destination.name}}</div> -->
-          <div  class="card-title">{{destination.name}}</div>
+          <div  class="card-title" (click)="redirectTodetail(destination.name)">{{destination.name}}</div>
           <p class="card-text">{{destination.description | turncateDescription : 50}}</p>
           <p class="card-text">
             <strong>Type:</strong> {{destination.type}}

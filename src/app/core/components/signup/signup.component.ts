@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -7,20 +7,15 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent implements OnInit{
+export class SignupComponent{
 
   constructor(private auth : AuthService, private router : Router){}
-
-  ngOnInit(): void {
-    console.log('ng oninit called');
-  }
 
   userEmail : string = '';
   pass : string = '';
 
   handleSubmit(formData : any){
-    this.auth.signUp(formData.value);
-    //this.router.navigate(['/login']);
+    this.auth.signUp(formData.value).add(()=>this.router.navigate(['/destinations']))
   }
 
   redirectToLogin(){
