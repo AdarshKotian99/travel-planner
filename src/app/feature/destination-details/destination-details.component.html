@@ -28,6 +28,9 @@
                         <input matInput type="number" [(ngModel)]="rating" min="1" max="5" required name="rating"/>
                     </mat-form-field>
                 </div>
+                <div *ngIf="submitReviewError">
+                    Error occured while submiting feedbacks. Try again.
+                </div>
                 
                 <button mat-raised-button color="primary" type="submit" [disabled]="reviewForm.invalid">
                     Submit
@@ -37,6 +40,9 @@
         
         <div class="mt-5">
             <h2>Reviews</h2>
+            <div *ngIf="fetchFeedBackError">
+                Error occured while fetching feedbacks.
+            </div>
             <div *ngFor="let feedback of feedbacks" class="mb-3">
                 <p>{{feedback.review}}</p>
                 <!-- <p><mat-icon *ngFor="let star of stars(feedback.rating)">star</mat-icon></p> -->

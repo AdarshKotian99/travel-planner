@@ -26,6 +26,8 @@ export class DestinationDetailsComponent implements OnInit{
   feedbacks : Feedback[] = [];
   rating : number = 0;;
   review : string = '';
+  fetchFeedBackError : boolean = false;
+  submitReviewError : boolean = false;
   
   constructor(
     private http : HttpClient,
@@ -52,20 +54,21 @@ export class DestinationDetailsComponent implements OnInit{
 fetchFeedbacks(){ //fetch feedback of specific destination
   this.http.get<user[]>('http://localhost:3000/signupUsersList').subscribe({
     next : (data) => {
-        data.map(userData => {
-          const feedbackList = userData.feedbacks;
-          feedbackList.map(feedback => {
-            if(feedback.destinationName === this.destinationName){
-              this.feedbacks.push(feedback);
-            }
-          })
+      data.map(userData => {
+        const feedbackList = userData.feedbacks;
+        feedbackList.map(feedback => {
+          if(feedback.destinationName === this.destinationName){
+            this.feedbacks.push(feedback);
+          }
         })
+      })
     },
     error : (err) => {
       console.log('error occured while fetching feedbacks,error:-',err);
+      this.fetchFeedBackError = true;
     }
   }
-  )
+)
 }
 // fetchFeedbacks(){ //fetch feedback of specific destination
 //   this.http.get<user[]>('http://localhost:3000/signupUsersList').subscribe(
@@ -87,35 +90,62 @@ stars(rating : number) {
 }
 
 submitReview(){ //updates feedback data in db
-  try{
-    this.authService.getUserData().subscribe(
-      userData => {
-        let feedbacks : Feedback[] = [{
-          destinationName : this.destinationName,
-          review : this.review,
-          rating : this.rating 
-        }]
+  this.authService.getUserData().subscribe({
+    next : (userData) => {
+      let feedbacks : Feedback[] = [{
+        destinationName : this.destinationName,
+        review : this.review,
+        rating : this.rating 
+      }]
+      
+      const updatedFeedbacks = [];
+      updatedFeedbacks.push(...userData.feedbacks);
+      updatedFeedbacks.push(...feedbacks);
+      const updatedUserData = {
+        ...userData,
+        feedbacks : updatedFeedbacks,
+      };
 
-        const updatedFeedbacks = [];
-        updatedFeedbacks.push(...userData.feedbacks);
-        updatedFeedbacks.push(...feedbacks);
-        const updatedUserData = {
-          ...userData,
-          feedbacks : updatedFeedbacks,
-        };
-        this.http.put(`http://localhost:3000/signupUsersList/${userData.id}`,updatedUserData).subscribe({
-          next : ()=> {
-            this.feedbacks.push(...feedbacks)  
-          }
+      this.http.put(`http://localhost:3000/signupUsersList/${userData.id}`,updatedUserData).subscribe({
+        next : ()=> {
+          this.feedbacks.push(...feedbacks)  
+        },
+        error : ()=>{
+          this.submitReviewError = true;    
         }
-        // this.http.put(`http://localhost:3000/signupUsersList/${userData.id}`,updatedUserData).subscribe(()=>{
-        //   this.feedbacks.push(...feedbacks)
-        // }
-        );
-      }
-    )
-  }catch(e){
-    console.log(e)
+
+      })
+    },
+    error : () => {
+      this.submitReviewError = true;
+    }
   }
+)
+//   this.authService.getUserData().subscribe(
+//     userData => {
+//       let feedbacks : Feedback[] = [{
+//         destinationName : this.destinationName,
+//         review : this.review,
+//         rating : this.rating 
+//       }]
+      
+//       const updatedFeedbacks = [];
+//       updatedFeedbacks.push(...userData.feedbacks);
+//       updatedFeedbacks.push(...feedbacks);
+//       const updatedUserData = {
+//         ...userData,
+//         feedbacks : updatedFeedbacks,
+//       };
+//       this.http.put(`http://localhost:3000/signupUsersList/${userData.id}`,updatedUserData).subscribe({
+//         next : ()=> {
+//           this.feedbacks.push(...feedbacks)  
+//         }
+//       }
+//       // this.http.put(`http://localhost:3000/signupUsersList/${userData.id}`,updatedUserData).subscribe(()=>{
+//       //   this.feedbacks.push(...feedbacks)
+//       // }
+//     );
+//   }
+// )
 }
 }

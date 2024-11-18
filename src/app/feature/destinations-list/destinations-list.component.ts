@@ -43,7 +43,7 @@ export class DestinationsListComponent implements OnInit{
       },
       error : (err) => {
         console.log('err:-',err);
-        this.recommendedDestinations = [];
+        //this.recommendedDestinations = [];
       }
     }
     );

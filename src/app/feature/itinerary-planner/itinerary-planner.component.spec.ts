@@ -18,8 +18,8 @@ describe('ItineraryPlannerComponent', () => {
   let fixture: ComponentFixture<ItineraryPlannerComponent>;
   let authService: AuthService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach( () => {
+     TestBed.configureTestingModule({
       declarations: [ItineraryPlannerComponent],
       imports: [
         ReactiveFormsModule,

@@ -38,6 +38,9 @@
         <button mat-raised-button color="primary" type="submit" [disabled]="itineraryForm.invalid">
           Add Activity
         </button>
+        <div *ngIf="loadUserActiviesError">
+          Error occured while adding activities.
+        </div>
       </form>
     </div>
     
@@ -55,6 +58,9 @@
       <p *ngIf="activities.length === 0" class="Info-text">Add activities to your itinerary</p>
       
       <div cdkDropList class="activity-list" (cdkDropListDropped)="drop($event)" *ngIf="activities.length > 0">
+        <div *ngIf="loadUserActiviesError">
+          Error occured while loading user activities. Try reloading page.
+        </div>
         <div
         *ngFor="let activity of activities; let i = index"
         cdkDrag

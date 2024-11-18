@@ -5,7 +5,19 @@
         <h3>Budget Tracker</h3>
         
         <!-- Set Budget Form -->
-        <form [formGroup]="budgetForm" (ngSubmit)="setBudget()">
+        <form #budgetForm="ngForm" (ngSubmit)="setBudget()">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Set Budget</mat-label>
+            <input matInput type="number" [(ngModel)]="totalBudget" name="totalBudget" #budgetElem="ngModel" placeholder="Enter your budget" required  [min]="1"/>
+            <div *ngIf="budgetElem.touched && budgetElem.errors?.['min']" style="color: red;margin-bottom: 1em;">
+              Minimum 1 is required for budget.
+          </div>
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit" [disabled]="budgetForm.invalid">
+            Set Budget
+          </button>
+          </form>
+        <!-- <form [formGroup]="budgetForm" (ngSubmit)="setBudget()">
           <mat-form-field appearance="fill" class="w-100">
             <mat-label>Set Budget</mat-label>
             <input matInput type="number" formControlName="budgetAmount" placeholder="Enter your budget" required  />
@@ -13,7 +25,7 @@
           <button mat-raised-button color="primary" type="submit" [disabled]="budgetForm.invalid">
             Set Budget
           </button>
-        </form>
+        </form> -->
     
         <!-- Add Expense Form -->
         <h4 class="mt-4">Add Expense</h4>

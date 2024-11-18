@@ -23,4 +23,16 @@ describe('CurrencyFormatPipe', () => {
     expect(result).toBe('₹ 1234.00');
   });
 
+  it('should handle values with no decimal places correctly', () => {
+    const value = 1500;
+    const result = pipe.transform(value);
+    expect(result).toBe('$ 1500.00');
+  });
+
+  it('should handle values with more than two decimal places correctly', () => {
+    const value = 1234.56789;
+    const result = pipe.transform(value, '€');
+    expect(result).toBe('€ 1234.57');
+  });
+
 });

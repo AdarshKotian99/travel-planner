@@ -14,11 +14,40 @@ export class AuthService {
     this.loadUserFromLocalStorage();
   }
   
-//   signUp(userData : user) : Observable<boolean>{
+  //   signUp(userData : user) : Observable<boolean>{
+  //     userData.activities = [];
+  //     userData.feedbacks = [];
+  //     return this.http.post<any>('http://localhost:3000/signupUsersList',userData).pipe(
+  
+  //     ).subscribe({
+  //       next : (res) => {
+  //         this.isAuthenticated = true;
+  //         this.saveUserToLocalStorage(res.id);
+  //         this.currentUserSubject.next(res.id);
+  //       }
+  //     }
+  //   );
+  // }
+  
+  signUp(userData : user){
+    userData.activities = [];
+    userData.feedbacks = [];
+    return this.http.post<any>('http://localhost:3000/signupUsersList',userData).pipe(
+      map((res) => {
+        this.isAuthenticated = true;
+        this.saveUserToLocalStorage(res.id);
+        this.currentUserSubject.next(res.id);
+      }),
+      catchError(() => {
+        return throwError(() => new Error('An unknown error occurred. Please try again.'))
+      }
+    ))
+}
+//   signUp(userData : user){
 //     userData.activities = [];
 //     userData.feedbacks = [];
 //     return this.http.post<any>('http://localhost:3000/signupUsersList',userData).pipe(
-    
+//       catchError(err => throwError(() => new Error(err.message)))
 //     ).subscribe({
 //       next : (res) => {
 //         this.isAuthenticated = true;
@@ -28,22 +57,6 @@ export class AuthService {
 //     }
 //   );
 // }
-
-  signUp(userData : user){
-    userData.activities = [];
-    userData.feedbacks = [];
-    return this.http.post<any>('http://localhost:3000/signupUsersList',userData).pipe(
-      // throwError(() => new Error('test'))
-      catchError(err => throwError(() => new Error(err.message)))
-    ).subscribe({
-      next : (res) => {
-        this.isAuthenticated = true;
-        this.saveUserToLocalStorage(res.id);
-        this.currentUserSubject.next(res.id);
-      }
-    }
-  );
-}
 
 login(userData : user) : Observable<boolean>{
   return this.http.get<any>('http://localhost:3000/signupUsersList').pipe(
@@ -59,8 +72,11 @@ login(userData : user) : Observable<boolean>{
       }else{
         return false;
       }
-    })
-  )
+    }),
+    catchError(() => {
+      return throwError(() => new Error('An unknown error occurred. Please try again.'))
+    }
+  ))
 }
 
 // Get the currently logged-in user's data

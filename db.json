@@ -16,6 +16,11 @@
           "destination": "New York",
           "description": "test description",
           "date": "2024-11-19T18:30:00.000Z"
+        },
+        {
+          "destination": "Sydney",
+          "description": "test description",
+          "date": "2024-11-26T18:30:00.000Z"
         }
       ],
       "feedbacks": [

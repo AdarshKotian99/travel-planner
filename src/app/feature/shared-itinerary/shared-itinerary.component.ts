@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { Activity } from 'src/app/models/activity';
+import { user } from 'src/app/models/user';
 
 @Component({
   selector: 'app-shared-itinerary',
@@ -27,11 +28,12 @@ export class SharedItineraryComponent implements OnInit{
 
   // Fetch the activities
   loadActivities(id : string){
-    this.http.get(`http://localhost:3000/signupUsersList/${id}`).subscribe(
-      (userData : any)=>{
+    this.http.get(`http://localhost:3000/signupUsersList/${id}`).subscribe({
+      next : (userData:any)=>{
         this.activities = userData.hasOwnProperty('activities') ? userData.activities : [];
         this.dataSource.data = this.activities;
       }
+    }
     )
   }
 }

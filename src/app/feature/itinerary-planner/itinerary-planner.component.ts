@@ -19,6 +19,8 @@ export class ItineraryPlannerComponent implements OnInit{
   shareableLink : string = '';
   linkCopied : boolean = false;
   isOffline : boolean = false;
+  loadUserActiviesError : boolean = false;
+  addActiviesError : boolean = false;
   
   constructor(
     private fb: FormBuilder, 
@@ -54,6 +56,10 @@ export class ItineraryPlannerComponent implements OnInit{
         next : (userData : any) => {
           this.activities = userData.activities;
           this.shareableLink = `http://localhost:4200/sharedItinerary/${this.loggedInUserId}`;  
+        },
+        error : (err) => {
+          console.log(err);
+          this.loadUserActiviesError = true;
         }
       })
       // this.http.get(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`).subscribe((userData: any) => {
@@ -89,25 +95,33 @@ export class ItineraryPlannerComponent implements OnInit{
           offlineActivities.push(activity);
           localStorage.setItem('activities',JSON.stringify(offlineActivities));
         }else{  //if online update actvities data in db
-          this.authService.getUserData().subscribe(
-            userData => {
-              const updatedUserData = {
-                ...userData,
-                activities: [...this.activities],
-              };
-              // Make a PUT request to update the user's destinations
-              this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe({
-                next : () => {
-                  this.resetForm(); // Reset the form after successfully adding
-                },
-                error : (err) =>{
-                  console.log('error ocurred during Add Activity',err);
-                }
-              })
-              // this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe(() => {
-              //   this.resetForm(); // Reset the form after successfully adding
-              // });
+          this.authService.getUserData().subscribe({
+            next : (userData)=> {
+                const updatedUserData = {
+                  ...userData,
+                  activities: [...this.activities],
+                };
+                // Make a PUT request to update the user's destinations
+                this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe({
+                  next : () => {
+                    this.resetForm(); // Reset the form after successfully adding
+                  },
+                  error : (err) =>{
+                    console.log('error ocurred during Add Activity',err);
+                    this.addActiviesError = true;
+                  }
+                })
+                // this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe(() => {
+                //   this.resetForm(); // Reset the form after successfully adding
+                // });
+
+            },
+            error : (err) =>{
+              console.log(err);
+              this.addActiviesError = true;
             }
+          }
+            
           );
         }
       } else {

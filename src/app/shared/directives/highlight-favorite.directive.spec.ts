@@ -1,6 +1,5 @@
 import { HighlightFavoriteDirective } from './highlight-favorite.directive';
 import { ElementRef } from '@angular/core';
-import { Directive, Input } from '@angular/core';
 
 describe('HighlightFavoriteDirective', () => {
   let directive: HighlightFavoriteDirective;
@@ -11,7 +10,7 @@ describe('HighlightFavoriteDirective', () => {
     mockElementRef = {
       nativeElement: {
         style: {
-          background: ''
+          color: ''
         }
       }
     } as ElementRef;
@@ -23,7 +22,7 @@ describe('HighlightFavoriteDirective', () => {
     expect(directive).toBeTruthy();
   });
 
-  it('should highlight the element with green background when isFavorite is true', () => { 
+  it('should highlight the element with green color when isFavorite is true', () => { 
     directive.appHighlightFavorite = true; // Set the input property `isFavorite` to true
     expect(mockElementRef.nativeElement.style.color).toBe('green');  // Check if the background color has set to 'green'
   });

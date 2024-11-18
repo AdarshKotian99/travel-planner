@@ -16,7 +16,7 @@ export class BudgetTrackerComponent {
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;  // Chart reference
 
-  budgetForm: FormGroup;
+  //budgetForm: FormGroup;
   expenseForm: FormGroup;
   totalBudget = 0;
   remainingBudget = 0;
@@ -50,9 +50,9 @@ export class BudgetTrackerComponent {
 
   constructor(private fb: FormBuilder, private currencyPipe : CurrencyFormatPipe) {
     // Initialize forms
-    this.budgetForm = this.fb.group({
-      budgetAmount: ['', [Validators.required, Validators.min(1)]]
-    });
+    // this.budgetForm = this.fb.group({
+    //   budgetAmount: ['', [Validators.required, Validators.min(1)]]
+    // });
 
     this.expenseForm = this.fb.group({
       category: ['', Validators.required],
@@ -62,12 +62,15 @@ export class BudgetTrackerComponent {
 
   // Set the total budget when the input is changed
   setBudget() {
-    if (this.budgetForm.valid) {
-      this.totalBudget = this.budgetForm.value.budgetAmount;
       this.remainingBudget = this.totalBudget - this.getTotalExpenses();
-      //this.budgetForm.reset();
-    }
   }
+  // setBudget() {
+  //   if (this.budgetForm.valid) {
+  //     this.totalBudget = this.budgetForm.value.budgetAmount;
+  //     this.remainingBudget = this.totalBudget - this.getTotalExpenses();
+  //     //this.budgetForm.reset();
+  //   }
+  // }
 
   // Add a new expense
   addExpense() {

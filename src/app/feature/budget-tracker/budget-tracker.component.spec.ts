@@ -8,16 +8,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CurrencyFormatPipe } from 'src/app/shared/pipes/currency-format.pipe';
-import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('BudgetTrackerComponent', () => {
   let component: BudgetTrackerComponent;
   let fixture: ComponentFixture<BudgetTrackerComponent>;
-  let currencyPipe: CurrencyFormatPipe;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       declarations: [ BudgetTrackerComponent, CurrencyFormatPipe ],
       imports: [
         ReactiveFormsModule, 
@@ -29,7 +27,7 @@ describe('BudgetTrackerComponent', () => {
         MatButtonModule,
         NoopAnimationsModule          
       ],
-      providers: [CurrencyFormatPipe]
+      providers: []
     }).compileComponents();
   });
 
@@ -37,7 +35,6 @@ describe('BudgetTrackerComponent', () => {
     fixture = TestBed.createComponent(BudgetTrackerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    currencyPipe = TestBed.inject(CurrencyFormatPipe);
   });
 
   it('should create the component', () => {
