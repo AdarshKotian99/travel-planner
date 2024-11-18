@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { catchError } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Destination } from 'src/app/models/destination';
 import { Feedback } from 'src/app/models/feedback';
@@ -63,7 +62,7 @@ fetchFeedbacks(){ //fetch feedback of specific destination
         })
     },
     error : (err) => {
-
+      console.log('error occured while fetching feedbacks,error:-',err);
     }
   }
   )

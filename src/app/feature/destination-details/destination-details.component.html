@@ -39,7 +39,11 @@
             <h2>Reviews</h2>
             <div *ngFor="let feedback of feedbacks" class="mb-3">
                 <p>{{feedback.review}}</p>
-                <p><mat-icon *ngFor="let star of stars(feedback.rating)">star</mat-icon></p>
+                <!-- <p><mat-icon *ngFor="let star of stars(feedback.rating)">star</mat-icon></p> -->
+                <div class="stars">
+                    <mat-icon *ngFor="let star of stars(feedback.rating)">star</mat-icon>
+                    <mat-icon *ngIf="feedback.rating % 1 >= 0.5">star_half</mat-icon>
+                  </div>
                 <hr>
             </div>
         </div>

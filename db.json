@@ -28,6 +28,16 @@
           "destinationName": "Paris",
           "review": "comment2",
           "rating": 2
+        },
+        {
+          "destinationName": "Paris",
+          "review": "comment4",
+          "rating": 2
+        },
+        {
+          "destinationName": "Paris",
+          "review": "comment4",
+          "rating": 3.5
         }
       ]
     },
@@ -89,6 +99,32 @@
           "date": "2024-11-19T18:30:00.000Z"
         }
       ],
+      "feedbacks": []
+    },
+    {
+      "id": "3380",
+      "userEmail": "testuser1@gmail.com",
+      "pass": "123",
+      "activities": [
+        {
+          "destination": "New York",
+          "description": "Test description",
+          "date": "2024-11-19T18:30:00.000Z"
+        }
+      ],
+      "feedbacks": [
+        {
+          "destinationName": "Paris",
+          "review": "comment3",
+          "rating": 3
+        }
+      ]
+    },
+    {
+      "id": "04a4",
+      "userEmail": "testuser1@gmail.com",
+      "pass": "123",
+      "activities": [],
       "feedbacks": []
     }
   ]
