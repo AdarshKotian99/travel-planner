@@ -13,8 +13,8 @@
       "pass": "123",
       "activities": [
         {
-          "destination": "Bali",
-          "description": "sdfsd",
+          "destination": "New York",
+          "description": "test description",
           "date": "2024-11-19T18:30:00.000Z"
         }
       ],

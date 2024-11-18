@@ -99,6 +99,9 @@ export class ItineraryPlannerComponent implements OnInit{
               this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe({
                 next : () => {
                   this.resetForm(); // Reset the form after successfully adding
+                },
+                error : (err) =>{
+                  console.log('error ocurred during Add Activity',err);
                 }
               })
               // this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe(() => {
@@ -164,7 +167,11 @@ export class ItineraryPlannerComponent implements OnInit{
           next : () => {
             this.resetForm(); // Reset the form after successfully adding    
             this.loadUserActivities();
+          },
+          error : (err) => {
+            console.log('error occured during syncData()',err);
           }
+
         })
         // this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe(() => {
         //   this.resetForm(); // Reset the form after successfully adding    

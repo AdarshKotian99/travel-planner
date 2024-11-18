@@ -15,7 +15,12 @@ export class SignupComponent{
   pass : string = '';
 
   handleSubmit(formData : any){
-    this.auth.signUp(formData.value).add(()=>this.router.navigate(['/destinations']))
+    //this.auth.signUp(formData.value)
+    try {
+      this.auth.signUp(formData.value).add(()=>this.router.navigate(['/destinations']))  
+    } catch (error) {
+      console.log('error occurred when signup',error);
+    }
   }
 
   redirectToLogin(){

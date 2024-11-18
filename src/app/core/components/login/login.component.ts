@@ -14,17 +14,31 @@ export class LoginComponent {
   userEmail : string = '';
   pass : string = '';
   loginSuccess : boolean | null = null;
+  loginError : boolean = false;
 
   userInfo !: user ; 
   handleLogin(formData : any){
-    this.auth.login(formData.value).subscribe(
-      (res : boolean) => {
+    this.auth.login(formData.value).subscribe({
+      next : (res) => {
         this.loginSuccess = res;
         if(this.loginSuccess){
           this.router.navigate(['/destinations']);
-        }    
+        }
+      },
+      error : (err) => {
+        console.log('error occured while login',err.message);
+        this.loginError = true;
       }
+    }
     )
+    // this.auth.login(formData.value).subscribe(
+    //   (res : boolean) => {
+    //     this.loginSuccess = res;
+    //     if(this.loginSuccess){
+    //       this.router.navigate(['/destinations']);
+    //     }    
+    //   }
+    // )
   }
 
   redirectToSignUp(){

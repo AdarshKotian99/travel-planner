@@ -8,12 +8,27 @@ import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
 })
 export class AuthService {
   private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private isAuthenticated : boolean = false;
   router : any;
   constructor(private http : HttpClient) { 
     this.loadUserFromLocalStorage();
   }
   
-  private isAuthenticated : boolean = false;
+//   signUp(userData : user) : Observable<boolean>{
+//     userData.activities = [];
+//     userData.feedbacks = [];
+//     return this.http.post<any>('http://localhost:3000/signupUsersList',userData).pipe(
+    
+//     ).subscribe({
+//       next : (res) => {
+//         this.isAuthenticated = true;
+//         this.saveUserToLocalStorage(res.id);
+//         this.currentUserSubject.next(res.id);
+//       }
+//     }
+//   );
+// }
+
   signUp(userData : user){
     userData.activities = [];
     userData.feedbacks = [];
