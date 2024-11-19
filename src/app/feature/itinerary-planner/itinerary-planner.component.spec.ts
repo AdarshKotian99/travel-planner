@@ -1,6 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ItineraryPlannerComponent } from './itinerary-planner.component';
-import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatNativeDateModule } from '@angular/material/core';
-import { of } from 'rxjs';
+import { from, of } from 'rxjs';
 import { Activity } from 'src/app/models/activity';
 
 describe('ItineraryPlannerComponent', () => {
@@ -34,7 +34,7 @@ describe('ItineraryPlannerComponent', () => {
         MatNativeDateModule,
       ],
       providers: [
-        FormBuilder,
+        // FormBuilder,
         {
           provide:AuthService,
           useValue:{
@@ -46,6 +46,7 @@ describe('ItineraryPlannerComponent', () => {
       ]
     })
     .compileComponents();
+    
     fixture = TestBed.createComponent(ItineraryPlannerComponent);
     component = fixture.componentInstance;
     authService = TestBed.inject(AuthService);
@@ -77,8 +78,9 @@ describe('ItineraryPlannerComponent', () => {
     component.syncData();
     tick(1);
 
-    expect(component.activities[0].destination).toEqual(offlineActivities[0].destination);
-    expect(component.activities[0].description).toEqual(offlineActivities[0].description);
+    //expect(component.activities).toEqual(offlineActivities);
+      expect(component.activities[0].destination).toEqual(offlineActivities[0].destination);
+      expect(component.activities[0].description).toEqual(offlineActivities[0].description);
   }));
 
   it('should add a valid activity', fakeAsync(() => {
