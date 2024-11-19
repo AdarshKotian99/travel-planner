@@ -1,7 +1,8 @@
 import { Directive, ElementRef, Input } from '@angular/core';
 
 @Directive({
-  selector: '[appHighlightFavorite]'
+  selector: '[appHighlightFavorite]',
+  standalone: false
 })
 export class HighlightFavoriteDirective {
 

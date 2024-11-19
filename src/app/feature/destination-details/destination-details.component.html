@@ -1,31 +1,31 @@
 <div class="container mt-5">
-    <div *ngIf="destination.name === 'Unknown' ; else content">
-        hello
+    <div *ngIf="fetchDestinationError ; else content">
+        Error occured while fetching destination. Try reloading the page. 
     </div>
     <ng-template #content>
         <div class="row">
-            <div class="col-md-6">
-                <img [src]="'assets/images/' + destination.name + '.jpg'" class="img-fluid" alt="{{destination.name}}">
-            </div>
-            <div class="col-md-6">
-                <h1>{{destination.name}}</h1>
-                <p>{{destination.description}}</p>
-                <p><strong>Type:</strong> {{destination.type}}</p>
-                <p><strong>Budget:</strong> {{destination.budget | currencyFormat}}</p>
-            </div>
+                <div class="col-md-6">
+                    <img [src]="'assets/images/' + destination.name + '.jpg'" class="img-fluid" alt="{{destination.name}}">
+                </div>
+                <div class="col-md-6">
+                    <h1>{{destination.name}}</h1>
+                    <p>{{destination.description}}</p>
+                    <p><strong>Type:</strong> {{destination.type}}</p>
+                    <p><strong>Budget:</strong> {{destination.budget | currencyFormat}}</p>
+                </div>
         </div>
 
         <div class="mt-5">
             <h3>Add a Review</h3>
-            <form (ngSubmit)="submitReview()" #reviewForm = "ngForm">
+            <form (ngSubmit)="submitReview()" #reviewForm = "ngForm" >
                 <div>                    
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Comment</mat-label>
-                        <textarea matInput [(ngModel)]="review" name="review"></textarea>
+                        <textarea matInput   [(ngModel)]="review" name="review"></textarea>
                     </mat-form-field>
-                    <mat-form-field appearance="outline" class="w-20">
+                    <mat-form-field appearance="outline"  class="w-20">
                         <mat-label>Rating</mat-label>
-                        <input matInput type="number" [(ngModel)]="rating" min="1" max="5" required name="rating"/>
+                        <input matInput type="number"  [(ngModel)]="rating" min="1" max="5" required name="rating"/>
                     </mat-form-field>
                 </div>
                 <div *ngIf="submitReviewError">

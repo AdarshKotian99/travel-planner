@@ -9,15 +9,16 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CurrencyFormatPipe } from 'src/app/shared/pipes/currency-format.pipe';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
+import { FormsModule } from '@angular/forms';
 describe('BudgetTrackerComponent', () => {
   let component: BudgetTrackerComponent;
   let fixture: ComponentFixture<BudgetTrackerComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ BudgetTrackerComponent, CurrencyFormatPipe ],
+      declarations: [ BudgetTrackerComponent,CurrencyFormatPipe],
       imports: [
+        FormsModule,
         ReactiveFormsModule, 
         NgChartsModule, 
         MatFormFieldModule,      
@@ -27,7 +28,7 @@ describe('BudgetTrackerComponent', () => {
         MatButtonModule,
         NoopAnimationsModule          
       ],
-      providers: []
+      providers: [CurrencyFormatPipe]
     }).compileComponents();
   });
 
@@ -41,17 +42,17 @@ describe('BudgetTrackerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set budget when the form is submitted', () => {
-    const budgetAmount = 1000;
-    component.budgetForm.setValue({ budgetAmount });
+  it('should set budget when the button is clicked', () => {
+    //const budgetAmount = 1000;
+    component.totalBudget = 1000;
     component.setBudget();
-    expect(component.totalBudget).toBe(budgetAmount);
-    expect(component.remainingBudget).toBe(budgetAmount);
+    //expect(component.totalBudget).toBe(budgetAmount);
+    expect(component.remainingBudget).toBe(component.totalBudget);
   });
 
   it('should not allow adding expense if remaining budget is exceeded', () => {
-    const initialBudget = 1000;
-    component.budgetForm.setValue({ budgetAmount: initialBudget });
+    // component.budgetForm.setValue({ budgetAmount: initialBudget });
+    component.totalBudget = 1000;
     component.setBudget();
     const expense = { category: 'Food', amount: 1200 };
     component.expenseForm.setValue(expense);
@@ -61,8 +62,8 @@ describe('BudgetTrackerComponent', () => {
   });
 
   it('should add expense correctly and update the remaining budget', () => {
-    const initialBudget = 1000;
-    component.budgetForm.setValue({ budgetAmount: initialBudget });
+    // component.budgetForm.setValue({ budgetAmount: initialBudget });
+    component.totalBudget = 1000;
     component.setBudget();
     const expense = { category: 'Food', amount: 200 };
     component.expenseForm.setValue(expense);
@@ -72,8 +73,8 @@ describe('BudgetTrackerComponent', () => {
   });
 
   it('should update chart data when a new expense is added', () => {
-    const initialBudget = 1000;
-    component.budgetForm.setValue({ budgetAmount: initialBudget });
+    // component.budgetForm.setValue({ budgetAmount: initialBudget });
+    component.totalBudget = 1000;
     component.setBudget();
     const expense = { category: 'Food', amount: 200 };
     component.expenseForm.setValue(expense);

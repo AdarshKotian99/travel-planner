@@ -8,7 +8,8 @@ import { user } from 'src/app/models/user';
 @Component({
   selector: 'app-shared-itinerary',
   templateUrl: './shared-itinerary.component.html',
-  styleUrls: ['./shared-itinerary.component.css']
+  styleUrls: ['./shared-itinerary.component.css'],
+  standalone:false
 })
 export class SharedItineraryComponent implements OnInit{
   activities: Activity[]=[];

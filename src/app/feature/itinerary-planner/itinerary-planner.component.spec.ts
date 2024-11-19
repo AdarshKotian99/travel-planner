@@ -75,7 +75,7 @@ describe('ItineraryPlannerComponent', () => {
     ];
     spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(offlineActivities));
     component.syncData();
-    tick();
+    tick(1);
 
     expect(component.activities[0].destination).toEqual(offlineActivities[0].destination);
     expect(component.activities[0].description).toEqual(offlineActivities[0].description);
@@ -98,7 +98,7 @@ describe('ItineraryPlannerComponent', () => {
     };
 
     component.addActivity();
-    tick();
+    tick(1);
 
     expect(component.activities.length).toBe(1);
     expect(component.activities[0].destination).toEqual(activity.destination);

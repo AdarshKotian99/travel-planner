@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-itinerary-planner',
   templateUrl: './itinerary-planner.component.html',
   styleUrls: ['./itinerary-planner.component.css'],
+  standalone: false
 })
 export class ItineraryPlannerComponent implements OnInit , OnDestroy{
   

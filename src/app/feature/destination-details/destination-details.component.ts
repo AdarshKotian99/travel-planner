@@ -9,10 +9,12 @@ import { user } from 'src/app/models/user';
 @Component({
   selector: 'app-destination-details',
   templateUrl: './destination-details.component.html',
-  styleUrls: ['./destination-details.component.css']
+  styleUrls: ['./destination-details.component.css'],
+  standalone: false
 })
 export class DestinationDetailsComponent implements OnInit{
-  
+   
+  //destination !: Destination;
   destination : Destination = {
     name : 'Unknown',
     description : 'Unknown',
@@ -28,6 +30,7 @@ export class DestinationDetailsComponent implements OnInit{
   review : string = '';
   fetchFeedBackError : boolean = false;
   submitReviewError : boolean = false;
+  fetchDestinationError : boolean = false;
   
   constructor(
     private http : HttpClient,
@@ -38,18 +41,32 @@ export class DestinationDetailsComponent implements OnInit{
   ngOnInit(): void {
     //fetching destination details from route parameter name
     this.destinationName = this.route.snapshot.paramMap.get('name');
-    this.http.get<Destination[]>('assets/mock-destinations.json').subscribe(
-      data => {
+    this.http.get<Destination[]>('assets/mock-destinations.json').subscribe({
+      next : (data) => {
         data.map(destination => {
           if(destination.name === this.destinationName){
             this.destination = destination;
           }
-        }
-      )
-      this.fetchFeedbacks();  //fetch feedbacks
+        })
+        this.fetchFeedbacks();  //fetch feedbacks
+      },
+      error : (err) => {
+        this.fetchDestinationError = true;
+      }
+    })
     }
-  )
-}
+  //   this.http.get<Destination[]>('assets/mock-destinations.json').subscribe(
+  //     data => {
+  //       data.map(destination => {
+  //         if(destination.name === this.destinationName){
+  //           this.destination = destination;
+  //         }
+  //       }
+  //     )
+  //     this.fetchFeedbacks();  //fetch feedbacks
+  //   }
+  // )
+
 
 fetchFeedbacks(){ //fetch feedback of specific destination
   this.http.get<user[]>('http://localhost:3000/signupUsersList').subscribe({

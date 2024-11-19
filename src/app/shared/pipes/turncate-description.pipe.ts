@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'turncateDescription'
+  name: 'turncateDescription',
+  standalone:false
 })
 export class TurncateDescriptionPipe implements PipeTransform {
 
