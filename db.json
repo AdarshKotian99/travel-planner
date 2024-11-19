@@ -15,12 +15,7 @@
         {
           "destination": "New York",
           "description": "test description",
-          "date": "2024-11-19T18:30:00.000Z"
-        },
-        {
-          "destination": "test destination",
-          "description": "dskjgn",
-          "date": "2024-11-26T18:30:00.000Z"
+          "date": "2024-11-25T18:30:00.000Z"
         }
       ],
       "feedbacks": [
@@ -176,6 +171,13 @@
           "rating": 3
         }
       ]
+    },
+    {
+      "id": "5b0e",
+      "userEmail": "newtest4@gmail.com",
+      "pass": "123",
+      "activities": [],
+      "feedbacks": []
     }
   ]
 }

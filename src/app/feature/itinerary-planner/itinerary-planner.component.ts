@@ -66,10 +66,6 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
         }
       })
       this.subscriptions.push(sub);
-      // this.http.get(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`).subscribe((userData: any) => {
-      //   this.activities = userData.activities;
-      //   this.shareableLink = `http://localhost:4200/sharedItinerary/${this.loggedInUserId}`;
-      // });
     }
   }
   
@@ -110,7 +106,7 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
                   activities: [...this.activities],
                 };
                 // Make a PUT request to update the user's destinations
-                const sub = this.http.put(`http://localhost:3000/signupUsersList123/${this.loggedInUserId}`, updatedUserData).subscribe({
+                const sub = this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe({
                   next : () => {
                     this.resetForm(); // Reset the form after successfully adding
                   },

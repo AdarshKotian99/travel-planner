@@ -1,5 +1,9 @@
 <div class="container mt-5 mb-5 w-50">
-    <h3>Shared Itineraries</h3>
+    <div *ngIf="fetchActivitiesError ; else content">
+        Error occured while loading itinerary. Try reloading the page
+    </div>
+    <ng-template #content>
+        <h3>Shared Itineraries</h3>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
      
         <!-- Destination Column -->
@@ -23,4 +27,5 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    </ng-template>
 </div>  

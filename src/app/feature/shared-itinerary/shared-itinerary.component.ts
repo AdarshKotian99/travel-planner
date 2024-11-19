@@ -16,6 +16,7 @@ export class SharedItineraryComponent implements OnInit{
   displayedColumns: string[] = ['destination','description','date'];
   dataSource = new MatTableDataSource<Activity>();
   userId : any;
+  fetchActivitiesError : boolean = false;
 
   constructor(
     private route : ActivatedRoute,
@@ -29,10 +30,14 @@ export class SharedItineraryComponent implements OnInit{
 
   // Fetch the activities
   loadActivities(id : string){
-    this.http.get(`http://localhost:3000/signupUsersList/${id}`).subscribe({
-      next : (userData:any)=>{
-        this.activities = userData.hasOwnProperty('activities') ? userData.activities : [];
+    this.http.get<user>(`http://localhost:3000/signupUsersList/${id}`).subscribe({
+      next : (userData)=>{
+        this.activities = userData.activities;
+        // this.activities = userData.hasOwnProperty('activities') ? userData.activities : [];
         this.dataSource.data = this.activities;
+      },
+      error : (err)=>{
+        this.fetchActivitiesError = true;
       }
     }
     )

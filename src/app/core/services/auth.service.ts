@@ -9,31 +9,16 @@ import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
 export class AuthService {
   private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   private isAuthenticated : boolean = false;
-  router : any;
   constructor(private http : HttpClient) { 
     this.loadUserFromLocalStorage();
   }
   
-  //   signUp(userData : user) : Observable<boolean>{
-  //     userData.activities = [];
-  //     userData.feedbacks = [];
-  //     return this.http.post<any>('http://localhost:3000/signupUsersList',userData).pipe(
-  
-  //     ).subscribe({
-  //       next : (res) => {
-  //         this.isAuthenticated = true;
-  //         this.saveUserToLocalStorage(res.id);
-  //         this.currentUserSubject.next(res.id);
-  //       }
-  //     }
-  //   );
-  // }
-  
   signUp(userData : user){
     userData.activities = [];
     userData.feedbacks = [];
-    return this.http.post<any>('http://localhost:3000/signupUsersList',userData).pipe(
+    return this.http.post<user>('http://localhost:3000/signupUsersList',userData).pipe(
       map((res) => {
+        console.log('res:-',res);
         this.isAuthenticated = true;
         this.saveUserToLocalStorage(res.id);
         this.currentUserSubject.next(res.id);
@@ -43,25 +28,12 @@ export class AuthService {
       }
     ))
 }
-//   signUp(userData : user){
-//     userData.activities = [];
-//     userData.feedbacks = [];
-//     return this.http.post<any>('http://localhost:3000/signupUsersList',userData).pipe(
-//       catchError(err => throwError(() => new Error(err.message)))
-//     ).subscribe({
-//       next : (res) => {
-//         this.isAuthenticated = true;
-//         this.saveUserToLocalStorage(res.id);
-//         this.currentUserSubject.next(res.id);
-//       }
-//     }
-//   );
-// }
 
 login(userData : user) : Observable<boolean>{
-  return this.http.get<any>('http://localhost:3000/signupUsersList').pipe(
+  return this.http.get<user[]>('http://localhost:3000/signupUsersList').pipe(
     map((users)=>{
-      const user = users.find((user : any)=>{
+      console.log('users:-',users);
+      const user = users.find((user)=>{
         return user.userEmail === userData.userEmail && user.pass === userData.pass;
       });
       if(user){
