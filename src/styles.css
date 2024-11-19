@@ -9,6 +9,21 @@
   --button-disabled-text: rgba(0, 0, 0, 0.38); /* Default disabled text */
   --text-muted-color: grey;
   --mdc-label-color : black;
+  --navbar-collapse-color : #fbf9f9;
+}
+
+/* Dark mode overrides */
+[data-theme='dark'] {
+  --background-color: #121212;
+  --text-color: #ffffff;
+  --primary-color: #bb86fc; /* Dark mode primary color */
+  --navbar-bg-color: #000; /* Black background */
+  --navbar-text-color: #fff; /* White text color */
+  --button-disabled-bg: rgba(255, 255, 255, 0.2); /* White with transparency */
+  --button-disabled-text: rgba(255, 255, 255, 0.5); /* Lighter text for dark theme */
+  --text-muted-color: #fff;
+  --mdc-label-color : white;
+  --navbar-collapse-color : black;
 }
 
 /* Global styles for body and document */
@@ -23,24 +38,21 @@ body {
     color: var(--text-color) !important;
 }
 
-/* Dark mode overrides */
-[data-theme='dark'] {
-    --background-color: #121212;
-    --text-color: #ffffff;
-    --primary-color: #bb86fc; /* Dark mode primary color */
-    --navbar-bg-color: #000; /* Black background */
-    --navbar-text-color: #fff; /* White text color */
-    --button-disabled-bg: rgba(255, 255, 255, 0.2); /* White with transparency */
-    --button-disabled-text: rgba(255, 255, 255, 0.5); /* Lighter text for dark theme */
-    --text-muted-color: #fff;
-    --mdc-label-color : white;
-}
+
 
 .navbar {
     background-color: var(--navbar-bg-color) !important;
     color: var(--navbar-text-color) !important;
   }
 
+  .collapse{
+    background-color: var(--navbar-collapse-color) !important;
+  }
+
+  /* .navbar .navbar-brand {
+    color: var(--navbar-text-color) !important;
+  } */
+  
   .navbar a, .navbar .nav-link, .navbar-brand {
     color: var(--navbar-text-color) !important;
   }
@@ -58,30 +70,3 @@ body {
     color : var(--mdc-label-color)!important;
   }
 
-/* Angular Material specific classes, adjusted to use CSS variables */
-/* .mat-primary {
-color: var(--primary-color) !important;
-} */
-/* .mat-form-field {
-    border-color: var(--form-field-border) !important;
-}
-.customField{
-    color: white!important;
-}
-
-.mat-form-field-label {
-    color: var(--form-field-label-color) !important;
-  }
-
-  .mat-form-field-infix {
-    color: var(--form-field-placeholder-color) !important;
-  }
-
-  .mat-input-element {
-    color: var(--text-color) !important;
-  }
-  .mat-form-field-underline {
-    background-color: var(--form-field-border) !important;
-  } */
-
-/* Add more overrides for other Angular Material components as needed */

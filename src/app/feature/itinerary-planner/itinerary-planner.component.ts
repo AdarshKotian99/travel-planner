@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-itinerary-planner',
   templateUrl: './itinerary-planner.component.html',
   styleUrls: ['./itinerary-planner.component.css'],
+  standalone: false
 })
 export class ItineraryPlannerComponent implements OnInit , OnDestroy{
   
@@ -65,10 +66,6 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
         }
       })
       this.subscriptions.push(sub);
-      // this.http.get(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`).subscribe((userData: any) => {
-      //   this.activities = userData.activities;
-      //   this.shareableLink = `http://localhost:4200/sharedItinerary/${this.loggedInUserId}`;
-      // });
     }
   }
   
@@ -83,7 +80,7 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
     if (this.itineraryForm.valid) { //check validation
       const activity: Activity = {
         destination: this.itineraryForm.value.destination,
-        description: this.itineraryForm.value.description,
+        description: this.itineraryForm.value.description, 
         date: this.itineraryForm.value.date
       };
       const offlineActivities : Activity[] =[];
@@ -93,13 +90,14 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
       
       // Validate that activity date is within the travel dates
       if (activity.date >= startDate && activity.date <= endDate) {
-        this.activities.push(activity);
         if(this.isOffline){ //if offline , store activities in local storage
+          this.activities.push(activity);
           offlineActivities.push(activity);
           localStorage.setItem('activities',JSON.stringify(offlineActivities));
         }else{  //if online update actvities data in db
           const sub = this.authService.getUserData().subscribe({
             next : (userData)=> {
+              this.activities.push(activity);
                 const updatedUserData = {
                   ...userData,
                   activities: [...this.activities],
@@ -110,15 +108,13 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
                     this.resetForm(); // Reset the form after successfully adding
                   },
                   error : (err) =>{
+                    const index = this.activities.indexOf(activity);
+                    this.activities.splice(index,1);  //remove from array if add activity fails
                     console.log('error ocurred during Add Activity',err);
                     this.addActiviesError = true;
                   }
                 })
                 this.subscriptions.push(sub);
-                // this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe(() => {
-                //   this.resetForm(); // Reset the form after successfully adding
-                // });
-
             },
             error : (err) =>{
               console.log(err);
@@ -197,10 +193,6 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
 
         })
         this.subscriptions.push(sub);
-        // this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe(() => {
-        //   this.resetForm(); // Reset the form after successfully adding    
-        //   this.loadUserActivities();
-        // });
       }
     ); 
     this.subscriptions.push(sub);

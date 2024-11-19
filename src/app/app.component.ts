@@ -6,6 +6,7 @@ import { NavigationStart, Router } from '@angular/router';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  standalone: false
 })
 export class AppComponent {
   showNavbar = true;  // Default value to show navbar
