@@ -9,8 +9,7 @@ import { CurrencyFormatPipe } from 'src/app/shared/pipes/currency-format.pipe';
   selector: 'app-budget-tracker',
   templateUrl: './budget-tracker.component.html',
   styleUrls: ['./budget-tracker.component.css'],
-  providers : [],
-  // providers : [CurrencyFormatPipe],
+  providers : [CurrencyFormatPipe],
   standalone:false
   // providers : []
 })

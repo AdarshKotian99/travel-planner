@@ -15,15 +15,12 @@ export class LoginComponent {
   userEmail : string = '';
   pass : string = '';
   errorMessage: string = '';
-  //loginSuccess : boolean = false;
-  // loginSuccess : boolean | null = null;
   loginError : boolean = false;
 
   userInfo !: user ; 
   handleLogin(formData : any){
     this.auth.login(formData.value).subscribe({
       next : (res) => {
-        // this.loginSuccess = res;
         if(res){
           this.router.navigate(['/destinations']);
         }else{
@@ -31,18 +28,10 @@ export class LoginComponent {
         }
       },
       error : (err) => {
-        this.errorMessage = err;
+        this.errorMessage = err.message;
       }
     }
     )
-    // this.auth.login(formData.value).subscribe(
-    //   (res : boolean) => {
-    //     this.loginSuccess = res;
-    //     if(this.loginSuccess){
-    //       this.router.navigate(['/destinations']);
-    //     }    
-    //   }
-    // )
   }
 
   redirectToSignUp(){

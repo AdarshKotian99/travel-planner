@@ -18,13 +18,6 @@
                 <input matInput type="password" placeholder="Password" required [(ngModel)]="pass" name="pass"/>
             </mat-form-field>
 
-            <!-- <p *ngIf="loginSuccess === false" style="color: red;">
-                User Email or Password is invalid.
-            </p>
-            <p *ngIf="loginError === true" style="color: red;">
-                Error occured during login. Try again.
-            </p> -->
-
             <p *ngIf="errorMessage" style="color: red; text-align: center; margin-top: 1em;">
                 {{ errorMessage }}
             </p>

@@ -55,17 +55,6 @@ export class DestinationDetailsComponent implements OnInit{
       }
     })
     }
-  //   this.http.get<Destination[]>('assets/mock-destinations.json').subscribe(
-  //     data => {
-  //       data.map(destination => {
-  //         if(destination.name === this.destinationName){
-  //           this.destination = destination;
-  //         }
-  //       }
-  //     )
-  //     this.fetchFeedbacks();  //fetch feedbacks
-  //   }
-  // )
 
 
 fetchFeedbacks(){ //fetch feedback of specific destination
@@ -87,20 +76,6 @@ fetchFeedbacks(){ //fetch feedback of specific destination
   }
 )
 }
-// fetchFeedbacks(){ //fetch feedback of specific destination
-//   this.http.get<user[]>('http://localhost:3000/signupUsersList').subscribe(
-//     data => {
-//       data.map(userData => {
-//         const feedbackList = userData.feedbacks;
-//         feedbackList.map(feedback => {
-//           if(feedback.destinationName === this.destinationName){
-//             this.feedbacks.push(feedback);
-//           }
-//         })
-//       })
-//     }
-//   )
-// }
 
 stars(rating : number) {
   return Array(Math.floor(rating));
