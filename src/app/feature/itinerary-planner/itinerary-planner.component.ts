@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Activity } from 'src/app/models/activity';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-itinerary-planner',
   templateUrl: './itinerary-planner.component.html',
   styleUrls: ['./itinerary-planner.component.css'],
 })
-export class ItineraryPlannerComponent implements OnInit{
+export class ItineraryPlannerComponent implements OnInit , OnDestroy{
   
   loggedInUserId : string ='';  // Store the logged-in user's id
   itineraryForm: FormGroup;
@@ -21,6 +22,7 @@ export class ItineraryPlannerComponent implements OnInit{
   isOffline : boolean = false;
   loadUserActiviesError : boolean = false;
   addActiviesError : boolean = false;
+  private subscriptions: Subscription[] = [];
   
   constructor(
     private fb: FormBuilder, 
@@ -52,7 +54,7 @@ export class ItineraryPlannerComponent implements OnInit{
   // Fetch the user's existing activities
   loadUserActivities() {
     if (this.loggedInUserId) {
-      this.http.get(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`).subscribe({
+      const sub = this.http.get(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`).subscribe({
         next : (userData : any) => {
           this.activities = userData.activities;
           this.shareableLink = `http://localhost:4200/sharedItinerary/${this.loggedInUserId}`;  
@@ -62,6 +64,7 @@ export class ItineraryPlannerComponent implements OnInit{
           this.loadUserActiviesError = true;
         }
       })
+      this.subscriptions.push(sub);
       // this.http.get(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`).subscribe((userData: any) => {
       //   this.activities = userData.activities;
       //   this.shareableLink = `http://localhost:4200/sharedItinerary/${this.loggedInUserId}`;
@@ -95,14 +98,14 @@ export class ItineraryPlannerComponent implements OnInit{
           offlineActivities.push(activity);
           localStorage.setItem('activities',JSON.stringify(offlineActivities));
         }else{  //if online update actvities data in db
-          this.authService.getUserData().subscribe({
+          const sub = this.authService.getUserData().subscribe({
             next : (userData)=> {
                 const updatedUserData = {
                   ...userData,
                   activities: [...this.activities],
                 };
                 // Make a PUT request to update the user's destinations
-                this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe({
+                const sub = this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe({
                   next : () => {
                     this.resetForm(); // Reset the form after successfully adding
                   },
@@ -111,6 +114,7 @@ export class ItineraryPlannerComponent implements OnInit{
                     this.addActiviesError = true;
                   }
                 })
+                this.subscriptions.push(sub);
                 // this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe(() => {
                 //   this.resetForm(); // Reset the form after successfully adding
                 // });
@@ -123,6 +127,7 @@ export class ItineraryPlannerComponent implements OnInit{
           }
             
           );
+          this.subscriptions.push(sub);
         }
       } else {
         alert('Activity date must be within the travel dates.');
@@ -139,7 +144,8 @@ export class ItineraryPlannerComponent implements OnInit{
     this.authService.getUserData().subscribe(
       userData => {
         const updatedUserData = { ...userData, activities: [...this.activities] };
-        this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe();
+        const sub = this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe();
+        this.subscriptions.push(sub);
       }
     );
     
@@ -155,19 +161,22 @@ export class ItineraryPlannerComponent implements OnInit{
   }
   
   initializeSync(){ //sets up eventlistners
-    window.addEventListener('online',()=>{
-      this.isOffline = false;
-      this.syncData();  //sync data is user goes online
-      
-    });
-    window.addEventListener('offline',()=>{
-      this.isOffline = true;
-    });
+    window.addEventListener('online',this.handleOnline);
+    window.addEventListener('offline',this.handleOffline);
   }
+
+  private handleOnline = () => {
+    this.isOffline = false;
+    this.syncData(); // Sync data when going online
+  };
+
+  private handleOffline = () => {
+    this.isOffline = true;
+  };
   
   syncData(){ //sync activities from localstorage to db
     this.loadOfflineActivites();
-    this.authService.getUserData().subscribe(
+    const sub = this.authService.getUserData().subscribe(
       userData => {      
         const updatedActivities = []; 
         updatedActivities.push(...userData.activities);
@@ -177,7 +186,7 @@ export class ItineraryPlannerComponent implements OnInit{
           activities: [...updatedActivities],
         };
         // Make a PUT request to update the user's destinations
-        this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe({
+        const sub = this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe({
           next : () => {
             this.resetForm(); // Reset the form after successfully adding    
             this.loadUserActivities();
@@ -187,18 +196,26 @@ export class ItineraryPlannerComponent implements OnInit{
           }
 
         })
+        this.subscriptions.push(sub);
         // this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe(() => {
         //   this.resetForm(); // Reset the form after successfully adding    
         //   this.loadUserActivities();
         // });
       }
     ); 
+    this.subscriptions.push(sub);
   }
   
   resetForm(){
     this.itineraryForm.controls['destination'].reset();
     this.itineraryForm.controls['description'].reset();
     this.itineraryForm.controls['date'].reset();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+    window.removeEventListener('online', this.handleOnline);
+    window.removeEventListener('offline', this.handleOffline);
   }
   
   
