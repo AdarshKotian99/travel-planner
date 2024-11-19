@@ -43,6 +43,16 @@
           "destinationName": "Paris",
           "review": "new feedback",
           "rating": 2
+        },
+        {
+          "destinationName": "Paris",
+          "review": "",
+          "rating": 4
+        },
+        {
+          "destinationName": "Paris",
+          "review": " ",
+          "rating": 4
         }
       ]
     },

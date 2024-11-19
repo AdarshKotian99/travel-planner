@@ -19,14 +19,17 @@
             <h3>Add a Review</h3>
             <form (ngSubmit)="submitReview()" #reviewForm = "ngForm" >
                 <div>                    
-                    <mat-form-field appearance="outline" class="w-100">
+                    <mat-form-field appearance="fill" class="w-100">
                         <mat-label>Comment</mat-label>
-                        <textarea matInput   [(ngModel)]="review" name="review"></textarea>
+                        <textarea matInput [(ngModel)]="review" name="review" required></textarea>
                     </mat-form-field>
-                    <mat-form-field appearance="outline"  class="w-20">
+                    <mat-form-field appearance="fill"  class="w-20">
                         <mat-label>Rating</mat-label>
-                        <input matInput type="number"  [(ngModel)]="rating" min="1" max="5" required name="rating"/>
+                        <input matInput type="number"  [(ngModel)]="rating" min="1" max="5" required name="rating" #ratingELem = "ngModel"/>
                     </mat-form-field>
+                </div>
+                <div *ngIf="ratingELem.touched && (ratingELem.errors?.['min'] || ratingELem.errors?.['max'])" style="color: red;margin-bottom: 1em;">
+                    Rating should be between 1 to 5.
                 </div>
                 <div *ngIf="submitReviewError">
                     Error occured while submiting feedbacks. Try again.
@@ -42,6 +45,9 @@
             <h2>Reviews</h2>
             <div *ngIf="fetchFeedBackError">
                 Error occured while fetching feedbacks.
+            </div>
+            <div *ngIf="feedbacks.length === 0">
+                No reviews yet.
             </div>
             <div *ngFor="let feedback of feedbacks" class="mb-3">
                 <p>{{feedback.review}}</p>

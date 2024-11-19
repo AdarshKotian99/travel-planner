@@ -30,25 +30,24 @@ export class DestinationsListComponent implements OnInit , OnDestroy{
     //fetch destination data from mock json file
     const sub = this.http.get<any[]>('assets/mock-destinations.json').subscribe({
       next : (data) => {
-        this.destinations = data;
+        this.destinations = data; //store all fetched destintions
         this.filteredDestinations = data;
       },
       error : () => {
         this.fetchDestinationError = true;
       }
     })
-    this.subscriptions.push(sub);
+    this.subscriptions.push(sub); //store subscription in a array to unsubscribe it on destroy
     this.loggedInUser = this.authService.getLoggedInUser(); //get logged in user info
     if(this.loggedInUser){
-      this.fetchRecommendations() //fecthes recommendations
+      this.fetchRecommendations() //fetches recommendations
     }
   }
   
   fetchRecommendations(){ //fetches recommendations based on user itinerary activities
-    console.log('this.loggedInUser:-',this.loggedInUser);
     const sub = this.recommendService.getUserDestinations(this.loggedInUser).subscribe({
       next : (userDestination) => {
-        this.recommendedDestinations = this.recommendService.recommendDestinations(userDestination,this.destinations);
+        this.recommendedDestinations = this.recommendService.recommendDestinations(userDestination,this.destinations);  //store recommendations
       },
       error : (err) => {
         console.log('err:-',err); // no error message is appended here because by default recommendedDestinations list is empty
@@ -63,13 +62,13 @@ filterDestinations() {  //filters destianations based on type and max budget
   this.filteredDestinations = this.destinations.filter(destination => {
     return (
       (!this.filterType || destination.type.toLowerCase().includes(this.filterType.toLowerCase())) &&
-      (!this.maxBudget || destination.budget <= this.maxBudget)
+      (!this.maxBudget || destination.budget <= this.maxBudget) //if no filters are set then return true
     );
   });
 }
 
 stars(rating : number) { // to show star icons
-  return Array(Math.floor(rating));
+  return Array(Math.floor(rating)); //return array of specific length based on rating
 }
 
 redirectTodetail(name : string){  //redirects to destination detail page
@@ -77,6 +76,6 @@ redirectTodetail(name : string){  //redirects to destination detail page
 }
 
 ngOnDestroy(): void {
-  this.subscriptions.forEach((sub) => sub.unsubscribe);
+  this.subscriptions.forEach((sub) => sub.unsubscribe); //unsubscribe 
 }
 }

@@ -77,7 +77,6 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
   
   //add activity to db aor localstorage
   addActivity() {
-    console.log('addActivity called');
     if (this.itineraryForm.valid) { //check validation
       const activity: Activity = {
         destination: this.itineraryForm.value.destination,
@@ -91,7 +90,6 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
       
       // Validate that activity date is within the travel dates
       if (activity.date >= startDate && activity.date <= endDate) {
-        console.log('this.isOffline:-',this.isOffline);
         if(this.isOffline){ //if offline , store activities in local storage
           this.activities.push(activity);
           offlineActivities.push(activity);
@@ -100,7 +98,6 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
           const sub = this.authService.getUserData().subscribe({
             next : (userData)=> {
               this.activities.push(activity);
-              console.log('userData:-,',userData);
                 const updatedUserData = {
                   ...userData,
                   activities: [...this.activities],

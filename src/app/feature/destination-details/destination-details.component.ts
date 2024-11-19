@@ -113,31 +113,5 @@ submitReview(){ //updates feedback data in db
     }
   }
 )
-//   this.authService.getUserData().subscribe(
-//     userData => {
-//       let feedbacks : Feedback[] = [{
-//         destinationName : this.destinationName,
-//         review : this.review,
-//         rating : this.rating 
-//       }]
-      
-//       const updatedFeedbacks = [];
-//       updatedFeedbacks.push(...userData.feedbacks);
-//       updatedFeedbacks.push(...feedbacks);
-//       const updatedUserData = {
-//         ...userData,
-//         feedbacks : updatedFeedbacks,
-//       };
-//       this.http.put(`http://localhost:3000/signupUsersList/${userData.id}`,updatedUserData).subscribe({
-//         next : ()=> {
-//           this.feedbacks.push(...feedbacks)  
-//         }
-//       }
-//       // this.http.put(`http://localhost:3000/signupUsersList/${userData.id}`,updatedUserData).subscribe(()=>{
-//       //   this.feedbacks.push(...feedbacks)
-//       // }
-//     );
-//   }
-// )
 }
 }

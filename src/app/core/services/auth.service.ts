@@ -18,7 +18,6 @@ export class AuthService {
     userData.feedbacks = [];
     return this.http.post<user>('http://localhost:3000/signupUsersList',userData).pipe(
       map((res) => {
-        console.log('res:-',res);
         this.isAuthenticated = true;
         this.saveUserToLocalStorage(res.id);
         this.currentUserSubject.next(res.id);
@@ -32,7 +31,6 @@ export class AuthService {
 login(userData : user) : Observable<boolean>{
   return this.http.get<user[]>('http://localhost:3000/signupUsersList').pipe(
     map((users)=>{
-      console.log('users:-',users);
       const user = users.find((user)=>{
         return user.userEmail === userData.userEmail && user.pass === userData.pass;
       });
