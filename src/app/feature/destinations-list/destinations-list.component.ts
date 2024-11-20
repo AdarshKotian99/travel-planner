@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { RecommendationService } from 'src/app/core/services/recommendation.service';
+import { FetchService } from 'src/app/core/services/fetch.service';
 import { Destination } from 'src/app/models/destination';
 
 @Component({
@@ -22,36 +22,50 @@ export class DestinationsListComponent implements OnInit , OnDestroy{
   userDestinations: string[] = [];
   recommendedDestinations: Destination[] = [];
   private subscriptions: Subscription[] = [];
-  fetchDestinationError : boolean = false;
+  fetchDestinationError : string = '';
+  fetchRecommendationError : string = '';
   
-  constructor(private http : HttpClient,private recommendService : RecommendationService, private authService : AuthService,private router : Router){}
+  constructor(private fetchService : FetchService, private authService : AuthService,private router : Router, private http :HttpClient){}
 
   ngOnInit(): void {
     //fetch destination data from mock json file
-    const sub = this.http.get<any[]>('assets/mock-destinations.json').subscribe({
+    const sub = this.fetchService.getAllDestinations().subscribe({
       next : (data) => {
-        this.destinations = data; //store all fetched destintions
-        this.filteredDestinations = data;
+        this.destinations = data;//store all fetched destintions
+        this.filteredDestinations = data;//by default no filter is applied 
       },
-      error : () => {
-        this.fetchDestinationError = true;
+      error : (err) => {
+        this.fetchDestinationError = err.message;
       }
     })
+
+
+    // const sub = this.http.get<any[]>('assets/mock-destinations.json').subscribe({
+    //   next : (data) => {
+    //     this.destinations = data; //store all fetched destintions
+    //     this.filteredDestinations = data;
+    //   },
+    //   error : () => {
+    //     this.fetchDestinationError = 'Error occured while fetching destination. Try reloading the page.';
+    //   }
+    // })
     this.subscriptions.push(sub); //store subscription in a array to unsubscribe it on destroy
-    this.loggedInUser = this.authService.getLoggedInUser(); //get logged in user info
+    this.loggedInUser = this.authService.getLoggedInUserId(); //get logged in user info
     if(this.loggedInUser){
       this.fetchRecommendations() //fetches recommendations
+
     }
+    
   }
   
   fetchRecommendations(){ //fetches recommendations based on user itinerary activities
-    const sub = this.recommendService.getUserDestinations(this.loggedInUser).subscribe({
+    const sub = this.fetchService.getUserDestinations(this.loggedInUser).subscribe({
       next : (userDestination) => {
-        this.recommendedDestinations = this.recommendService.recommendDestinations(userDestination,this.destinations);  //store recommendations
+        this.recommendedDestinations = this.fetchService.recommendDestinations(userDestination,this.destinations);  //store recommendations
       },
       error : (err) => {
-        console.log('err:-',err); // no error message is appended here because by default recommendedDestinations list is empty
-        //this.recommendedDestinations = [];
+        console.log('err:-',err);
+        this.fetchRecommendationError = 'Error occured while fetching recommendations. Try reloading the page.'
       }
     }
   );

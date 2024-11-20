@@ -16,7 +16,7 @@ export class SharedItineraryComponent implements OnInit{
   displayedColumns: string[] = ['destination','description','date'];
   dataSource = new MatTableDataSource<Activity>();
   userId : any;
-  fetchActivitiesError : boolean = false;
+  fetchActivitiesError : string = '';
 
   constructor(
     private route : ActivatedRoute,
@@ -37,7 +37,7 @@ export class SharedItineraryComponent implements OnInit{
         this.dataSource.data = this.activities;
       },
       error : (err)=>{
-        this.fetchActivitiesError = true;
+        this.fetchActivitiesError = 'Error occured while loading itinerary. Try reloading the page';
       }
     }
     )

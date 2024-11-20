@@ -1,6 +1,6 @@
 <div class="container mt-5 mb-5 w-50">
     <div *ngIf="fetchActivitiesError ; else content">
-        Error occured while loading itinerary. Try reloading the page
+        {{fetchActivitiesError}}
     </div>
     <ng-template #content>
         <h3>Shared Itineraries</h3>

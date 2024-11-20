@@ -38,7 +38,7 @@ describe('ItineraryPlannerComponent', () => {
         {
           provide:AuthService,
           useValue:{
-            getLoggedInUser: jasmine.createSpy().and.returnValue('123'),
+            getLoggedInUserId: jasmine.createSpy().and.returnValue('123'),
             getUserData: jasmine.createSpy().and.returnValue(of({ activities: [] })),
           }  
         }
@@ -59,7 +59,7 @@ describe('ItineraryPlannerComponent', () => {
   it('should load the logged-in user ID and user activities',()=>{
     spyOn(component, 'loadUserActivities');
     component.ngOnInit();
-    expect(authService.getLoggedInUser).toHaveBeenCalled();
+    expect(authService.getLoggedInUserId).toHaveBeenCalled();
     expect(component.loadUserActivities).toHaveBeenCalled();
   });
 
