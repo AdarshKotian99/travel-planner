@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 
-import { RecommendationService } from './recommendation.service';
+import { FetchService } from './fetch.service';
 
-describe('RecommendationService', () => {
-  let service: RecommendationService;
+describe('FetchService', () => {
+  let service: FetchService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
     });
-    service = TestBed.inject(RecommendationService);
+    service = TestBed.inject(FetchService);
   });
 
   it('should be created', () => {

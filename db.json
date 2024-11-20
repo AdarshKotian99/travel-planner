@@ -1,13 +1,6 @@
 {
   "signupUsersList": [
     {
-      "userEmail": "",
-      "pass": "",
-      "id": "90f7",
-      "activities": [],
-      "feedbacks": []
-    },
-    {
       "id": "fbdb",
       "userEmail": "abc@gmail.com",
       "pass": "123",
@@ -16,43 +9,6 @@
           "destination": "New York",
           "description": "test description",
           "date": "2024-11-25T18:30:00.000Z"
-        }
-      ],
-      "feedbacks": [
-        {
-          "destinationName": "Paris",
-          "review": "comment1",
-          "rating": 1
-        },
-        {
-          "destinationName": "Paris",
-          "review": "comment2",
-          "rating": 2
-        },
-        {
-          "destinationName": "Paris",
-          "review": "comment4",
-          "rating": 2
-        },
-        {
-          "destinationName": "Paris",
-          "review": "comment4",
-          "rating": 3.5
-        },
-        {
-          "destinationName": "Paris",
-          "review": "new feedback",
-          "rating": 2
-        },
-        {
-          "destinationName": "Paris",
-          "review": "",
-          "rating": 4
-        },
-        {
-          "destinationName": "Paris",
-          "review": " ",
-          "rating": 4
         }
       ]
     },
@@ -66,29 +22,19 @@
           "description": "dfgdfg",
           "date": "2024-11-26T18:30:00.000Z"
         }
-      ],
-      "feedbacks": []
+      ]
     },
     {
       "id": "ba1e",
       "userEmail": "pqr@gmail.com",
       "pass": "123",
-      "activities": [],
-      "feedbacks": []
+      "activities": []
     },
     {
       "id": "1753",
       "userEmail": "test1@gmail.com",
       "pass": "123",
-      "activities": [],
-      "feedbacks": []
-    },
-    {
-      "id": "7585",
-      "userEmail": "test1@gmail.com",
-      "pass": "123",
-      "activities": [],
-      "feedbacks": []
+      "activities": []
     },
     {
       "id": "e7a5",
@@ -100,8 +46,7 @@
           "description": "dgdfgdf",
           "date": "2024-11-24T18:30:00.000Z"
         }
-      ],
-      "feedbacks": []
+      ]
     },
     {
       "id": "d335",
@@ -113,81 +58,65 @@
           "description": "dgdfgd",
           "date": "2024-11-19T18:30:00.000Z"
         }
-      ],
-      "feedbacks": []
-    },
-    {
-      "id": "3380",
-      "userEmail": "testuser1@gmail.com",
-      "pass": "123",
-      "activities": [
-        {
-          "destination": "New York",
-          "description": "Test description",
-          "date": "2024-11-19T18:30:00.000Z"
-        }
-      ],
-      "feedbacks": [
-        {
-          "destinationName": "Paris",
-          "review": "comment3",
-          "rating": 3
-        }
       ]
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "622d",
+      "destinationName": "Paris",
+      "review": "comment 1",
+      "rating": 2,
+      "userId": "fbdb"
     },
     {
-      "id": "04a4",
-      "userEmail": "testuser1@gmail.com",
-      "pass": "123",
-      "activities": [],
-      "feedbacks": []
+      "id": "b087",
+      "destinationName": "Paris",
+      "review": "commnet2",
+      "rating": 3,
+      "userId": "fbdb"
     },
     {
-      "id": "7cf0",
-      "userEmail": "sdfsdf@gmail.com",
-      "pass": "123",
-      "activities": [],
-      "feedbacks": []
+      "id": "da61",
+      "destinationName": "Paris",
+      "review": "comment3",
+      "rating": 2,
+      "userId": "fbdb"
     },
     {
-      "id": "90b4",
-      "userEmail": "newtest3@gmail.com",
-      "pass": "123",
-      "activities": [],
-      "feedbacks": []
+      "id": "d658",
+      "destinationName": "Bali",
+      "review": "comment 1",
+      "rating": 4,
+      "userId": "fbdb"
     },
     {
-      "id": "4081",
-      "userEmail": "tom@gmail.com",
-      "pass": "123",
-      "activities": [],
-      "feedbacks": []
+      "id": "0e83",
+      "destinationName": "New York",
+      "review": "comment1",
+      "rating": 2,
+      "userId": "fbdb"
     },
     {
-      "id": "fe09",
-      "userEmail": "tom1@gmail.com",
-      "pass": "123",
-      "activities": [
-        {
-          "destination": "New York",
-          "description": "test description",
-          "date": "2024-11-19T18:30:00.000Z"
-        }
-      ],
-      "feedbacks": [
-        {
-          "destinationName": "Paris",
-          "review": "new comment",
-          "rating": 3
-        }
-      ]
+      "id": "1cd6",
+      "destinationName": "New York",
+      "review": "comment 2",
+      "rating": 3,
+      "userId": "fbdb"
     },
     {
-      "id": "5b0e",
-      "userEmail": "newtest4@gmail.com",
-      "pass": "123",
-      "activities": [],
-      "feedbacks": []
+      "id": "fffd",
+      "destinationName": "New York",
+      "review": "comment 3",
+      "rating": 2,
+      "userId": "fbdb"
+    },
+    {
+      "id": "ff13",
+      "destinationName": "New York",
+      "review": "comment 4",
+      "rating": 5,
+      "userId": "fbdb"
     }
   ]
 }

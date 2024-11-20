@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <div *ngIf="fetchDestinationError ; else content">
-        Error occured while fetching destination. Try reloading the page. 
+         {{fetchDestinationError}}
     </div>
     <ng-template #content>
         <div class="row">
@@ -32,7 +32,7 @@
                     Rating should be between 1 to 5.
                 </div>
                 <div *ngIf="submitReviewError">
-                    Error occured while submiting feedbacks. Try again.
+                    {{submitReviewError}}
                 </div>
                 
                 <button mat-raised-button color="primary" type="submit" [disabled]="reviewForm.invalid">
@@ -44,9 +44,9 @@
         <div class="mt-5">
             <h2>Reviews</h2>
             <div *ngIf="fetchFeedBackError">
-                Error occured while fetching feedbacks.
+                {{fetchFeedBackError}}
             </div>
-            <div *ngIf="feedbacks.length === 0">
+            <div *ngIf="feedbacks.length === 0 && !fetchFeedBackError">
                 No reviews yet.
             </div>
             <div *ngFor="let feedback of feedbacks" class="mb-3">

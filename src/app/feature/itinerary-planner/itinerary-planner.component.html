@@ -39,7 +39,7 @@
           Add Activity
         </button>
         <div *ngIf="addActiviesError">
-          Error occured while adding activities.
+          {{addActiviesError}}
         </div>
       </form>
     </div>
@@ -56,9 +56,9 @@
       <!-- Display message when no activities are present -->
       <!-- <p *ngIf="activities" class="text-muted">Add activities to your itinerary</p> -->
       <div *ngIf="loadUserActiviesError">
-        Error occured while loading activities.
+        {{loadUserActiviesError}}
       </div>
-      <p *ngIf="activities.length === 0 && loadUserActiviesError !== true" class="Info-text">Add activities to your itinerary</p>
+      <p *ngIf="activities.length === 0 && !loadUserActiviesError" class="Info-text">Add activities to your itinerary</p>
       
       <div cdkDropList class="activity-list" (cdkDropListDropped)="drop($event)" *ngIf="activities.length > 0">
         <div *ngIf="loadUserActiviesError">

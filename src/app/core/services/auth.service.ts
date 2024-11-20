@@ -15,7 +15,6 @@ export class AuthService {
   
   signUp(userData : user){
     userData.activities = [];
-    userData.feedbacks = [];
     return this.http.post<user>('http://localhost:3000/signupUsersList',userData).pipe(
       map((res) => {
         this.isAuthenticated = true;
@@ -49,8 +48,8 @@ login(userData : user) : Observable<boolean>{
   ))
 }
 
-// Get the currently logged-in user's data
-getLoggedInUser(): any {
+// Get the currently logged-in user's id
+getLoggedInUserId(): string {
   return this.currentUserSubject.value;
 }
 
