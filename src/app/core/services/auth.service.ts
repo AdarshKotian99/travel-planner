@@ -17,6 +17,7 @@ export class AuthService {
     userData.activities = [];
     return this.http.post<user>('http://localhost:3000/signupUsersList',userData).pipe(
       map((res) => {
+        console.log('res;-',res);
         this.isAuthenticated = true;
         this.saveUserToLocalStorage(res.id);
         this.currentUserSubject.next(res.id);
@@ -35,7 +36,7 @@ login(userData : user) : Observable<boolean>{
       });
       if(user){
         this.isAuthenticated = true;
-        this.saveUserToLocalStorage(user);
+        this.saveUserToLocalStorage(user.id);
         this.currentUserSubject.next(user.id);
         return true;
       }else{
@@ -54,8 +55,8 @@ getLoggedInUserId(): string {
 }
 
 // Save the logged-in user's data to localStorage 
-private saveUserToLocalStorage(userData: any): void {
-  localStorage.setItem('loggedInUser', userData.id);
+private saveUserToLocalStorage(userId: string): void {
+  localStorage.setItem('loggedInUser', userId);
 }
 
 // Load the user data from localStorage

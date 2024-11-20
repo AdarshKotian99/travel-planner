@@ -17,7 +17,7 @@ export class AppComponent {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         // Hide navbar for login and signup routes
-        if (event.url.startsWith('/destinations')) {
+        if (event.url.startsWith('/destinations') || event.url.includes('budget') || event.url.includes('itinerary')) {
           this.showNavbar = true;
         } else {
           this.showNavbar = false;

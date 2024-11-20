@@ -5,13 +5,12 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { FetchService } from 'src/app/core/services/fetch.service';
 import { Destination } from 'src/app/models/destination';
 import { Feedback } from 'src/app/models/feedback';
-import { user } from 'src/app/models/user';
 
 @Component({
   selector: 'app-destination-details',
   templateUrl: './destination-details.component.html',
   styleUrls: ['./destination-details.component.css'],
-  standalone: false
+  standalone:false
 })
 export class DestinationDetailsComponent implements OnInit{
   
@@ -23,7 +22,6 @@ export class DestinationDetailsComponent implements OnInit{
     budget: 0,
     rating : 0,
     isFavorite: false,
-    reviews : [],
   };
   destinationName : string|any = '';
   feedbacks : Feedback[] = [];

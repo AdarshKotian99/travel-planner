@@ -1,12 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from "@angular/common/http/testing";
+
 import { DestinationDetailsComponent } from './destination-details.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CurrencyFormatPipe } from 'src/app/shared/pipes/currency-format.pipe';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('DestinationDetailsComponent', () => {
   let component: DestinationDetailsComponent;
@@ -14,14 +15,14 @@ describe('DestinationDetailsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DestinationDetailsComponent,CurrencyFormatPipe],
+      declarations: [DestinationDetailsComponent,CurrencyFormatPipe ],
       imports:[
         HttpClientTestingModule,
         RouterTestingModule,
         FormsModule,
         MatFormFieldModule,
         MatInputModule,
-        NoopAnimationsModule
+        BrowserAnimationsModule
       ]
     });
     fixture = TestBed.createComponent(DestinationDetailsComponent);

@@ -1,19 +1,19 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { HttpClient } from '@angular/common/http';
-import { Activity } from 'src/app/models/activity';
-import { Clipboard } from '@angular/cdk/clipboard';
 import { Subscription } from 'rxjs';
-import { user } from 'src/app/models/user';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { FetchService } from 'src/app/core/services/fetch.service';
+import { Activity } from 'src/app/models/activity';
+import { user } from 'src/app/models/user';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-itinerary-planner',
   templateUrl: './itinerary-planner.component.html',
   styleUrls: ['./itinerary-planner.component.css'],
-  standalone: false
+  standalone:false
 })
 export class ItineraryPlannerComponent implements OnInit , OnDestroy{
   
