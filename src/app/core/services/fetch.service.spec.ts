@@ -89,4 +89,21 @@ describe('FetchService', () => {
     expect(req.request.method).toBe('GET');
     req.flush(mockFeedbacks);
   });
+
+  it('should add feedback', () => {
+    const feedbackData: Feedback = { 
+        destinationName : "Bali",
+        review: "test review",
+        rating: 3,
+        userId : "123"
+     };
+
+    service.addFeedback(feedbackData).subscribe(response => {
+      expect(response).toEqual(feedbackData);
+    });
+
+    const req = httpMock.expectOne('http://localhost:3000/feedbacks');
+    expect(req.request.method).toBe('POST');
+    req.flush(feedbackData);
+  });
 });
