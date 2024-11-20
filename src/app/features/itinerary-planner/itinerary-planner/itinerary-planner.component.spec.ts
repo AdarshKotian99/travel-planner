@@ -1,40 +1,36 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+
 import { ItineraryPlannerComponent } from './itinerary-planner.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatIconModule } from '@angular/material/icon';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MatNativeDateModule } from '@angular/material/core';
-import { from, of } from 'rxjs';
 import { Activity } from 'src/app/models/activity';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { of } from 'rxjs';
 
 describe('ItineraryPlannerComponent', () => {
   let component: ItineraryPlannerComponent;
   let fixture: ComponentFixture<ItineraryPlannerComponent>;
   let authService: AuthService;
 
-  beforeEach( () => {
-     TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       declarations: [ItineraryPlannerComponent],
-      imports: [
-        ReactiveFormsModule,
-        FormsModule,
+      imports:[
         HttpClientTestingModule,
         MatFormFieldModule,
-        MatInputModule,
         MatDatepickerModule,
-        MatIconModule,
-        BrowserAnimationsModule,
-        DragDropModule,
         MatNativeDateModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        BrowserAnimationsModule
       ],
-      providers: [
-        // FormBuilder,
+      providers:[
         {
           provide:AuthService,
           useValue:{
@@ -42,17 +38,15 @@ describe('ItineraryPlannerComponent', () => {
             getUserData: jasmine.createSpy().and.returnValue(of({ activities: [] })),
           }  
         }
-        
       ]
-    })
-    .compileComponents();
-    
+    });
     fixture = TestBed.createComponent(ItineraryPlannerComponent);
     component = fixture.componentInstance;
     authService = TestBed.inject(AuthService);
+    fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
@@ -79,8 +73,8 @@ describe('ItineraryPlannerComponent', () => {
     tick(1);
 
     //expect(component.activities).toEqual(offlineActivities);
-      expect(component.activities[0].destination).toEqual(offlineActivities[0].destination);
-      expect(component.activities[0].description).toEqual(offlineActivities[0].description);
+    expect(component.activities[0].destination).toEqual(offlineActivities[0].destination);
+    expect(component.activities[0].description).toEqual(offlineActivities[0].description);
   }));
 
   it('should add a valid activity', fakeAsync(() => {
@@ -106,5 +100,4 @@ describe('ItineraryPlannerComponent', () => {
     expect(component.activities[0].destination).toEqual(activity.destination);
     expect(component.activities[0].description).toEqual(activity.description);
   }));
-
 });

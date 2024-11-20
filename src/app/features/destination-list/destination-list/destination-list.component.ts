@@ -7,12 +7,12 @@ import { FetchService } from 'src/app/core/services/fetch.service';
 import { Destination } from 'src/app/models/destination';
 
 @Component({
-  selector: 'app-destinations-list',
-  templateUrl: './destinations-list.component.html',
-  styleUrls: ['./destinations-list.component.css'],
+  selector: 'app-destination-list',
+  templateUrl: './destination-list.component.html',
+  styleUrls: ['./destination-list.component.css'],
   standalone:false
 })
-export class DestinationsListComponent implements OnInit , OnDestroy{
+export class DestinationListComponent implements OnInit , OnDestroy{
   
   destinations : Destination[] = [];
   filteredDestinations : Destination[] = [];

@@ -8,6 +8,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DestinationListModule } from './features/destination-list/destination-list.module';
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     CommonModule,
     CoreModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent]
