@@ -3,9 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DestinationListComponent } from './destination-list.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
 
 describe('DestinationListComponent', () => {
   let component: DestinationListComponent;
@@ -17,8 +18,10 @@ describe('DestinationListComponent', () => {
       imports:[
         HttpClientTestingModule,
         MatFormFieldModule,
-        FormsModule,
+        // FormsModule,
+        ReactiveFormsModule,
         MatInputModule,
+        MatSelectModule,
         BrowserAnimationsModule,
       ]
     });

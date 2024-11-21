@@ -15,7 +15,6 @@ import { MatSelectModule } from '@angular/material/select';
 const routes : Routes = [
   {path : '', component: DestinationListComponent},
   {path : ':name', component : DestinationDetailsComponent},
-  
 ]
 
 @NgModule({

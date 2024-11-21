@@ -35,8 +35,8 @@ export class DestinationListComponent implements OnInit , OnDestroy{
     private fb: FormBuilder)
   {
     this.filterForm = this.fb.group({
-      type: [''],
-      budget: [0, [Validators.min(0)]]
+      type: [null],
+      budget: [null, [Validators.min(0)]]
     });
   }
 
@@ -98,8 +98,12 @@ redirectTodetail(name : string){  //redirects to destination detail page
   this.router.navigate([`/destinations/${name}`]);
 }
 
-reset(){
-  
+resetFilters(){
+  console.log('resetFilters called');
+  this.filterForm.reset();
+
+  // this.filterForm.value.type = '';
+  // this.filterForm.value.budget = 0;
 }
 
 ngOnDestroy(): void {
