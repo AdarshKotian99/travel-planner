@@ -12,11 +12,11 @@ import { user } from 'src/app/models/user';
   standalone:false
 })
 export class SharedItineraryComponent implements OnInit{
-  activities: Activity[]=[];
-  displayedColumns: string[] = ['destination','description','date'];
-  dataSource = new MatTableDataSource<Activity>();
-  userId : any;
-  fetchActivitiesError : string = '';
+  private activities: Activity[]=[];
+  public displayedColumns: string[] = ['destination','description','date'];
+  public dataSource = new MatTableDataSource<Activity>();
+  private userId !: string;
+  public fetchActivitiesError : string = '';
 
   constructor(
     private route : ActivatedRoute,
@@ -24,16 +24,15 @@ export class SharedItineraryComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-    this.userId = this.route.snapshot.paramMap.get('id');
+    this.userId = this.route.snapshot.paramMap.get('id') || '';
     this.loadActivities(this.userId);
   }
 
   // Fetch the activities
-  loadActivities(id : string){
+  private loadActivities(id : string){
     this.http.get<user>(`http://localhost:3000/signupUsersList/${id}`).subscribe({
       next : (userData)=>{
         this.activities = userData.activities;
-        // this.activities = userData.hasOwnProperty('activities') ? userData.activities : [];
         this.dataSource.data = this.activities;
       },
       error : (err)=>{

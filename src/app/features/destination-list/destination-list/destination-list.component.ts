@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,17 +15,15 @@ import { Destination } from 'src/app/models/destination';
 export class DestinationListComponent implements OnInit , OnDestroy{
 
   destinations : Destination[] = [];
-  filteredDestinations : Destination[] = [];
-  filterType: string = '';
-  maxBudget: number | null = null;
-  loggedInUser: any;
-  userDestinations: string[] = [];
-  recommendedDestinations: Destination[] = [];
-  subscriptions: Subscription[] = [];
-  fetchDestinationError : string = '';
-  fetchRecommendationError : string = '';
-  filterForm: FormGroup;
-  typesList : string[] = [];
+  private subscriptions: Subscription[] = [];
+  private loggedInUser!: string;
+
+  public filteredDestinations : Destination[] = [];
+  public recommendedDestinations: Destination[] = []
+  public fetchDestinationError : string = '';
+  public fetchRecommendationError : string = '';
+  public filterForm: FormGroup;
+  public typesList : string[] = [];
 
   constructor(
     private fetchService : FetchService,
@@ -79,27 +76,26 @@ export class DestinationListComponent implements OnInit , OnDestroy{
   this.subscriptions.push(sub);
 }
 
-filterDestinations() {  //filters destianations based on type and budget
+public filterDestinations() {  //filters destianations based on type and budget
   this.filteredDestinations = this.destinations.filter(destination => {
     return (
       (!this.filterForm.value.type || destination.type.toLowerCase().includes(this.filterForm.value.type.toLowerCase())) &&
       (!this.filterForm.value.budget || destination.budget <= this.filterForm.value.budget) //if no filters are set then return true
-      // (!this.filterType || destination.type.toLowerCase().includes(this.filterType.toLowerCase())) &&
-      // (!this.maxBudget || destination.budget <= this.maxBudget) //if no filters are set then return true
     );
   });
 }
 
-stars(rating : number) { // to show star icons
+public stars(rating : number) { // to show star icons
   return Array(Math.floor(rating)); //return array of specific length based on rating
 }
 
-redirectTodetail(name : string){  //redirects to destination detail page
+public redirectTodetail(name : string){  //redirects to destination detail page
   this.router.navigate([`/destinations/${name}`]);
 }
 
-resetFilters(){ //reset filters
+public resetFilters(){ //reset filters
   this.filterForm.reset();
+  this.filterDestinations();
 }
 
 ngOnDestroy(): void {

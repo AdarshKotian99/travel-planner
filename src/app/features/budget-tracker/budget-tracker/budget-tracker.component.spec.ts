@@ -39,15 +39,12 @@ describe('BudgetTrackerComponent', () => {
   });
 
   it('should set budget when the button is clicked', () => {
-    //const budgetAmount = 1000;
     component.totalBudget = 1000;
     component.setBudget();
-    //expect(component.totalBudget).toBe(budgetAmount);
     expect(component.remainingBudget).toBe(component.totalBudget);
   });
 
   it('should not allow adding expense if remaining budget is exceeded', () => {
-    // component.budgetForm.setValue({ budgetAmount: initialBudget });
     component.totalBudget = 1000;
     component.setBudget();
     const expense = { category: 'Food', amount: 1200 };
@@ -58,7 +55,6 @@ describe('BudgetTrackerComponent', () => {
   });
 
   it('should add expense correctly and update the remaining budget', () => {
-    // component.budgetForm.setValue({ budgetAmount: initialBudget });
     component.totalBudget = 1000;
     component.setBudget();
     const expense = { category: 'Food', amount: 200 };
@@ -69,7 +65,6 @@ describe('BudgetTrackerComponent', () => {
   });
 
   it('should update chart data when a new expense is added', () => {
-    // component.budgetForm.setValue({ budgetAmount: initialBudget });
     component.totalBudget = 1000;
     component.setBudget();
     const expense = { category: 'Food', amount: 200 };

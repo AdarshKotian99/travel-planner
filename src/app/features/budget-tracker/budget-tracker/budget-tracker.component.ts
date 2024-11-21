@@ -14,10 +14,9 @@ import { CurrencyFormatPipe } from 'src/app/shared/pipes/currency-format.pipe';
 export class BudgetTrackerComponent {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;  // Chart reference
 
-  //budgetForm: FormGroup;
   expenseForm: FormGroup;
-  totalBudget = 0;
-  remainingBudget = 0;
+  totalBudget: number = 0;
+  remainingBudget:number = 0;
   expenses = { Transport: 0, Accommodation: 0, Food: 0, Miscellaneous: 0 };
 
   // Chart variables
@@ -81,7 +80,7 @@ export class BudgetTrackerComponent {
   }
 
   // Calculate the total expenses
-  getTotalExpenses() {
+  private getTotalExpenses(): number {
     return Object.values(this.expenses).reduce((total, amount) => total + amount, 0);
   }
 

@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -15,7 +14,7 @@ import { Feedback } from 'src/app/models/feedback';
 export class DestinationDetailsComponent implements OnInit{
   
   //destination !: Destination;
-  destination : Destination = {
+  public destination : Destination = {
     name : 'Unknown',
     description : 'Unknown',
     type : 'Unknown',
@@ -23,25 +22,23 @@ export class DestinationDetailsComponent implements OnInit{
     rating : 0,
     isFavorite: false,
   };
-  destinationName : string|any = '';
-  feedbacks : Feedback[] = [];
-  rating : number = 0;;
-  review : string = '';
-  fetchFeedBackError : string = '';
-  submitReviewError : string = '';
-  fetchDestinationError : string = '';
+  private destinationName : string = '';
+  public feedbacks : Feedback[] = [];
+  public rating : number = 0;;
+  public review : string = '';
+  public fetchFeedBackError : string = '';
+  public submitReviewError : string = '';
+  public fetchDestinationError : string = '';
   
   constructor(
-    private http : HttpClient,
     private route : ActivatedRoute,
     private authService : AuthService,
     private fetchService : FetchService
   ){}
   
   ngOnInit(): void {
-
     //fetching destination details from route parameter name
-    this.destinationName = this.route.snapshot.paramMap.get('name');
+    this.destinationName = this.route.snapshot.paramMap.get('name') || 'Unknown';
     this.fetchService.getAllDestinations().subscribe({
       next : (data) =>{
         data.map(destination => {
@@ -58,7 +55,7 @@ export class DestinationDetailsComponent implements OnInit{
   }
   
   
-  fetchFeedbacks(){ //fetch feedback of specific destination
+  private fetchFeedbacks(){ //fetch feedback of specific destination
     this.fetchService.getAllFeedbacks().subscribe({
       next : (feedbackdata) => {
         feedbackdata.map(feedback => {
@@ -73,11 +70,11 @@ export class DestinationDetailsComponent implements OnInit{
     })
   }
   
-  stars(rating : number) {
+  public stars(rating : number) {
     return Array(Math.floor(rating));
   }
   
-  submitReview(){ //updates feedback data in db
+  public submitReview(){ //updates feedback data in db
     const userId : string = this.authService.getLoggedInUserId()
     const userFeedback : Feedback = {
       destinationName : this.destinationName,
@@ -89,7 +86,8 @@ export class DestinationDetailsComponent implements OnInit{
     this.fetchService.addFeedback(userFeedback).subscribe({
       next : (data) => {
         console.log('data:-',data)
-        this.feedbacks.push(userFeedback);
+        this.feedbacks.unshift(userFeedback); // Adds new feedback at the top
+
       },
       error : (err) => {
         console.log('error:-',err)

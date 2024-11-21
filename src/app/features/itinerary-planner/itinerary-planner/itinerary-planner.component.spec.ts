@@ -11,13 +11,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
+import { FetchService } from 'src/app/core/services/fetch.service';
+import { user } from 'src/app/models/user';
 
 describe('ItineraryPlannerComponent', () => {
   let component: ItineraryPlannerComponent;
   let fixture: ComponentFixture<ItineraryPlannerComponent>;
   let authService: AuthService;
+  // let mockFetchService: jasmine.SpyObj<FetchService>;
 
   beforeEach(() => {
+    // mockFetchService = jasmine.createSpyObj('FetchService', ['updateUserData']);
+
     TestBed.configureTestingModule({
       declarations: [ItineraryPlannerComponent],
       imports:[
@@ -37,7 +42,8 @@ describe('ItineraryPlannerComponent', () => {
             getLoggedInUserId: jasmine.createSpy().and.returnValue('123'),
             getUserData: jasmine.createSpy().and.returnValue(of({ activities: [] })),
           }  
-        }
+        },
+        // { provide: FetchService, useValue: mockFetchService },
       ]
     });
     fixture = TestBed.createComponent(ItineraryPlannerComponent);
@@ -64,10 +70,22 @@ describe('ItineraryPlannerComponent', () => {
   });
 
   it('should synchronize offline and online data', fakeAsync(() => {
+    // const mockUser: user = {
+    //   id: '123',
+    //   userEmail: 'test@example.com',
+    //   pass: 'password',
+    //   activities: [
+    //     {
+    //     destination: 'Paris',
+    //     description: 'Eiffel Tower Visit',
+    //     date: new Date,
+    //     }
+    //   ]  // Initialize with an empty activities array
+    // };
+    // mockFetchService.updateUserData.and.returnValue(of(mockUser))
     component.isOffline = false;
     const offlineActivities = [
       { destination: 'Paris', description: 'Eiffel Tower Visit', date: new Date },
-      // { destination: 'Paris', description: 'Eiffel Tower Visit', date: new Date('2024-11-18') },
     ];
     spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(offlineActivities));
     component.syncData();
@@ -79,6 +97,19 @@ describe('ItineraryPlannerComponent', () => {
   }));
 
   it('should add a valid activity', fakeAsync(() => {
+    // const mockUser: user = {
+    //   id: '123',
+    //   userEmail: 'test@example.com',
+    //   pass: 'password',
+    //   activities: [
+    //     {
+    //       destination: 'Paris',
+    //     description: 'Eiffel Tower Visit',
+    //     date: new Date,
+    //     }
+    //   ]  // Initialize with an empty activities array
+    // };
+    // mockFetchService.updateUserData.and.returnValue(of(mockUser))
     // Set form values
     component.itineraryForm.setValue({
       startDate: new Date('2024-11-01'),
@@ -101,4 +132,6 @@ describe('ItineraryPlannerComponent', () => {
     expect(component.activities[0].destination).toEqual(activity.destination);
     expect(component.activities[0].description).toEqual(activity.description);
   }));
+
+  
 });
