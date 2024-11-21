@@ -21,7 +21,7 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
   itineraryForm: FormGroup;
   activities: Activity[] = [];
   shareableLink : string = '';
-  linkCopied : boolean = false;
+  //linkCopied : boolean = false;
   isOffline : boolean = false;
   loadUserActiviesError : string = '';
   addActiviesError : string = '';
@@ -145,7 +145,7 @@ deleteActivity(index: number) { //deletes activity
 
 copyLinkToClipboard(){  //to copy link to clipboard
   this.clipboard.copy(this.shareableLink);
-  this.linkCopied = true;
+  //this.linkCopied = true;
 }
 
 checkOffline(){ //checks if user is online or offline

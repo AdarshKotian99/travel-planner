@@ -21,6 +21,7 @@ export class FetchService {
     )
   }
 
+
   getAllUsersData():Observable<user[]>{ //fetches all users data
     return this.http.get<user[]>('http://localhost:3000/signupUsersList').pipe(
       catchError(()=>{
