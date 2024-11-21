@@ -99,11 +99,7 @@ redirectTodetail(name : string){  //redirects to destination detail page
 }
 
 resetFilters(){
-  console.log('resetFilters called');
   this.filterForm.reset();
-
-  // this.filterForm.value.type = '';
-  // this.filterForm.value.budget = 0;
 }
 
 ngOnDestroy(): void {

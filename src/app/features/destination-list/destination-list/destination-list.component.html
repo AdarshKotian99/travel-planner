@@ -19,7 +19,6 @@
           </mat-form-field>
         </div>
       <button mat-raised-button color="primary" type="submit" [disabled]="filterForm.value.type === null && filterForm.value.budget === null" style="width: 10em;margin-right: 1em;">
-      <!-- <button mat-raised-button color="primary" type="submit" [disabled]="(filterForm.value.type === null || filterForm.value.type === '') || filterForm.value.budget === ''" style="width: 10em;margin-right: 1em;"> -->
         Apply Filter
       </button>
       <button mat-raised-button (click)="resetFilters()" [disabled]="filterForm.value.type === null && filterForm.value.budget === null" style="width: 10em;margin-right: 1em;">
