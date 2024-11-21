@@ -26,15 +26,6 @@ describe('FetchService', () => {
       ]
     }
   ];
-  const mockUser: user = 
-    {
-      id: '1',
-      userEmail: 'John@gmail.com',
-      pass : '123',
-      activities: [
-        { destination: 'Paris', description: 'Visit Eiffel Tower', date: new Date }
-      ]
-    };
 
   const mockFeedbacks: Feedback[] = [
     {
@@ -166,7 +157,7 @@ describe('FetchService', () => {
 
     const req = httpMock.expectOne('http://localhost:3000/signupUsersList/1');
     expect(req.request.method).toBe('GET');
-    req.flush(mockUser);
+    req.flush(mockUsers[0]);
   });
 
   it('should update user data',()=>{
