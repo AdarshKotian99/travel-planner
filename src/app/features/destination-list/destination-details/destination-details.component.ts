@@ -55,21 +55,6 @@ export class DestinationDetailsComponent implements OnInit{
         this.fetchDestinationError = err.message;
       }
     })
-    
-    // this.destinationName = this.route.snapshot.paramMap.get('name');
-    // this.http.get<Destination[]>('assets/mock-destinations.json').subscribe({
-    //   next : (data) => {
-    //     data.map(destination => {
-    //       if(destination.name === this.destinationName){
-    //         this.destination = destination;
-    //       }
-    //     })
-    //     this.fetchFeedbacks();  //fetch feedbacks
-    //   },
-    //   error : (err) => {
-    //     this.fetchDestinationError = 'Error occured while fetching destination details. Try reloading the page.';
-    //   }
-    // })
   }
   
   
@@ -86,23 +71,6 @@ export class DestinationDetailsComponent implements OnInit{
         this.fetchFeedBackError = err.message;
       }
     })
-    //   this.http.get<user[]>('http://localhost:3000/signupUsersList').subscribe({
-    //     next : (data) => {
-    //       data.map(userData => {
-    //         const feedbackList = userData.feedbacks;
-    //         feedbackList.map(feedback => {
-    //           if(feedback.destinationName === this.destinationName){
-    //             this.feedbacks.push(feedback);
-    //           }
-    //         })
-    //       })
-    //     },
-    //     error : (err) => {
-    //       console.log('error occured while fetching feedbacks,error:-',err);
-    //       this.fetchFeedBackError = 'Error occured while fetching feedbacks.  Try reloading the page.';
-    //     }
-    //   }
-    // )
   }
   
   stars(rating : number) {
@@ -129,39 +97,4 @@ export class DestinationDetailsComponent implements OnInit{
       }
     })
   }
-
-
-//   submitReview(){ //updates feedback data in db
-//     this.authService.getUserData().subscribe({
-//       next : (userData) => {
-//         let feedbacks : Feedback[] = [{
-//           destinationName : this.destinationName,
-//           review : this.review,
-//           rating : this.rating 
-//         }]
-        
-//         const updatedFeedbacks = [];
-//         updatedFeedbacks.push(...userData.feedbacks);
-//         updatedFeedbacks.push(...feedbacks);
-//         const updatedUserData = {
-//           ...userData,
-//           feedbacks : updatedFeedbacks,
-//         };
-        
-//         this.http.put(`http://localhost:3000/signupUsersList/${userData.id}`,updatedUserData).subscribe({
-//           next : ()=> {
-//             this.feedbacks.push(...feedbacks)  
-//           },
-//           error : ()=>{
-//             this.submitReviewError = 'Error occured while submiting feedbacks. Try again.';    
-//           }
-          
-//         })
-//       },
-//       error : () => {
-//         this.submitReviewError = 'Error occured while submiting feedbacks. Try again.';
-//       }
-//     }
-//   )
-// }
 }

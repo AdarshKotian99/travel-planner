@@ -19,12 +19,16 @@ export class SignupComponent{
   handleSubmit(formData : any){
       this.auth.signUp(formData.value).subscribe({
         next : () => {
-          this.router.navigate(['/destinations']);  //navigate to destinations page
+          this.redirectToDestinations();  //navigate to destinations page
         },
         error : (err) => {
           this.errorMessage = err.message;
         }
       })  
+  }
+
+  redirectToDestinations(){
+    this.router.navigate(['/destinations']);
   }
 
   redirectToLogin(){

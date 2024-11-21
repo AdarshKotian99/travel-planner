@@ -66,15 +66,16 @@ describe('ItineraryPlannerComponent', () => {
   it('should synchronize offline and online data', fakeAsync(() => {
     component.isOffline = false;
     const offlineActivities = [
-      { destination: 'Paris', description: 'Eiffel Tower Visit', date: new Date('2024-11-18') },
+      { destination: 'Paris', description: 'Eiffel Tower Visit', date: new Date },
+      // { destination: 'Paris', description: 'Eiffel Tower Visit', date: new Date('2024-11-18') },
     ];
     spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(offlineActivities));
     component.syncData();
     tick(1);
 
     //expect(component.activities).toEqual(offlineActivities);
-    expect(component.activities[0].destination).toEqual(offlineActivities[0].destination);
-    expect(component.activities[0].description).toEqual(offlineActivities[0].description);
+     expect(component.activities[0].destination).toEqual(offlineActivities[0].destination);
+     expect(component.activities[0].description).toEqual(offlineActivities[0].description);
   }));
 
   it('should add a valid activity', fakeAsync(() => {
@@ -84,13 +85,13 @@ describe('ItineraryPlannerComponent', () => {
       endDate: new Date('2024-11-30'),
       destination: 'Paris',
       description: 'Eiffel Tower Visit',
-      date: new Date('2024-11-18'),  // activity date is within the range
+      date: new Date,  // activity date is within the range
     });
 
     const activity: Activity = {
       destination: 'Paris',
       description: 'Eiffel Tower Visit',
-      date: new Date('2024-11-18'),
+      date: new Date,
     };
 
     component.addActivity();

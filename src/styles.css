@@ -1,9 +1,9 @@
 /* Default light theme */
 :root {
-    --background-color: white;
-    --text-color: black;
-    --primary-color: #1976d2; /* Material primary color */
-    --navbar-bg-color: #f8f9fa; /* Bootstrap default light background */
+  --background-color: white;
+  --text-color: black;
+  --primary-color: #1976d2; /* Material primary color */
+  --navbar-bg-color: #f8f9fa; /* Bootstrap default light background */
   --navbar-text-color: #000; /* Black text color */
   --button-disabled-bg: rgba(0, 0, 0, 0.12); /* Default Material disabled grey */
   --button-disabled-text: rgba(0, 0, 0, 0.38); /* Default disabled text */
@@ -28,45 +28,43 @@
 
 /* Global styles for body and document */
 html, body { 
-    height: 100%; 
+  height: 100%; 
 }
 
 body { 
-    margin: 0; 
-    font-family: Roboto, "Helvetica Neue", sans-serif; 
-    background-color: var(--background-color) !important;
-    color: var(--text-color) !important;
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  background-color: var(--background-color) !important;
+  color: var(--text-color) !important;
 }
 
-
-
 .navbar {
-    background-color: var(--navbar-bg-color) !important;
-    color: var(--navbar-text-color) !important;
-  }
+  background-color: var(--navbar-bg-color) !important;
+  color: var(--navbar-text-color) !important;
+}
 
-  .collapse{
-    background-color: var(--navbar-collapse-color) !important;
-  }
+.collapse{
+  background-color: var(--navbar-collapse-color) !important;
+}
 
-  /* .navbar .navbar-brand {
-    color: var(--navbar-text-color) !important;
-  } */
-  
-  .navbar a, .navbar .nav-link, .navbar-brand {
-    color: var(--navbar-text-color) !important;
-  }
+/* .navbar .navbar-brand {
+color: var(--navbar-text-color) !important;
+} */
 
-  .mat-mdc-raised-button:disabled {
-    background-color: var(--button-disabled-bg) !important;
-    color: var(--button-disabled-text) !important;
-  }
+.navbar a, .navbar .nav-link, .navbar-brand {
+  color: var(--navbar-text-color) !important;
+}
 
-  .Info-text{
-    color: var(--text-muted-color)!important ;
-  }
+.mat-mdc-raised-button:disabled {
+  background-color: var(--button-disabled-bg) !important;
+  color: var(--button-disabled-text) !important;
+}
 
-  .mdc-label{
-    color : var(--mdc-label-color)!important;
-  }
+.Info-text{
+  color: var(--text-muted-color)!important ;
+}
+
+.mdc-label{
+  color : var(--mdc-label-color)!important;
+}
 

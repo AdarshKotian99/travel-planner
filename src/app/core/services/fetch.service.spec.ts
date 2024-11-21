@@ -80,6 +80,17 @@ describe('FetchService', () => {
     req.flush(mockUsers);
   });
 
+  it('should handle error when fetching all users data',()=>{
+    service.getAllUsersData().subscribe({
+      error : (err)=>{
+        expect(err.message).toBe('Error occured while fetching all users data.');
+      }
+    });
+     const req = httpMock.expectOne('http://localhost:3000/signupUsersList');
+     expect(req.request.method).toBe('GET');
+     req.flush('Error', {status : 500,  statusText:'Server Error'});
+  });
+
   it('should fetch all feedbacks', () => {
     service.getAllFeedbacks().subscribe(feedbacks => {
       expect(feedbacks).toEqual(mockFeedbacks);
@@ -88,6 +99,18 @@ describe('FetchService', () => {
     const req = httpMock.expectOne('http://localhost:3000/feedbacks');
     expect(req.request.method).toBe('GET');
     req.flush(mockFeedbacks);
+  });
+  
+  it('should handle error when fetching all feedbacks', () => {
+    service.getAllFeedbacks().subscribe({
+      error : (err) => {
+        expect(err.message).toBe('Error occured while fetching feedbacks. Try reloading the page.')
+      }
+    });
+
+    const req = httpMock.expectOne('http://localhost:3000/feedbacks');
+    expect(req.request.method).toBe('GET');
+    req.flush('Error',{status:500, statusText:'Server Error'});
   });
 
   it('should add feedback', () => {
@@ -105,5 +128,53 @@ describe('FetchService', () => {
     const req = httpMock.expectOne('http://localhost:3000/feedbacks');
     expect(req.request.method).toBe('POST');
     req.flush(feedbackData);
+  });
+
+  it('should handle error occured when adding a feedback', () => {
+    const feedbackData: Feedback = { 
+        destinationName : "Bali",
+        review: "test review",
+        rating: 3,
+        userId : "123"
+     };
+
+    service.addFeedback(feedbackData).subscribe({
+      error : (err) => {
+        expect(err.message).toBe('Error occured while submitting feedbacks. Try again.');
+      }
+    });
+
+    const req = httpMock.expectOne('http://localhost:3000/feedbacks');
+    expect(req.request.method).toBe('POST');
+    req.flush('Error',{status : 500 , statusText : 'Server Error'});
+  });
+
+  it('should fetch user destinations',()=>{
+    service.getUserDestinations('1').subscribe(destinations =>{
+      console.log('destinations:-',destinations)
+      expect(destinations).toEqual(['Paris']);
+    });
+
+    const req = httpMock.expectOne('http://localhost:3000/signupUsersList/1');
+    expect(req.request.method).toBe('GET');
+    req.flush(mockUsers[0]);
+  });
+
+  it('should update user data',()=>{
+    const mockNewUserData: user = 
+    {
+      id: '1',
+      userEmail: 'John@gmail.com',
+      pass : '123',
+      activities: [
+      ]
+    };
+    service.updateUserData('1',mockNewUserData).subscribe(userData => {
+      expect(userData).toBe(mockNewUserData)
+    });
+
+    const req = httpMock.expectOne('http://localhost:3000/signupUsersList/1');
+    expect(req.request.method).toBe('PUT');
+    req.flush(mockNewUserData);
   });
 });

@@ -13,14 +13,14 @@ export class AuthService {
     this.loadUserFromLocalStorage();
   }
   
-  signUp(userData : user){
+  signUp(userData : user):Observable<user>{  //Posts new user data
     userData.activities = [];
     return this.http.post<user>('http://localhost:3000/signupUsersList',userData).pipe(
       map((res) => {
-        console.log('res;-',res);
         this.isAuthenticated = true;
         this.saveUserToLocalStorage(res.id);
         this.currentUserSubject.next(res.id);
+        return res;
       }),
       catchError(() => {
         return throwError(() => new Error('An unknown error occurred. Please try again.'))
@@ -28,7 +28,7 @@ export class AuthService {
     ))
 }
 
-login(userData : user) : Observable<boolean>{
+login(userData : user) : Observable<boolean>{ 
   return this.http.get<user[]>('http://localhost:3000/signupUsersList').pipe(
     map((users)=>{
       const user = users.find((user)=>{

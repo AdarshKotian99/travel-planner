@@ -13,7 +13,7 @@ export class FetchService {
 
   constructor(private http : HttpClient) { }
 
-  getAllDestinations():Observable<Destination[]>{
+  getAllDestinations():Observable<Destination[]>{ //fetches all destinations data
     return this.http.get<Destination[]>('assets/mock-destinations.json').pipe(
       catchError(() => {
         return throwError(() => new Error('Error occured while fetching destination. Try reloading the page.'))
@@ -21,7 +21,7 @@ export class FetchService {
     )
   }
 
-  getAllUsersData():Observable<user[]>{
+  getAllUsersData():Observable<user[]>{ //fetches all users data
     return this.http.get<user[]>('http://localhost:3000/signupUsersList').pipe(
       catchError(()=>{
         return throwError(() => new Error('Error occured while fetching all users data.'))
@@ -29,10 +29,30 @@ export class FetchService {
     )
   }
 
-  getUserDestinations(userId: string): Observable<string[]> {
+  getUserDestinations(userId: string): Observable<string[]> { //fetches a user's activity destinations
     return this.http.get<user>(`http://localhost:3000/signupUsersList/${userId}`).pipe(
       map(userData => userData.activities.map((activity: Activity) => activity.destination))
     );
+  }
+
+  addFeedback(userFeedback : Feedback):Observable<Feedback>{  //Posts new feedback
+    return this.http.post<Feedback>('http://localhost:3000/feedbacks',userFeedback).pipe(
+      catchError(() => {
+        return throwError(() => new Error('Error occured while submitting feedbacks. Try again.'))
+      })
+    )
+  }
+
+  getAllFeedbacks():Observable<Feedback[]>{ //Fetches all feedbacks
+    return this.http.get<Feedback[]>('http://localhost:3000/feedbacks').pipe(
+      catchError(()=>{
+        return throwError(() => new Error('Error occured while fetching feedbacks. Try reloading the page.'))
+      })
+    )
+  }
+
+  updateUserData(userId : string ,userData : user):Observable<user>{  //Updates user data
+    return this.http.put<user>(`http://localhost:3000/signupUsersList/${userId}`,userData)
   }
 
   recommendDestinations(userDestinations: string[], destinations: Destination[]): Destination[] { 
@@ -51,26 +71,6 @@ export class FetchService {
       }
     });
     return Array.from(userTypes);
-  }
-
-  addFeedback(userFeedback : Feedback):Observable<Feedback>{
-    return this.http.post<Feedback>('http://localhost:3000/feedbacks',userFeedback).pipe(
-      catchError(() => {
-        return throwError(() => new Error('Error occured while submitting feedbacks. Try again.'))
-      })
-    )
-  }
-
-  getAllFeedbacks():Observable<Feedback[]>{
-    return this.http.get<Feedback[]>('http://localhost:3000/feedbacks').pipe(
-      catchError(()=>{
-        return throwError(() => new Error('Error occured while fetching feedbacks.  Try reloading the page.'))
-      })
-    )
-  }
-
-  updateUserData(userId : string ,userData : user):Observable<user>{
-    return this.http.put<user>(`http://localhost:3000/signupUsersList/${userId}`,userData)
   }
 
 }

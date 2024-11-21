@@ -17,12 +17,13 @@ export class LoginComponent {
   errorMessage: string = '';
   loginError : boolean = false;
 
-  userInfo !: user ; 
+  //userInfo !: user ; 
   handleLogin(formData : any){
     this.auth.login(formData.value).subscribe({
       next : (res) => {
         if(res){
-          this.router.navigate(['/destinations']);
+          this.redirectToDestinations()
+          // this.router.navigate(['/destinations']);
         }else{
           this.errorMessage = 'User Email or Password is invalid.'
         }
@@ -32,6 +33,10 @@ export class LoginComponent {
       }
     }
     )
+  }
+
+  redirectToDestinations(){
+    this.router.navigate(['/destinations']);
   }
 
   redirectToSignUp(){

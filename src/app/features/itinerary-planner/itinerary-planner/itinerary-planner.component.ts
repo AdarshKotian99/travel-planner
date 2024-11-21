@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { HttpClient } from '@angular/common/http';
+// import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -21,17 +21,17 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
   itineraryForm: FormGroup;
   activities: Activity[] = [];
   shareableLink : string = '';
-  linkCopied : boolean = false;
+  //linkCopied : boolean = false;
   isOffline : boolean = false;
   loadUserActiviesError : string = '';
   addActiviesError : string = '';
-  private subscriptions: Subscription[] = [];
+  subscriptions: Subscription[] = [];
   userData !: user;
   
   constructor(
     private fb: FormBuilder, 
     private authService : AuthService, 
-    private http : HttpClient,
+    // private http : HttpClient,
     private clipboard : Clipboard,
     private fetchService : FetchService
   ) 
@@ -47,7 +47,7 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
   
   ngOnInit(): void {
     this.loggedInUserId = this.authService.getLoggedInUserId(); // Get logged-in user info
-    this.checkOffline();
+    this.checkOffline();  // if user is offline or online
     if(this.isOffline){
       this.loadOfflineActivites();  //load activities from local storage
     }else{
@@ -71,28 +71,13 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
     this.subscriptions.push(sub);
   }
   
-  
-  // loadUserActivities() {
-  //     const sub = this.http.get(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`).subscribe({
-  //       next : (userData : any) => {
-  //         this.activities = userData.activities;
-  //         this.shareableLink = `http://localhost:4200/sharedItinerary/${this.loggedInUserId}`;  
-  //       },
-  //       error : (err) => {
-  //         console.log(err);
-  //         this.loadUserActiviesError = true;
-  //       }
-  //     })
-  //     this.subscriptions.push(sub);
-  // }
-  
   //Loads user activities from loaclstorage
   loadOfflineActivites(){
-    const offlineActivities = localStorage.getItem('activities');
+    const offlineActivities = localStorage.getItem('activities'); //getting activities from local storage
     this.activities = offlineActivities ? JSON.parse(offlineActivities) : [];
   }
   
-  //add activity to db aor localstorage
+  //add activity to db or localstorage
   addActivity() {
     if (this.itineraryForm.valid) { //check validation
       const activity: Activity = {
@@ -100,7 +85,7 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
         description: this.itineraryForm.value.description, 
         date: this.itineraryForm.value.date
       };
-      const offlineActivities : Activity[] =[];
+      const offlineActivities : Activity[] = [];
       
       const startDate = this.itineraryForm.value.startDate;
       const endDate = this.itineraryForm.value.endDate;
@@ -129,20 +114,6 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
               this.addActiviesError = 'Error occured while adding activities. Try again.';
             }
           })
-          
-          // const sub = this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe({
-          //   next : () => {
-          //     this.resetForm(); // Reset the form after successfully adding
-          //   },
-          //   error : (err) =>{
-          //     const index = this.activities.indexOf(activity);
-          //     this.activities.splice(index,1);  //remove from array if add activity fails
-          //     console.log('error ocurred during Add Activity',err);
-          //     this.addActiviesError = 'Error occured while adding activities. Try again.';
-          //   }
-          // })
-          // this.subscriptions.push(sub);
-          
         this.subscriptions.push(sub);
       }
     } else {
@@ -171,21 +142,10 @@ deleteActivity(index: number) { //deletes activity
   })
   this.subscriptions.push(sub);
 }
-// deleteActivity(index: number) { //deletes activity
-//   this.activities.splice(index, 1);
-//   this.authService.getUserData().subscribe(
-//     userData => {
-//       const updatedUserData = { ...userData, activities: [...this.activities] };
-//       const sub = this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe();
-//       this.subscriptions.push(sub);
-//     }
-//   );
-
-// }
 
 copyLinkToClipboard(){  //to copy link to clipboard
   this.clipboard.copy(this.shareableLink);
-  this.linkCopied = true;
+  //this.linkCopied = true;
 }
 
 checkOffline(){ //checks if user is online or offline
@@ -208,7 +168,7 @@ private handleOffline = () => {
 
 syncData(){ //sync activities from localstorage to db
   this.loadOfflineActivites();
-  const sub = this.authService.getUserData().subscribe({
+  const sub = this.authService.getUserData().subscribe({  //fetching userdata
     next : (userData) => {
       const updatedActivities = []; 
       updatedActivities.push(...userData.activities);
@@ -217,47 +177,21 @@ syncData(){ //sync activities from localstorage to db
         ...userData,
         activities: [...updatedActivities],
       };
-      const sub = this.fetchService.updateUserData(this.loggedInUserId,updatedUserData).subscribe({
+      const sub = this.fetchService.updateUserData(this.loggedInUserId,updatedUserData).subscribe({ //updating userdata
         next : () =>{
           this.resetForm(); // Reset the form after successfully adding    
           this.loadUserActivities();
+          localStorage.removeItem('activities');
         },
         error : (err) =>{
           console.log('error occured during syncData()',err);
         }
       })
-      
+      this.subscriptions.push(sub);
     }
   }); 
   this.subscriptions.push(sub);
 }
-// syncData(){ //sync activities from localstorage to db
-//   this.loadOfflineActivites();
-//   const sub = this.authService.getUserData().subscribe(
-//     userData => {      
-//       const updatedActivities = []; 
-//       updatedActivities.push(...userData.activities);
-//       updatedActivities.push(...this.activities);
-//       const updatedUserData = {
-//         ...userData,
-//         activities: [...updatedActivities],
-//       };
-//       // Make a PUT request to update the user's destinations
-//       const sub = this.http.put(`http://localhost:3000/signupUsersList/${this.loggedInUserId}`, updatedUserData).subscribe({
-//         next : () => {
-//           this.resetForm(); // Reset the form after successfully adding    
-//           this.loadUserActivities();
-//         },
-//         error : (err) => {
-//           console.log('error occured during syncData()',err);
-//         }
-
-//       })
-//       this.subscriptions.push(sub);
-//     }
-//   ); 
-//   this.subscriptions.push(sub);
-// }
 
 resetForm(){
   this.itineraryForm.controls['destination'].reset();
