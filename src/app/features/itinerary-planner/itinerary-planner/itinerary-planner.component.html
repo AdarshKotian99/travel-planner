@@ -6,14 +6,14 @@
         <form [formGroup]="itineraryForm" (ngSubmit)="addActivity()">
           <mat-form-field appearance="fill" class="w-100">
             <mat-label>Start Date</mat-label>
-            <input matInput [matDatepicker]="startPicker" formControlName="startDate" required />
+            <input matInput [matDatepicker]="startPicker" (click)="startPicker.open()" formControlName="startDate" required />
             <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
             <mat-datepicker #startPicker></mat-datepicker>
           </mat-form-field>
           
           <mat-form-field appearance="fill" class="w-100">
             <mat-label>End Date</mat-label>
-            <input matInput [matDatepicker]="endPicker" formControlName="endDate" required />
+            <input matInput [matDatepicker]="endPicker" (click)="endPicker.open()" formControlName="endDate" required />
             <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
             <mat-datepicker #endPicker></mat-datepicker>
           </mat-form-field>
@@ -30,7 +30,7 @@
           
           <mat-form-field appearance="fill" class="w-100">
             <mat-label>Date</mat-label>
-            <input matInput [matDatepicker]="activityDatePicker" formControlName="date" required />
+            <input matInput [matDatepicker]="activityDatePicker" (click)="activityDatePicker.open()" formControlName="date" required />
             <mat-datepicker-toggle matSuffix [for]="activityDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #activityDatePicker></mat-datepicker>
           </mat-form-field>

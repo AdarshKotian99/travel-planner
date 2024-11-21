@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -22,7 +22,7 @@ describe('LoginComponent', () => {
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
-        NoopAnimationsModule
+        BrowserAnimationsModule
       ]
     });
     fixture = TestBed.createComponent(LoginComponent);
@@ -33,4 +33,6 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
 });
