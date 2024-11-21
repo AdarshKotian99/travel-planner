@@ -137,4 +137,22 @@ describe('FetchService', () => {
     expect(req.request.method).toBe('GET');
     req.flush(mockUser);
   });
+
+  it('should update user data',()=>{
+    const mockNewUserData: user = 
+    {
+      id: '1',
+      userEmail: 'John@gmail.com',
+      pass : '123',
+      activities: [
+      ]
+    };
+    service.updateUserData('1',mockNewUserData).subscribe(userData => {
+      expect(userData).toBe(mockNewUserData)
+    });
+
+    const req = httpMock.expectOne('http://localhost:3000/signupUsersList/1');
+    expect(req.request.method).toBe('PUT');
+    req.flush(mockNewUserData);
+  });
 });
