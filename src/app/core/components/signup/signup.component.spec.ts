@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from '../../services/auth.service';
 import { of } from 'rxjs';
 
@@ -32,7 +32,7 @@ describe('SignupComponent', () => {
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
-        NoopAnimationsModule
+        BrowserAnimationsModule,
       ],
       providers:[
         {
