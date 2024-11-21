@@ -13,7 +13,7 @@ export class AuthService {
     this.loadUserFromLocalStorage();
   }
   
-  signUp(userData : user){
+  signUp(userData : user){  //Posts new user data
     userData.activities = [];
     return this.http.post<user>('http://localhost:3000/signupUsersList',userData).pipe(
       map((res) => {
@@ -28,7 +28,7 @@ export class AuthService {
     ))
 }
 
-login(userData : user) : Observable<boolean>{
+login(userData : user) : Observable<boolean>{ 
   return this.http.get<user[]>('http://localhost:3000/signupUsersList').pipe(
     map((users)=>{
       const user = users.find((user)=>{
