@@ -47,11 +47,6 @@ export class BudgetTrackerComponent {
   };
 
   constructor(private fb: FormBuilder, private currencyPipe : CurrencyFormatPipe) {
-    // Initialize forms
-    // this.budgetForm = this.fb.group({
-    //   budgetAmount: ['', [Validators.required, Validators.min(1)]]
-    // });
-
     this.expenseForm = this.fb.group({
       category: ['', Validators.required],
       amount: ['', [Validators.required, Validators.min(1)]]
@@ -62,13 +57,6 @@ export class BudgetTrackerComponent {
   setBudget() {
       this.remainingBudget = this.totalBudget - this.getTotalExpenses();
   }
-  // setBudget() {
-  //   if (this.budgetForm.valid) {
-  //     this.totalBudget = this.budgetForm.value.budgetAmount;
-  //     this.remainingBudget = this.totalBudget - this.getTotalExpenses();
-  //     //this.budgetForm.reset();
-  //   }
-  // }
 
   // Add a new expense
   addExpense() {

@@ -80,6 +80,17 @@ describe('FetchService', () => {
     req.flush(mockUsers);
   });
 
+  it('should handle error when fetching all users data',()=>{
+    service.getAllUsersData().subscribe({
+      error : (err)=>{
+        expect(err.message).toBe('Error occured while fetching all users data.');
+      }
+    });
+     const req = httpMock.expectOne('http://localhost:3000/signupUsersList');
+     expect(req.request.method).toBe('GET');
+     req.flush('Error', {status : 500,  statusText:'Server Error'});
+  });
+
   it('should fetch all feedbacks', () => {
     service.getAllFeedbacks().subscribe(feedbacks => {
       expect(feedbacks).toEqual(mockFeedbacks);

@@ -39,16 +39,6 @@ export class DestinationListComponent implements OnInit , OnDestroy{
       }
     })
 
-
-    // const sub = this.http.get<any[]>('assets/mock-destinations.json').subscribe({
-    //   next : (data) => {
-    //     this.destinations = data; //store all fetched destintions
-    //     this.filteredDestinations = data;
-    //   },
-    //   error : () => {
-    //     this.fetchDestinationError = 'Error occured while fetching destination. Try reloading the page.';
-    //   }
-    // })
     this.subscriptions.push(sub); //store subscription in a array to unsubscribe it on destroy
     this.loggedInUser = this.authService.getLoggedInUserId(); //get logged in user info
     if(this.loggedInUser){
