@@ -109,6 +109,18 @@ describe('FetchService', () => {
     expect(req.request.method).toBe('GET');
     req.flush(mockFeedbacks);
   });
+  
+  it('should handle error when fetching all feedbacks', () => {
+    service.getAllFeedbacks().subscribe({
+      error : (err) => {
+        expect(err.message).toBe('Error occured while fetching feedbacks. Try reloading the page.')
+      }
+    });
+
+    const req = httpMock.expectOne('http://localhost:3000/feedbacks');
+    expect(req.request.method).toBe('GET');
+    req.flush('Error',{status:500, statusText:'Server Error'});
+  });
 
   it('should add feedback', () => {
     const feedbackData: Feedback = { 
@@ -125,6 +137,25 @@ describe('FetchService', () => {
     const req = httpMock.expectOne('http://localhost:3000/feedbacks');
     expect(req.request.method).toBe('POST');
     req.flush(feedbackData);
+  });
+
+  it('should handle error occured when adding a feedback', () => {
+    const feedbackData: Feedback = { 
+        destinationName : "Bali",
+        review: "test review",
+        rating: 3,
+        userId : "123"
+     };
+
+    service.addFeedback(feedbackData).subscribe({
+      error : (err) => {
+        expect(err.message).toBe('Error occured while submitting feedbacks. Try again.');
+      }
+    });
+
+    const req = httpMock.expectOne('http://localhost:3000/feedbacks');
+    expect(req.request.method).toBe('POST');
+    req.flush('Error',{status : 500 , statusText : 'Server Error'});
   });
 
   it('should fetch user destinations',()=>{

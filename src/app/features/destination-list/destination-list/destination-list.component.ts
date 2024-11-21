@@ -48,7 +48,7 @@ export class DestinationListComponent implements OnInit , OnDestroy{
         this.filteredDestinations = data;//by default no filter is applied
         const list = new Set<string>;
         data.map(destination => {
-          list.add(destination.type);
+          list.add(destination.type); //storing destination types
         })
         this.typesList = Array.from(list);
         console.log('this.typesList:-',this.typesList);
@@ -66,7 +66,7 @@ export class DestinationListComponent implements OnInit , OnDestroy{
   }
 
   fetchRecommendations(){ //fetches recommendations based on user itinerary activities
-    const sub = this.fetchService.getUserDestinations(this.loggedInUser).subscribe({
+    const sub = this.fetchService.getUserDestinations(this.loggedInUser).subscribe({  //fetching user destinations
       next : (userDestination) => {
         this.recommendedDestinations = this.fetchService.recommendDestinations(userDestination,this.destinations);  //store recommendations
       },
@@ -79,7 +79,7 @@ export class DestinationListComponent implements OnInit , OnDestroy{
   this.subscriptions.push(sub);
 }
 
-filterDestinations() {  //filters destianations based on type and max budget
+filterDestinations() {  //filters destianations based on type and budget
   this.filteredDestinations = this.destinations.filter(destination => {
     return (
       (!this.filterForm.value.type || destination.type.toLowerCase().includes(this.filterForm.value.type.toLowerCase())) &&
@@ -98,7 +98,7 @@ redirectTodetail(name : string){  //redirects to destination detail page
   this.router.navigate([`/destinations/${name}`]);
 }
 
-resetFilters(){
+resetFilters(){ //reset filters
   this.filterForm.reset();
 }
 

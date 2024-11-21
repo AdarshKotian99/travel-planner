@@ -46,7 +46,7 @@ export class FetchService {
   getAllFeedbacks():Observable<Feedback[]>{ //Fetches all feedbacks
     return this.http.get<Feedback[]>('http://localhost:3000/feedbacks').pipe(
       catchError(()=>{
-        return throwError(() => new Error('Error occured while fetching feedbacks.  Try reloading the page.'))
+        return throwError(() => new Error('Error occured while fetching feedbacks. Try reloading the page.'))
       })
     )
   }

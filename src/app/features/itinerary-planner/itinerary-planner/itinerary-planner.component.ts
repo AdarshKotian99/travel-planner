@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { HttpClient } from '@angular/common/http';
+// import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -31,7 +31,7 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
   constructor(
     private fb: FormBuilder, 
     private authService : AuthService, 
-    private http : HttpClient,
+    // private http : HttpClient,
     private clipboard : Clipboard,
     private fetchService : FetchService
   ) 
@@ -47,7 +47,7 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
   
   ngOnInit(): void {
     this.loggedInUserId = this.authService.getLoggedInUserId(); // Get logged-in user info
-    this.checkOffline();
+    this.checkOffline();  // if user is offline or online
     if(this.isOffline){
       this.loadOfflineActivites();  //load activities from local storage
     }else{
@@ -73,11 +73,11 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
   
   //Loads user activities from loaclstorage
   loadOfflineActivites(){
-    const offlineActivities = localStorage.getItem('activities');
+    const offlineActivities = localStorage.getItem('activities'); //getting activities from local storage
     this.activities = offlineActivities ? JSON.parse(offlineActivities) : [];
   }
   
-  //add activity to db aor localstorage
+  //add activity to db or localstorage
   addActivity() {
     if (this.itineraryForm.valid) { //check validation
       const activity: Activity = {
@@ -85,7 +85,7 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
         description: this.itineraryForm.value.description, 
         date: this.itineraryForm.value.date
       };
-      const offlineActivities : Activity[] =[];
+      const offlineActivities : Activity[] = [];
       
       const startDate = this.itineraryForm.value.startDate;
       const endDate = this.itineraryForm.value.endDate;
@@ -168,7 +168,7 @@ private handleOffline = () => {
 
 syncData(){ //sync activities from localstorage to db
   this.loadOfflineActivites();
-  const sub = this.authService.getUserData().subscribe({
+  const sub = this.authService.getUserData().subscribe({  //fetching userdata
     next : (userData) => {
       const updatedActivities = []; 
       updatedActivities.push(...userData.activities);
@@ -177,7 +177,7 @@ syncData(){ //sync activities from localstorage to db
         ...userData,
         activities: [...updatedActivities],
       };
-      const sub = this.fetchService.updateUserData(this.loggedInUserId,updatedUserData).subscribe({
+      const sub = this.fetchService.updateUserData(this.loggedInUserId,updatedUserData).subscribe({ //updating userdata
         next : () =>{
           this.resetForm(); // Reset the form after successfully adding    
           this.loadUserActivities();
@@ -187,7 +187,7 @@ syncData(){ //sync activities from localstorage to db
           console.log('error occured during syncData()',err);
         }
       })
-      
+      this.subscriptions.push(sub);
     }
   }); 
   this.subscriptions.push(sub);
