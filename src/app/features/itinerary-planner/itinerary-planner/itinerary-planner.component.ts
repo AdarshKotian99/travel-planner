@@ -1,5 +1,4 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-// import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -17,21 +16,19 @@ import { Clipboard } from '@angular/cdk/clipboard';
 })
 export class ItineraryPlannerComponent implements OnInit , OnDestroy{
   
-  loggedInUserId : string ='';  // Store the logged-in user's id
-  itineraryForm: FormGroup;
-  activities: Activity[] = [];
-  shareableLink : string = '';
-  //linkCopied : boolean = false;
+  private loggedInUserId : string ='';  // Store the logged-in user's id
+  public itineraryForm: FormGroup;
+  public activities: Activity[] = [];
+  public shareableLink : string = '';
   isOffline : boolean = false;
-  loadUserActiviesError : string = '';
-  addActiviesError : string = '';
-  subscriptions: Subscription[] = [];
-  userData !: user;
+  public loadUserActiviesError : string = '';
+  public addActiviesError : string = '';
+  private subscriptions: Subscription[] = [];
+  private userData !: user;
   
   constructor(
     private fb: FormBuilder, 
     private authService : AuthService, 
-    // private http : HttpClient,
     private clipboard : Clipboard,
     private fetchService : FetchService
   ) 
@@ -72,13 +69,13 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
   }
   
   //Loads user activities from loaclstorage
-  loadOfflineActivites(){
+  private loadOfflineActivites(){
     const offlineActivities = localStorage.getItem('activities'); //getting activities from local storage
     this.activities = offlineActivities ? JSON.parse(offlineActivities) : [];
   }
   
   //add activity to db or localstorage
-  addActivity() {
+  public addActivity() {
     if (this.itineraryForm.valid) { //check validation
       const activity: Activity = {
         destination: this.itineraryForm.value.destination,
@@ -122,11 +119,11 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
   }
 }
 
-drop(event: CdkDragDrop<Activity[]>) {
+public drop(event: CdkDragDrop<Activity[]>) {
   moveItemInArray(this.activities, event.previousIndex, event.currentIndex);
 }
 
-deleteActivity(index: number) { //deletes activity
+public deleteActivity(index: number) { //deletes activity
   const tempActivities = this.activities;
   tempActivities.splice(index,1);
   const sub = this.authService.getUserData().subscribe({
@@ -143,16 +140,15 @@ deleteActivity(index: number) { //deletes activity
   this.subscriptions.push(sub);
 }
 
-copyLinkToClipboard(){  //to copy link to clipboard
+public copyLinkToClipboard(){  //to copy link to clipboard
   this.clipboard.copy(this.shareableLink);
-  //this.linkCopied = true;
 }
 
 checkOffline(){ //checks if user is online or offline
   this.isOffline = !navigator.onLine;
 }
 
-initializeSync(){ //sets up eventlistners
+private initializeSync(){ //sets up eventlistners
   window.addEventListener('online',this.handleOnline);
   window.addEventListener('offline',this.handleOffline);
 }
@@ -193,7 +189,7 @@ syncData(){ //sync activities from localstorage to db
   this.subscriptions.push(sub);
 }
 
-resetForm(){
+private resetForm(){
   this.itineraryForm.controls['destination'].reset();
   this.itineraryForm.controls['description'].reset();
   this.itineraryForm.controls['date'].reset();

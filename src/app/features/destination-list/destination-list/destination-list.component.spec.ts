@@ -45,7 +45,6 @@ describe('DestinationListComponent', () => {
       imports:[
         HttpClientTestingModule,
         MatFormFieldModule,
-        // FormsModule,
         ReactiveFormsModule,
         MatInputModule,
         MatSelectModule,

@@ -7,7 +7,7 @@ import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private currentUserSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
   private isAuthenticated : boolean = false;
   constructor(private http : HttpClient) { 
     this.loadUserFromLocalStorage();
@@ -50,7 +50,7 @@ login(userData : user) : Observable<boolean>{
 }
 
 // Get the currently logged-in user's id
-getLoggedInUserId(): string {
+getLoggedInUserId(): string  {
   return this.currentUserSubject.value;
 }
 
@@ -71,7 +71,7 @@ private loadUserFromLocalStorage(): void {
 logout(){
   this.isAuthenticated = false;
   localStorage.removeItem('loggedInUser');
-  this.currentUserSubject.next(null);
+  this.currentUserSubject.next('');
 }
 
 isLoggedIn():boolean{

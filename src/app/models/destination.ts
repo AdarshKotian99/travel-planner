@@ -5,5 +5,4 @@ export interface Destination {
     budget: number;
     rating : number;
     isFavorite: boolean;
-    // reviews : string[];
 }
