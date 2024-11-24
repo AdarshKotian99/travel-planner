@@ -4,6 +4,7 @@ import { ChartData, ChartOptions } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { CurrencyFormatPipe } from 'src/app/shared/pipes/currency-format.pipe';
 
+
 @Component({
   selector: 'app-budget-tracker',
   templateUrl: './budget-tracker.component.html',
@@ -51,6 +52,8 @@ export class BudgetTrackerComponent {
       amount: ['', [Validators.required, Validators.min(1)]]
     });
   }
+
+
 
   // Set the total budget when the input is changed
   setBudget() {

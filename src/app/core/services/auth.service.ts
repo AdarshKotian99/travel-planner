@@ -10,7 +10,7 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
   private isAuthenticated : boolean = false;
   constructor(private http : HttpClient) { 
-    this.loadUserFromLocalStorage();
+    this.loadUserFromLocalStorage();  //sets isAuthenticated flag
   }
   
   signUp(userData : user):Observable<user>{  //Posts new user data
