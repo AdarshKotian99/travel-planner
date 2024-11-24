@@ -99,7 +99,7 @@ describe('DestinationListComponent', () => {
     expect(component.recommendedDestinations).toEqual(mockDestinations);
     expect(fetchService.getAllDestinations).toHaveBeenCalled();
     expect(fetchService.getUserDestinations).toHaveBeenCalled();
-  }));
+  }));  
 
   it('should handle errors while fetching destinations in ngOnInit', fakeAsync(() => {
     // Simulate an error when fetching destinations
