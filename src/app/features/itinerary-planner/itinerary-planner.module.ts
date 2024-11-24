@@ -10,6 +10,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const routes : Routes=[
   {path:'',component:ItineraryPlannerComponent}
@@ -32,7 +33,8 @@ const routes : Routes=[
     MatIconModule,
     MatNativeDateModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule
   ]
 })
 export class ItineraryPlannerModule { }

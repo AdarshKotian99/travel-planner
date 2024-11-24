@@ -7,6 +7,7 @@ import { FetchService } from 'src/app/core/services/fetch.service';
 import { Activity } from 'src/app/models/activity';
 import { user } from 'src/app/models/user';
 import { Clipboard } from '@angular/cdk/clipboard';
+import {MatSnackBar} from '@angular/material/snack-bar'; 
 
 @Component({
   selector: 'app-itinerary-planner',
@@ -16,21 +17,22 @@ import { Clipboard } from '@angular/cdk/clipboard';
 })
 export class ItineraryPlannerComponent implements OnInit , OnDestroy{
   
-  private loggedInUserId : string ='';  // Store the logged-in user's id
+  public loggedInUserId : string ='';  // Store the logged-in user's id
   public itineraryForm: FormGroup;
   public activities: Activity[] = [];
   public shareableLink : string = '';
-  isOffline : boolean = false;
+  public isOffline : boolean = false;
   public loadUserActiviesError : string = '';
   public addActiviesError : string = '';
   private subscriptions: Subscription[] = [];
-  private userData !: user;
+  public userData !: user;
   
   constructor(
     private fb: FormBuilder, 
     private authService : AuthService, 
     private clipboard : Clipboard,
-    private fetchService : FetchService
+    private fetchService : FetchService, 
+    private snackBar : MatSnackBar
   ) 
   {
     this.itineraryForm = this.fb.group({
@@ -55,13 +57,15 @@ export class ItineraryPlannerComponent implements OnInit , OnDestroy{
   
   // Fetch the user's existing activities
   loadUserActivities(){
+    console.log('inside loadUserActivities ');
     const sub = this.authService.getUserData().subscribe({
       next : (userData : user) =>{
-        this.userData = userData;
+          this.userData = userData;
         this.activities = userData.activities;
-        this.shareableLink = `http://localhost:4200/sharedItinerary/${this.loggedInUserId}`;  
+        this.shareableLink = `http://localhost:4200/sharedItinerary/${this.loggedInUserId}`;
       },
       error : (err) =>{
+        console.log('inside error block');
         this.loadUserActiviesError = 'Error occured while loading activities.';
       }
     });
@@ -142,6 +146,7 @@ public deleteActivity(index: number) { //deletes activity
 
 public copyLinkToClipboard(){  //to copy link to clipboard
   this.clipboard.copy(this.shareableLink);
+  this.openSnackBar('Link Copied','Close')
 }
 
 checkOffline(){ //checks if user is online or offline
@@ -193,6 +198,12 @@ private resetForm(){
   this.itineraryForm.controls['destination'].reset();
   this.itineraryForm.controls['description'].reset();
   this.itineraryForm.controls['date'].reset();
+}
+
+private openSnackBar(message:string,action:string){
+  this.snackBar.open(message,action,{
+    duration:2000,
+  });
 }
 
 ngOnDestroy(): void {

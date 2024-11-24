@@ -41,6 +41,7 @@ export class DestinationListComponent implements OnInit , OnDestroy{
     //fetch destination data from mock json file
     const sub = this.fetchService.getAllDestinations().subscribe({
       next : (data) => {
+        console.log('Destinations:', data);
         this.destinations = data;//store all fetched destintions
         this.filteredDestinations = data;//by default no filter is applied
         const list = new Set<string>;
@@ -51,6 +52,7 @@ export class DestinationListComponent implements OnInit , OnDestroy{
         console.log('this.typesList:-',this.typesList);
       },
       error : (err) => {
+        console.log('Error fetching destinations:', err);
         this.fetchDestinationError = err.message;
       }
     })
